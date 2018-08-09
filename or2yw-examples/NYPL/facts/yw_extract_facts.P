@@ -1,0 +1,96 @@
+% FACT: extract_source(source_id, source_path).
+extract_source(1, 'yw/2Original_SPParseYW.txt').
+% FACT: annotation(annotation_id, source_id, line_number, tag, keyword, value).
+annotation(1, 1, 1, 'begin', '@begin', 'SPOriginalOR2#').
+annotation(2, 1, 1, 'desc', '@desc', 'Workflow of Linear original openrefine history').
+annotation(3, 1, 2, 'param', '@param', 'col-name:call_number').
+annotation(4, 1, 3, 'param', '@param', 'oldColumnName:sponsor').
+annotation(5, 1, 4, 'param', '@param', 'col-name:call_number').
+annotation(6, 1, 5, 'param', '@param', 'separator:","').
+annotation(7, 1, 6, 'param', '@param', 'expression:value.toDate()').
+annotation(8, 1, 7, 'param', '@param', 'expression:value.toLowercase()').
+annotation(9, 1, 8, 'param', '@param', 'col-name:Sponsor').
+annotation(10, 1, 9, 'param', '@param', 'col-name:date').
+annotation(11, 1, 10, 'param', '@param', 'newColumnName:Sponsor').
+annotation(12, 1, 11, 'param', '@param', 'expression:value.toNumber()').
+annotation(13, 1, 12, 'param', '@param', 'col-name:dish_count').
+annotation(14, 1, 13, 'param', '@param', 'removeOriginalColumn:False').
+annotation(15, 1, 14, 'param', '@param', 'expression:value.trim()').
+annotation(16, 1, 15, 'in', '@in', 'table0').
+annotation(17, 1, 16, 'out', '@out', 'table3').
+annotation(18, 1, 17, 'begin', '@begin', 'core/column-rename0#').
+annotation(19, 1, 17, 'desc', '@desc', 'Rename column sponsor to Sponsor').
+annotation(20, 1, 18, 'param', '@param', 'oldColumnName:sponsor').
+annotation(21, 1, 19, 'param', '@param', 'newColumnName:Sponsor').
+annotation(22, 1, 20, 'in', '@in', 'table0').
+annotation(23, 1, 21, 'out', '@out', 'table1').
+annotation(24, 1, 22, 'end', '@end', 'core/column-rename0').
+annotation(25, 1, 23, 'begin', '@begin', 'core/mass-edit0#').
+annotation(26, 1, 23, 'desc', '@desc', 'Mass edit cells in column Sponsor').
+annotation(27, 1, 24, 'param', '@param', 'col-name:Sponsor').
+annotation(28, 1, 25, 'in', '@in', 'table1').
+annotation(29, 1, 26, 'out', '@out', 'col:Sponsor1').
+annotation(30, 1, 27, 'end', '@end', 'core/mass-edit0').
+annotation(31, 1, 28, 'begin', '@begin', 'core/text-transform0#').
+annotation(32, 1, 28, 'desc', '@desc', 'Text transform on cells in column Sponsor using expression value.trim()').
+annotation(33, 1, 29, 'param', '@param', 'col-name:Sponsor').
+annotation(34, 1, 30, 'param', '@param', 'expression:value.trim()').
+annotation(35, 1, 31, 'in', '@in', 'col:Sponsor1').
+annotation(36, 1, 32, 'out', '@out', 'col:Sponsor2').
+annotation(37, 1, 33, 'end', '@end', 'core/text-transform0').
+annotation(38, 1, 34, 'begin', '@begin', 'core/text-transform1#').
+annotation(39, 1, 34, 'desc', '@desc', 'Text transform on cells in column Sponsor using expression value.toLowercase()').
+annotation(40, 1, 35, 'param', '@param', 'col-name:Sponsor').
+annotation(41, 1, 36, 'param', '@param', 'expression:value.toLowercase()').
+annotation(42, 1, 37, 'in', '@in', 'col:Sponsor2').
+annotation(43, 1, 38, 'out', '@out', 'col:Sponsor3').
+annotation(44, 1, 39, 'end', '@end', 'core/text-transform1').
+annotation(45, 1, 40, 'begin', '@begin', 'core/text-transform2#').
+annotation(46, 1, 40, 'desc', '@desc', 'Text transform on cells in column date using expression value.toDate()').
+annotation(47, 1, 41, 'param', '@param', 'col-name:date').
+annotation(48, 1, 42, 'param', '@param', 'expression:value.toDate()').
+annotation(49, 1, 43, 'in', '@in', 'table1').
+annotation(50, 1, 44, 'out', '@out', 'col:date1').
+annotation(51, 1, 45, 'end', '@end', 'core/text-transform2').
+annotation(52, 1, 46, 'begin', '@begin', 'core/text-transform3#').
+annotation(53, 1, 46, 'desc', '@desc', 'Text transform on cells in column dish_count using expression value.toNumber()').
+annotation(54, 1, 47, 'param', '@param', 'col-name:dish_count').
+annotation(55, 1, 48, 'param', '@param', 'expression:value.toNumber()').
+annotation(56, 1, 49, 'in', '@in', 'table1').
+annotation(57, 1, 50, 'out', '@out', 'col:dish_count1').
+annotation(58, 1, 51, 'end', '@end', 'core/text-transform3').
+annotation(59, 1, 52, 'begin', '@begin', 'core/column-split0#').
+annotation(60, 1, 52, 'desc', '@desc', 'Split column call_number by separator').
+annotation(61, 1, 54, 'param', '@param', 'separator:","').
+annotation(62, 1, 55, 'param', '@param', 'removeOriginalColumn:False').
+annotation(63, 1, 56, 'param', '@param', 'col-name:call_number').
+annotation(64, 1, 57, 'in', '@in', 'table1').
+annotation(65, 1, 58, 'out', '@out', 'table2').
+annotation(66, 1, 59, 'end', '@end', 'core/column-split0').
+annotation(67, 1, 60, 'begin', '@begin', 'core/text-transform4#').
+annotation(68, 1, 60, 'desc', '@desc', 'Text transform on cells in column call_number 1 using expression value.toNumber()').
+annotation(69, 1, 61, 'param', '@param', 'col-name:call_number').
+annotation(70, 1, 62, 'param', '@param', 'expression:value.toNumber()').
+annotation(71, 1, 63, 'in', '@in', 'table2').
+annotation(72, 1, 64, 'out', '@out', 'col:call_number1').
+annotation(73, 1, 65, 'end', '@end', 'core/text-transform4').
+annotation(74, 1, 66, 'begin', '@begin', 'MergeOperationsColumns').
+annotation(75, 1, 66, 'desc', '@desc', 'Merge the Parallel Column operations').
+annotation(76, 1, 67, 'in', '@in', 'col:Sponsor3').
+annotation(77, 1, 68, 'in', '@in', 'col:date1').
+annotation(78, 1, 69, 'in', '@in', 'col:dish_count1').
+annotation(79, 1, 70, 'in', '@in', 'col:call_number1').
+annotation(80, 1, 71, 'out', '@out', 'table3').
+annotation(81, 1, 72, 'end', '@end', 'MergeOperationsColumns').
+annotation(82, 1, 73, 'end', '@end', 'SPOriginalOR2').
+% FACT: annotation_qualifies(qualifying_annotation_id, primary_annotation_id).
+annotation_qualifies(2, 1).
+annotation_qualifies(19, 18).
+annotation_qualifies(26, 25).
+annotation_qualifies(32, 31).
+annotation_qualifies(39, 38).
+annotation_qualifies(46, 45).
+annotation_qualifies(53, 52).
+annotation_qualifies(60, 59).
+annotation_qualifies(68, 67).
+annotation_qualifies(75, 74).

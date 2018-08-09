@@ -1,0 +1,154 @@
+[
+  {
+    "op": "core/column-rename",
+    "description": "Rename column mo to month",
+    "oldColumnName": "mo",
+    "newColumnName": "month"
+  },
+  {
+    "op": "core/column-rename",
+    "description": "Rename column dy to day",
+    "oldColumnName": "dy",
+    "newColumnName": "day"
+  },
+  {
+    "op": "core/column-rename",
+    "description": "Rename column yr to year",
+    "oldColumnName": "yr",
+    "newColumnName": "year"
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column country using expression value.toUppercase()",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "country",
+    "expression": "value.toUppercase()",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column year using expression value.toDate()",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "year",
+    "expression": "value.toDate()",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column recordID using expression value.toNumber()",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "recordID",
+    "expression": "value.toNumber()",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column country",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "country",
+    "expression": "value",
+    "edits": []
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column scientificName",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "scientificName",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Amphispiza bilineata",
+          "Amphespiza bilineata",
+          "Emphispiza bilinata",
+          "Amphispiza bilineatus",
+          "Amphispizo bilineata"
+        ],
+        "to": "Amphispiza bilineata"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Ammospermophilus harrisi",
+          "Ammospermophilis harrisi",
+          "Ammospermophilus harrisii"
+        ],
+        "to": "Ammospermophilus harrisi"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "  Amphispiza bilineata",
+          "  Amphispiza bilineata  "
+        ],
+        "to": "  Amphispiza bilineata"
+      }
+    ]
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column scientificName using expression value.trim()",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "scientificName",
+    "expression": "value.trim()",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column scientificName using expression value.toLowercase()",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "scientificName",
+    "expression": "value.toLowercase()",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/column-split",
+    "description": "Split column scientificName by separator",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "scientificName",
+    "guessCellType": true,
+    "removeOriginalColumn": false,
+    "mode": "separator",
+    "separator": ",",
+    "regex": false,
+    "maxColumns": 0
+  }
+]

@@ -1,0 +1,420 @@
+% FACT: program(program_id, program_name, qualified_program_name, begin_annotation_id, end_annotation_id).
+program(1, 'SPOriginalOR2#', 'SPOriginalOR2#', 1, 106).
+program(2, 'core/column-rename0#', 'SPOriginalOR2#/core/column-rename0#', 22, 28).
+program(3, 'core/column-rename1#', 'SPOriginalOR2#/core/column-rename1#', 29, 35).
+program(4, 'core/column-rename2#', 'SPOriginalOR2#/core/column-rename2#', 36, 42).
+program(5, 'core/text-transform0#', 'SPOriginalOR2#/core/text-transform0#', 43, 49).
+program(6, 'core/mass-edit0#', 'SPOriginalOR2#/core/mass-edit0#', 50, 55).
+program(7, 'core/text-transform1#', 'SPOriginalOR2#/core/text-transform1#', 56, 62).
+program(8, 'core/text-transform2#', 'SPOriginalOR2#/core/text-transform2#', 63, 69).
+program(9, 'core/mass-edit1#', 'SPOriginalOR2#/core/mass-edit1#', 70, 75).
+program(10, 'core/text-transform3#', 'SPOriginalOR2#/core/text-transform3#', 76, 82).
+program(11, 'core/text-transform4#', 'SPOriginalOR2#/core/text-transform4#', 83, 89).
+program(12, 'core/column-split0#', 'SPOriginalOR2#/core/column-split0#', 90, 97).
+program(13, 'MergeOperationsColumns', 'SPOriginalOR2#/MergeOperationsColumns', 98, 105).
+
+% FACT: workflow(program_id).
+workflow(1).
+
+% FACT: function(program_id).
+
+% FACT: has_subprogram(program_id, subprogram_id).
+has_subprogram(1, 2).
+has_subprogram(1, 3).
+has_subprogram(1, 4).
+has_subprogram(1, 5).
+has_subprogram(1, 6).
+has_subprogram(1, 7).
+has_subprogram(1, 8).
+has_subprogram(1, 9).
+has_subprogram(1, 10).
+has_subprogram(1, 11).
+has_subprogram(1, 12).
+has_subprogram(1, 13).
+
+% FACT: port(port_id, port_type, port_name, qualified_port_name, port_annotation_id, data_id).
+port(1, 'param', 'col-name:country', 'SPOriginalOR2#<-col-name:country', 3, 1).
+port(2, 'param', 'oldColumnName:dy', 'SPOriginalOR2#<-oldColumnName:dy', 4, 2).
+port(3, 'param', 'separator:","', 'SPOriginalOR2#<-separator:","', 5, 3).
+port(4, 'param', 'newColumnName:day', 'SPOriginalOR2#<-newColumnName:day', 6, 4).
+port(5, 'param', 'col-name:scientificName', 'SPOriginalOR2#<-col-name:scientificName', 7, 5).
+port(6, 'param', 'oldColumnName:mo', 'SPOriginalOR2#<-oldColumnName:mo', 8, 6).
+port(7, 'param', 'col-name:recordID', 'SPOriginalOR2#<-col-name:recordID', 9, 7).
+port(8, 'param', 'expression:value.toLowercase()', 'SPOriginalOR2#<-expression:value.toLowercase()', 10, 8).
+port(9, 'param', 'expression:value.toDate()', 'SPOriginalOR2#<-expression:value.toDate()', 11, 9).
+port(10, 'param', 'expression:value.toUppercase()', 'SPOriginalOR2#<-expression:value.toUppercase()', 12, 10).
+port(11, 'param', 'expression:value.toNumber()', 'SPOriginalOR2#<-expression:value.toNumber()', 13, 11).
+port(12, 'param', 'removeOriginalColumn:False', 'SPOriginalOR2#<-removeOriginalColumn:False', 14, 12).
+port(13, 'param', 'col-name:year', 'SPOriginalOR2#<-col-name:year', 15, 13).
+port(14, 'param', 'newColumnName:month', 'SPOriginalOR2#<-newColumnName:month', 16, 14).
+port(15, 'param', 'oldColumnName:yr', 'SPOriginalOR2#<-oldColumnName:yr', 17, 15).
+port(16, 'param', 'newColumnName:year', 'SPOriginalOR2#<-newColumnName:year', 18, 16).
+port(17, 'param', 'expression:value.trim()', 'SPOriginalOR2#<-expression:value.trim()', 19, 17).
+port(18, 'in', 'table0', 'SPOriginalOR2#<-table0', 20, 18).
+port(19, 'out', 'table5', 'SPOriginalOR2#->table5', 21, 19).
+port(20, 'param', 'oldColumnName:mo', 'SPOriginalOR2#/core/column-rename0#<-oldColumnName:mo', 24, 20).
+port(21, 'param', 'newColumnName:month', 'SPOriginalOR2#/core/column-rename0#<-newColumnName:month', 25, 21).
+port(22, 'in', 'table0', 'SPOriginalOR2#/core/column-rename0#<-table0', 26, 22).
+port(23, 'out', 'table1', 'SPOriginalOR2#/core/column-rename0#->table1', 27, 23).
+port(24, 'param', 'oldColumnName:dy', 'SPOriginalOR2#/core/column-rename1#<-oldColumnName:dy', 31, 24).
+port(25, 'param', 'newColumnName:day', 'SPOriginalOR2#/core/column-rename1#<-newColumnName:day', 32, 25).
+port(26, 'in', 'table1', 'SPOriginalOR2#/core/column-rename1#<-table1', 33, 23).
+port(27, 'out', 'table2', 'SPOriginalOR2#/core/column-rename1#->table2', 34, 26).
+port(28, 'param', 'oldColumnName:yr', 'SPOriginalOR2#/core/column-rename2#<-oldColumnName:yr', 38, 27).
+port(29, 'param', 'newColumnName:year', 'SPOriginalOR2#/core/column-rename2#<-newColumnName:year', 39, 28).
+port(30, 'in', 'table2', 'SPOriginalOR2#/core/column-rename2#<-table2', 40, 26).
+port(31, 'out', 'table3', 'SPOriginalOR2#/core/column-rename2#->table3', 41, 29).
+port(32, 'param', 'col-name:country', 'SPOriginalOR2#/core/text-transform0#<-col-name:country', 45, 30).
+port(33, 'param', 'expression:value.toUppercase()', 'SPOriginalOR2#/core/text-transform0#<-expression:value.toUppercase()', 46, 31).
+port(34, 'in', 'table3', 'SPOriginalOR2#/core/text-transform0#<-table3', 47, 29).
+port(35, 'out', 'col:country1', 'SPOriginalOR2#/core/text-transform0#->col:country1', 48, 32).
+port(36, 'param', 'col-name:country', 'SPOriginalOR2#/core/mass-edit0#<-col-name:country', 52, 30).
+port(37, 'in', 'col:country1', 'SPOriginalOR2#/core/mass-edit0#<-col:country1', 53, 32).
+port(38, 'out', 'col:country2', 'SPOriginalOR2#/core/mass-edit0#->col:country2', 54, 33).
+port(39, 'param', 'col-name:recordID', 'SPOriginalOR2#/core/text-transform1#<-col-name:recordID', 58, 34).
+port(40, 'param', 'expression:value.toNumber()', 'SPOriginalOR2#/core/text-transform1#<-expression:value.toNumber()', 59, 35).
+port(41, 'in', 'table3', 'SPOriginalOR2#/core/text-transform1#<-table3', 60, 29).
+port(42, 'out', 'col:recordID1', 'SPOriginalOR2#/core/text-transform1#->col:recordID1', 61, 36).
+port(43, 'param', 'col-name:year', 'SPOriginalOR2#/core/text-transform2#<-col-name:year', 65, 37).
+port(44, 'param', 'expression:value.toDate()', 'SPOriginalOR2#/core/text-transform2#<-expression:value.toDate()', 66, 38).
+port(45, 'in', 'table3', 'SPOriginalOR2#/core/text-transform2#<-table3', 67, 29).
+port(46, 'out', 'col:year1', 'SPOriginalOR2#/core/text-transform2#->col:year1', 68, 39).
+port(47, 'param', 'col-name:"scientificName"', 'SPOriginalOR2#/core/mass-edit1#<-col-name:"scientificName"', 72, 40).
+port(48, 'in', 'table3', 'SPOriginalOR2#/core/mass-edit1#<-table3', 73, 29).
+port(49, 'out', 'col:scientificName1', 'SPOriginalOR2#/core/mass-edit1#->col:scientificName1', 74, 41).
+port(50, 'param', 'col-name:scientificName', 'SPOriginalOR2#/core/text-transform3#<-col-name:scientificName', 78, 42).
+port(51, 'param', 'expression:value.trim()', 'SPOriginalOR2#/core/text-transform3#<-expression:value.trim()', 79, 43).
+port(52, 'in', 'col:scientificName1', 'SPOriginalOR2#/core/text-transform3#<-col:scientificName1', 80, 41).
+port(53, 'out', 'col:scientificName2', 'SPOriginalOR2#/core/text-transform3#->col:scientificName2', 81, 44).
+port(54, 'param', 'col-name:scientificName', 'SPOriginalOR2#/core/text-transform4#<-col-name:scientificName', 85, 42).
+port(55, 'param', 'expression:value.toLowercase()', 'SPOriginalOR2#/core/text-transform4#<-expression:value.toLowercase()', 86, 45).
+port(56, 'in', 'col:scientificName2', 'SPOriginalOR2#/core/text-transform4#<-col:scientificName2', 87, 44).
+port(57, 'out', 'col:scientificName3', 'SPOriginalOR2#/core/text-transform4#->col:scientificName3', 88, 46).
+port(58, 'param', 'separator:","', 'SPOriginalOR2#/core/column-split0#<-separator:","', 92, 47).
+port(59, 'param', 'removeOriginalColumn:False', 'SPOriginalOR2#/core/column-split0#<-removeOriginalColumn:False', 93, 48).
+port(60, 'param', 'col-name:scientificName', 'SPOriginalOR2#/core/column-split0#<-col-name:scientificName', 94, 42).
+port(61, 'in', 'col:scientificName3', 'SPOriginalOR2#/core/column-split0#<-col:scientificName3', 95, 46).
+port(62, 'out', 'table4', 'SPOriginalOR2#/core/column-split0#->table4', 96, 49).
+port(63, 'in', 'col:country2', 'SPOriginalOR2#/MergeOperationsColumns<-col:country2', 100, 33).
+port(64, 'in', 'col:recordID1', 'SPOriginalOR2#/MergeOperationsColumns<-col:recordID1', 101, 36).
+port(65, 'in', 'col:year1', 'SPOriginalOR2#/MergeOperationsColumns<-col:year1', 102, 39).
+port(66, 'in', 'table4', 'SPOriginalOR2#/MergeOperationsColumns<-table4', 103, 49).
+port(67, 'out', 'table5', 'SPOriginalOR2#/MergeOperationsColumns->table5', 104, 50).
+
+% FACT: port_alias(port_id, alias).
+
+% FACT: port_uri_template(port_id, uri).
+
+% FACT: has_in_port(block_id, port_id).
+has_in_port(1, 1).
+has_in_port(1, 2).
+has_in_port(1, 3).
+has_in_port(1, 4).
+has_in_port(1, 5).
+has_in_port(1, 6).
+has_in_port(1, 7).
+has_in_port(1, 8).
+has_in_port(1, 9).
+has_in_port(1, 10).
+has_in_port(1, 11).
+has_in_port(1, 12).
+has_in_port(1, 13).
+has_in_port(1, 14).
+has_in_port(1, 15).
+has_in_port(1, 16).
+has_in_port(1, 17).
+has_in_port(1, 18).
+has_in_port(2, 20).
+has_in_port(2, 21).
+has_in_port(2, 22).
+has_in_port(3, 24).
+has_in_port(3, 25).
+has_in_port(3, 26).
+has_in_port(4, 28).
+has_in_port(4, 29).
+has_in_port(4, 30).
+has_in_port(5, 32).
+has_in_port(5, 33).
+has_in_port(5, 34).
+has_in_port(6, 36).
+has_in_port(6, 37).
+has_in_port(7, 39).
+has_in_port(7, 40).
+has_in_port(7, 41).
+has_in_port(8, 43).
+has_in_port(8, 44).
+has_in_port(8, 45).
+has_in_port(9, 47).
+has_in_port(9, 48).
+has_in_port(10, 50).
+has_in_port(10, 51).
+has_in_port(10, 52).
+has_in_port(11, 54).
+has_in_port(11, 55).
+has_in_port(11, 56).
+has_in_port(12, 58).
+has_in_port(12, 59).
+has_in_port(12, 60).
+has_in_port(12, 61).
+has_in_port(13, 63).
+has_in_port(13, 64).
+has_in_port(13, 65).
+has_in_port(13, 66).
+
+% FACT: has_out_port(block_id, port_id).
+has_out_port(1, 19).
+has_out_port(2, 23).
+has_out_port(3, 27).
+has_out_port(4, 31).
+has_out_port(5, 35).
+has_out_port(6, 38).
+has_out_port(7, 42).
+has_out_port(8, 46).
+has_out_port(9, 49).
+has_out_port(10, 53).
+has_out_port(11, 57).
+has_out_port(12, 62).
+has_out_port(13, 67).
+
+% FACT: data(data_id, data_name, qualified_data_name).
+data(1, 'col-name:country', 'col-name:country').
+data(2, 'oldColumnName:dy', 'oldColumnName:dy').
+data(3, 'separator:","', 'separator:","').
+data(4, 'newColumnName:day', 'newColumnName:day').
+data(5, 'col-name:scientificName', 'col-name:scientificName').
+data(6, 'oldColumnName:mo', 'oldColumnName:mo').
+data(7, 'col-name:recordID', 'col-name:recordID').
+data(8, 'expression:value.toLowercase()', 'expression:value.toLowercase()').
+data(9, 'expression:value.toDate()', 'expression:value.toDate()').
+data(10, 'expression:value.toUppercase()', 'expression:value.toUppercase()').
+data(11, 'expression:value.toNumber()', 'expression:value.toNumber()').
+data(12, 'removeOriginalColumn:False', 'removeOriginalColumn:False').
+data(13, 'col-name:year', 'col-name:year').
+data(14, 'newColumnName:month', 'newColumnName:month').
+data(15, 'oldColumnName:yr', 'oldColumnName:yr').
+data(16, 'newColumnName:year', 'newColumnName:year').
+data(17, 'expression:value.trim()', 'expression:value.trim()').
+data(18, 'table0', 'table0').
+data(19, 'table5', 'table5').
+data(20, 'oldColumnName:mo', 'SPOriginalOR2#.oldColumnName:mo').
+data(21, 'newColumnName:month', 'SPOriginalOR2#.newColumnName:month').
+data(22, 'table0', 'SPOriginalOR2#.table0').
+data(23, 'table1', 'SPOriginalOR2#.table1').
+data(24, 'oldColumnName:dy', 'SPOriginalOR2#.oldColumnName:dy').
+data(25, 'newColumnName:day', 'SPOriginalOR2#.newColumnName:day').
+data(26, 'table2', 'SPOriginalOR2#.table2').
+data(27, 'oldColumnName:yr', 'SPOriginalOR2#.oldColumnName:yr').
+data(28, 'newColumnName:year', 'SPOriginalOR2#.newColumnName:year').
+data(29, 'table3', 'SPOriginalOR2#.table3').
+data(30, 'col-name:country', 'SPOriginalOR2#.col-name:country').
+data(31, 'expression:value.toUppercase()', 'SPOriginalOR2#.expression:value.toUppercase()').
+data(32, 'col:country1', 'SPOriginalOR2#.col:country1').
+data(33, 'col:country2', 'SPOriginalOR2#.col:country2').
+data(34, 'col-name:recordID', 'SPOriginalOR2#.col-name:recordID').
+data(35, 'expression:value.toNumber()', 'SPOriginalOR2#.expression:value.toNumber()').
+data(36, 'col:recordID1', 'SPOriginalOR2#.col:recordID1').
+data(37, 'col-name:year', 'SPOriginalOR2#.col-name:year').
+data(38, 'expression:value.toDate()', 'SPOriginalOR2#.expression:value.toDate()').
+data(39, 'col:year1', 'SPOriginalOR2#.col:year1').
+data(40, 'col-name:"scientificName"', 'SPOriginalOR2#.col-name:"scientificName"').
+data(41, 'col:scientificName1', 'SPOriginalOR2#.col:scientificName1').
+data(42, 'col-name:scientificName', 'SPOriginalOR2#.col-name:scientificName').
+data(43, 'expression:value.trim()', 'SPOriginalOR2#.expression:value.trim()').
+data(44, 'col:scientificName2', 'SPOriginalOR2#.col:scientificName2').
+data(45, 'expression:value.toLowercase()', 'SPOriginalOR2#.expression:value.toLowercase()').
+data(46, 'col:scientificName3', 'SPOriginalOR2#.col:scientificName3').
+data(47, 'separator:","', 'SPOriginalOR2#.separator:","').
+data(48, 'removeOriginalColumn:False', 'SPOriginalOR2#.removeOriginalColumn:False').
+data(49, 'table4', 'SPOriginalOR2#.table4').
+data(50, 'table5', 'SPOriginalOR2#.table5').
+
+% FACT: channel(channel_id, data_id).
+channel(1, 19).
+channel(2, 20).
+channel(3, 21).
+channel(4, 22).
+channel(5, 24).
+channel(6, 25).
+channel(7, 23).
+channel(8, 27).
+channel(9, 28).
+channel(10, 26).
+channel(11, 30).
+channel(12, 30).
+channel(13, 31).
+channel(14, 29).
+channel(15, 29).
+channel(16, 29).
+channel(17, 29).
+channel(18, 32).
+channel(19, 34).
+channel(20, 35).
+channel(21, 37).
+channel(22, 38).
+channel(23, 42).
+channel(24, 42).
+channel(25, 42).
+channel(26, 43).
+channel(27, 41).
+channel(28, 45).
+channel(29, 44).
+channel(30, 47).
+channel(31, 48).
+channel(32, 46).
+channel(33, 33).
+channel(34, 36).
+channel(35, 39).
+channel(36, 49).
+channel(37, 1).
+channel(38, 1).
+channel(39, 2).
+channel(40, 3).
+channel(41, 4).
+channel(42, 5).
+channel(43, 5).
+channel(44, 5).
+channel(45, 6).
+channel(46, 7).
+channel(47, 8).
+channel(48, 9).
+channel(49, 10).
+channel(50, 11).
+channel(51, 12).
+channel(52, 13).
+channel(53, 14).
+channel(54, 15).
+channel(55, 16).
+channel(56, 17).
+channel(57, 18).
+channel(58, 50).
+
+% FACT: port_connects_to_channel(port_id, channel_id).
+port_connects_to_channel(67, 1).
+port_connects_to_channel(20, 2).
+port_connects_to_channel(21, 3).
+port_connects_to_channel(22, 4).
+port_connects_to_channel(24, 5).
+port_connects_to_channel(25, 6).
+port_connects_to_channel(23, 7).
+port_connects_to_channel(26, 7).
+port_connects_to_channel(28, 8).
+port_connects_to_channel(29, 9).
+port_connects_to_channel(27, 10).
+port_connects_to_channel(30, 10).
+port_connects_to_channel(32, 11).
+port_connects_to_channel(36, 12).
+port_connects_to_channel(33, 13).
+port_connects_to_channel(31, 14).
+port_connects_to_channel(34, 14).
+port_connects_to_channel(31, 15).
+port_connects_to_channel(41, 15).
+port_connects_to_channel(31, 16).
+port_connects_to_channel(45, 16).
+port_connects_to_channel(31, 17).
+port_connects_to_channel(48, 17).
+port_connects_to_channel(35, 18).
+port_connects_to_channel(37, 18).
+port_connects_to_channel(39, 19).
+port_connects_to_channel(40, 20).
+port_connects_to_channel(43, 21).
+port_connects_to_channel(44, 22).
+port_connects_to_channel(50, 23).
+port_connects_to_channel(54, 24).
+port_connects_to_channel(60, 25).
+port_connects_to_channel(51, 26).
+port_connects_to_channel(49, 27).
+port_connects_to_channel(52, 27).
+port_connects_to_channel(55, 28).
+port_connects_to_channel(53, 29).
+port_connects_to_channel(56, 29).
+port_connects_to_channel(58, 30).
+port_connects_to_channel(59, 31).
+port_connects_to_channel(57, 32).
+port_connects_to_channel(61, 32).
+port_connects_to_channel(38, 33).
+port_connects_to_channel(63, 33).
+port_connects_to_channel(42, 34).
+port_connects_to_channel(64, 34).
+port_connects_to_channel(46, 35).
+port_connects_to_channel(65, 35).
+port_connects_to_channel(62, 36).
+port_connects_to_channel(66, 36).
+port_connects_to_channel(32, 37).
+port_connects_to_channel(36, 38).
+port_connects_to_channel(24, 39).
+port_connects_to_channel(58, 40).
+port_connects_to_channel(25, 41).
+port_connects_to_channel(50, 42).
+port_connects_to_channel(54, 43).
+port_connects_to_channel(60, 44).
+port_connects_to_channel(20, 45).
+port_connects_to_channel(39, 46).
+port_connects_to_channel(55, 47).
+port_connects_to_channel(44, 48).
+port_connects_to_channel(33, 49).
+port_connects_to_channel(40, 50).
+port_connects_to_channel(59, 51).
+port_connects_to_channel(43, 52).
+port_connects_to_channel(21, 53).
+port_connects_to_channel(28, 54).
+port_connects_to_channel(29, 55).
+port_connects_to_channel(51, 56).
+port_connects_to_channel(22, 57).
+port_connects_to_channel(67, 58).
+
+% FACT: inflow_connects_to_channel(port_id, channel_id).
+inflow_connects_to_channel(6, 2).
+inflow_connects_to_channel(14, 3).
+inflow_connects_to_channel(18, 4).
+inflow_connects_to_channel(2, 5).
+inflow_connects_to_channel(4, 6).
+inflow_connects_to_channel(15, 8).
+inflow_connects_to_channel(16, 9).
+inflow_connects_to_channel(1, 11).
+inflow_connects_to_channel(1, 12).
+inflow_connects_to_channel(10, 13).
+inflow_connects_to_channel(7, 19).
+inflow_connects_to_channel(11, 20).
+inflow_connects_to_channel(13, 21).
+inflow_connects_to_channel(9, 22).
+inflow_connects_to_channel(5, 23).
+inflow_connects_to_channel(5, 24).
+inflow_connects_to_channel(5, 25).
+inflow_connects_to_channel(17, 26).
+inflow_connects_to_channel(8, 28).
+inflow_connects_to_channel(3, 30).
+inflow_connects_to_channel(12, 31).
+inflow_connects_to_channel(1, 37).
+inflow_connects_to_channel(1, 38).
+inflow_connects_to_channel(2, 39).
+inflow_connects_to_channel(3, 40).
+inflow_connects_to_channel(4, 41).
+inflow_connects_to_channel(5, 42).
+inflow_connects_to_channel(5, 43).
+inflow_connects_to_channel(5, 44).
+inflow_connects_to_channel(6, 45).
+inflow_connects_to_channel(7, 46).
+inflow_connects_to_channel(8, 47).
+inflow_connects_to_channel(9, 48).
+inflow_connects_to_channel(10, 49).
+inflow_connects_to_channel(11, 50).
+inflow_connects_to_channel(12, 51).
+inflow_connects_to_channel(13, 52).
+inflow_connects_to_channel(14, 53).
+inflow_connects_to_channel(15, 54).
+inflow_connects_to_channel(16, 55).
+inflow_connects_to_channel(17, 56).
+inflow_connects_to_channel(18, 57).
+
+% FACT: outflow_connects_to_channel(port_id, channel_id).
+outflow_connects_to_channel(19, 1).
+outflow_connects_to_channel(19, 58).
+
+% FACT: uri_variable(uri_variable_id, variable_name, port_id).
+
+% FACT: log_template(log_template_id, port_id, entry_template, log_annotation_id).
+
+% FACT: log_template_variable(log_variable_id, variable_name, log_template_id).
+
+% FACT: assert(program_id, subject_id, predicate, object_id).
+

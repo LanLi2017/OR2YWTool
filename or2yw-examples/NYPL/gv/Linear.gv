@@ -1,0 +1,83 @@
+digraph Workflow {
+rankdir=LR
+fontname=Helvetica; fontsize=18; labelloc=t
+label="LinearOriginalOR#"
+subgraph cluster_workflow_box_outer { label=""; color=black; penwidth=2
+subgraph cluster_workflow_box_inner { label=""; penwidth=0
+node[shape=box style=filled fillcolor="#CCFFCC" peripheries=1 fontname=Helvetica]
+"core/column-rename0#" [shape=record rankdir=LR label="{{<f0> core/column-rename0# |<f1> Rename column mo to month}}"];
+"core/column-rename1#" [shape=record rankdir=LR label="{{<f0> core/column-rename1# |<f1> Rename column dy to day}}"];
+"core/column-rename2#" [shape=record rankdir=LR label="{{<f0> core/column-rename2# |<f1> Rename column yr to year}}"];
+"core/text-transform0#" [shape=record rankdir=LR label="{{<f0> core/text-transform0# |<f1> Text transform on cells in column country using expression value.toUppercase()}}"];
+"core/text-transform1#" [shape=record rankdir=LR label="{{<f0> core/text-transform1# |<f1> Text transform on cells in column year using expression value.toDate()}}"];
+"core/text-transform2#" [shape=record rankdir=LR label="{{<f0> core/text-transform2# |<f1> Text transform on cells in column recordID using expression value.toNumber()}}"];
+"core/mass-edit0#" [shape=record rankdir=LR label="{{<f0> core/mass-edit0# |<f1> Mass edit cells in column country}}"];
+"core/mass-edit1#" [shape=record rankdir=LR label="{{<f0> core/mass-edit1# |<f1> Mass edit cells in column scientificName}}"];
+"core/text-transform3#" [shape=record rankdir=LR label="{{<f0> core/text-transform3# |<f1> Text transform on cells in column scientificName using expression value.trim()}}"];
+"core/text-transform4#" [shape=record rankdir=LR label="{{<f0> core/text-transform4# |<f1> Text transform on cells in column scientificName using expression value.toLowercase()}}"];
+"core/column-split0#" [shape=record rankdir=LR label="{{<f0> core/column-split0# |<f1> Split column scientificName by separator}}"];
+edge[fontname=Helvetica]
+"core/column-rename0#" -> "core/column-rename1#" [label=table1]
+"core/column-rename1#" -> "core/column-rename2#" [label=table2]
+"core/column-rename2#" -> "core/text-transform0#" [label=table3]
+"core/text-transform0#" -> "core/text-transform1#" [label=table4]
+"core/text-transform1#" -> "core/text-transform2#" [label=table5]
+"core/text-transform2#" -> "core/mass-edit0#" [label=table6]
+"core/mass-edit0#" -> "core/mass-edit1#" [label=table7]
+"core/mass-edit1#" -> "core/text-transform3#" [label=table8]
+"core/text-transform3#" -> "core/text-transform4#" [label=table9]
+"core/text-transform4#" -> "core/column-split0#" [label=table10]
+}}
+subgraph cluster_input_ports_group_outer { label=""; penwidth=0
+subgraph cluster_input_ports_group_inner { label=""; penwidth=0
+node[shape=circle style=filled fillcolor="#FFFFFF" peripheries=1 fontname=Helvetica width=0.2]
+"col-name:country_input_port" [label=""]
+"oldColumnName:dy_input_port" [label=""]
+"separator:\",\"_input_port" [label=""]
+"newColumnName:day_input_port" [label=""]
+"col-name:scientificName_input_port" [label=""]
+"oldColumnName:mo_input_port" [label=""]
+"col-name:recordID_input_port" [label=""]
+"expression:value.trim()_input_port" [label=""]
+"expression:value.toLowercase()_input_port" [label=""]
+"expression:value.toDate()_input_port" [label=""]
+"expression:value.toUppercase()_input_port" [label=""]
+"expression:value.toNumber()_input_port" [label=""]
+"removeOriginalColumn:False_input_port" [label=""]
+"newColumnName:month_input_port" [label=""]
+"oldColumnName:yr_input_port" [label=""]
+"newColumnName:year_input_port" [label=""]
+"col-name:year_input_port" [label=""]
+table0_input_port [label=""]
+}}
+subgraph cluster_output_ports_group_outer { label=""; penwidth=0
+subgraph cluster_output_ports_group_inner { label=""; penwidth=0
+node[shape=circle style=filled fillcolor="#FFFFFF" peripheries=1 fontname=Helvetica width=0.2]
+table11_output_port [label=""]
+}}
+edge[fontname=Helvetica]
+"oldColumnName:mo_input_port" -> "core/column-rename0#" [label="oldColumnName:mo"]
+"newColumnName:month_input_port" -> "core/column-rename0#" [label="newColumnName:month"]
+table0_input_port -> "core/column-rename0#" [label=table0]
+"oldColumnName:dy_input_port" -> "core/column-rename1#" [label="oldColumnName:dy"]
+"newColumnName:day_input_port" -> "core/column-rename1#" [label="newColumnName:day"]
+"oldColumnName:yr_input_port" -> "core/column-rename2#" [label="oldColumnName:yr"]
+"newColumnName:year_input_port" -> "core/column-rename2#" [label="newColumnName:year"]
+"col-name:country_input_port" -> "core/text-transform0#" [label="col-name:country"]
+"col-name:country_input_port" -> "core/mass-edit0#" [label="col-name:country"]
+"expression:value.toUppercase()_input_port" -> "core/text-transform0#" [label="expression:value.toUppercase()"]
+"col-name:year_input_port" -> "core/text-transform1#" [label="col-name:year"]
+"expression:value.toDate()_input_port" -> "core/text-transform1#" [label="expression:value.toDate()"]
+"col-name:recordID_input_port" -> "core/text-transform2#" [label="col-name:recordID"]
+"expression:value.toNumber()_input_port" -> "core/text-transform2#" [label="expression:value.toNumber()"]
+"col-name:scientificName_input_port" -> "core/mass-edit1#" [label="col-name:scientificName"]
+"col-name:scientificName_input_port" -> "core/text-transform3#" [label="col-name:scientificName"]
+"col-name:scientificName_input_port" -> "core/text-transform4#" [label="col-name:scientificName"]
+"col-name:scientificName_input_port" -> "core/column-split0#" [label="col-name:scientificName"]
+"expression:value.trim()_input_port" -> "core/text-transform3#" [label="expression:value.trim()"]
+"expression:value.toLowercase()_input_port" -> "core/text-transform4#" [label="expression:value.toLowercase()"]
+"separator:\",\"_input_port" -> "core/column-split0#" [label="separator:\",\""]
+"removeOriginalColumn:False_input_port" -> "core/column-split0#" [label="removeOriginalColumn:False"]
+edge[fontname=Helvetica]
+"core/column-split0#" -> table11_output_port [label=table11]
+}

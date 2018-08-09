@@ -1,0 +1,343 @@
+% FACT: program(program_id, program_name, qualified_program_name, begin_annotation_id, end_annotation_id).
+program(1, 'SPOriginalOR2#', 'SPOriginalOR2#', 1, 82).
+program(2, 'core/column-rename0#', 'SPOriginalOR2#/core/column-rename0#', 18, 24).
+program(3, 'core/mass-edit0#', 'SPOriginalOR2#/core/mass-edit0#', 25, 30).
+program(4, 'core/text-transform0#', 'SPOriginalOR2#/core/text-transform0#', 31, 37).
+program(5, 'core/text-transform1#', 'SPOriginalOR2#/core/text-transform1#', 38, 44).
+program(6, 'core/text-transform2#', 'SPOriginalOR2#/core/text-transform2#', 45, 51).
+program(7, 'core/text-transform3#', 'SPOriginalOR2#/core/text-transform3#', 52, 58).
+program(8, 'core/column-split0#', 'SPOriginalOR2#/core/column-split0#', 59, 66).
+program(9, 'core/text-transform4#', 'SPOriginalOR2#/core/text-transform4#', 67, 73).
+program(10, 'MergeOperationsColumns', 'SPOriginalOR2#/MergeOperationsColumns', 74, 81).
+
+% FACT: workflow(program_id).
+workflow(1).
+
+% FACT: function(program_id).
+
+% FACT: has_subprogram(program_id, subprogram_id).
+has_subprogram(1, 2).
+has_subprogram(1, 3).
+has_subprogram(1, 4).
+has_subprogram(1, 5).
+has_subprogram(1, 6).
+has_subprogram(1, 7).
+has_subprogram(1, 8).
+has_subprogram(1, 9).
+has_subprogram(1, 10).
+
+% FACT: port(port_id, port_type, port_name, qualified_port_name, port_annotation_id, data_id).
+port(1, 'param', 'col-name:call_number', 'SPOriginalOR2#<-col-name:call_number', 3, 1).
+port(2, 'param', 'oldColumnName:sponsor', 'SPOriginalOR2#<-oldColumnName:sponsor', 4, 2).
+port(3, 'param', 'col-name:call_number', 'SPOriginalOR2#<-col-name:call_number', 5, 1).
+port(4, 'param', 'separator:","', 'SPOriginalOR2#<-separator:","', 6, 3).
+port(5, 'param', 'expression:value.toDate()', 'SPOriginalOR2#<-expression:value.toDate()', 7, 4).
+port(6, 'param', 'expression:value.toLowercase()', 'SPOriginalOR2#<-expression:value.toLowercase()', 8, 5).
+port(7, 'param', 'col-name:Sponsor', 'SPOriginalOR2#<-col-name:Sponsor', 9, 6).
+port(8, 'param', 'col-name:date', 'SPOriginalOR2#<-col-name:date', 10, 7).
+port(9, 'param', 'newColumnName:Sponsor', 'SPOriginalOR2#<-newColumnName:Sponsor', 11, 8).
+port(10, 'param', 'expression:value.toNumber()', 'SPOriginalOR2#<-expression:value.toNumber()', 12, 9).
+port(11, 'param', 'col-name:dish_count', 'SPOriginalOR2#<-col-name:dish_count', 13, 10).
+port(12, 'param', 'removeOriginalColumn:False', 'SPOriginalOR2#<-removeOriginalColumn:False', 14, 11).
+port(13, 'param', 'expression:value.trim()', 'SPOriginalOR2#<-expression:value.trim()', 15, 12).
+port(14, 'in', 'table0', 'SPOriginalOR2#<-table0', 16, 13).
+port(15, 'out', 'table3', 'SPOriginalOR2#->table3', 17, 14).
+port(16, 'param', 'oldColumnName:sponsor', 'SPOriginalOR2#/core/column-rename0#<-oldColumnName:sponsor', 20, 15).
+port(17, 'param', 'newColumnName:Sponsor', 'SPOriginalOR2#/core/column-rename0#<-newColumnName:Sponsor', 21, 16).
+port(18, 'in', 'table0', 'SPOriginalOR2#/core/column-rename0#<-table0', 22, 17).
+port(19, 'out', 'table1', 'SPOriginalOR2#/core/column-rename0#->table1', 23, 18).
+port(20, 'param', 'col-name:Sponsor', 'SPOriginalOR2#/core/mass-edit0#<-col-name:Sponsor', 27, 19).
+port(21, 'in', 'table1', 'SPOriginalOR2#/core/mass-edit0#<-table1', 28, 18).
+port(22, 'out', 'col:Sponsor1', 'SPOriginalOR2#/core/mass-edit0#->col:Sponsor1', 29, 20).
+port(23, 'param', 'col-name:Sponsor', 'SPOriginalOR2#/core/text-transform0#<-col-name:Sponsor', 33, 19).
+port(24, 'param', 'expression:value.trim()', 'SPOriginalOR2#/core/text-transform0#<-expression:value.trim()', 34, 21).
+port(25, 'in', 'col:Sponsor1', 'SPOriginalOR2#/core/text-transform0#<-col:Sponsor1', 35, 20).
+port(26, 'out', 'col:Sponsor2', 'SPOriginalOR2#/core/text-transform0#->col:Sponsor2', 36, 22).
+port(27, 'param', 'col-name:Sponsor', 'SPOriginalOR2#/core/text-transform1#<-col-name:Sponsor', 40, 19).
+port(28, 'param', 'expression:value.toLowercase()', 'SPOriginalOR2#/core/text-transform1#<-expression:value.toLowercase()', 41, 23).
+port(29, 'in', 'col:Sponsor2', 'SPOriginalOR2#/core/text-transform1#<-col:Sponsor2', 42, 22).
+port(30, 'out', 'col:Sponsor3', 'SPOriginalOR2#/core/text-transform1#->col:Sponsor3', 43, 24).
+port(31, 'param', 'col-name:date', 'SPOriginalOR2#/core/text-transform2#<-col-name:date', 47, 25).
+port(32, 'param', 'expression:value.toDate()', 'SPOriginalOR2#/core/text-transform2#<-expression:value.toDate()', 48, 26).
+port(33, 'in', 'table1', 'SPOriginalOR2#/core/text-transform2#<-table1', 49, 18).
+port(34, 'out', 'col:date1', 'SPOriginalOR2#/core/text-transform2#->col:date1', 50, 27).
+port(35, 'param', 'col-name:dish_count', 'SPOriginalOR2#/core/text-transform3#<-col-name:dish_count', 54, 28).
+port(36, 'param', 'expression:value.toNumber()', 'SPOriginalOR2#/core/text-transform3#<-expression:value.toNumber()', 55, 29).
+port(37, 'in', 'table1', 'SPOriginalOR2#/core/text-transform3#<-table1', 56, 18).
+port(38, 'out', 'col:dish_count1', 'SPOriginalOR2#/core/text-transform3#->col:dish_count1', 57, 30).
+port(39, 'param', 'separator:","', 'SPOriginalOR2#/core/column-split0#<-separator:","', 61, 31).
+port(40, 'param', 'removeOriginalColumn:False', 'SPOriginalOR2#/core/column-split0#<-removeOriginalColumn:False', 62, 32).
+port(41, 'param', 'col-name:call_number', 'SPOriginalOR2#/core/column-split0#<-col-name:call_number', 63, 33).
+port(42, 'in', 'table1', 'SPOriginalOR2#/core/column-split0#<-table1', 64, 18).
+port(43, 'out', 'table2', 'SPOriginalOR2#/core/column-split0#->table2', 65, 34).
+port(44, 'param', 'col-name:call_number', 'SPOriginalOR2#/core/text-transform4#<-col-name:call_number', 69, 33).
+port(45, 'param', 'expression:value.toNumber()', 'SPOriginalOR2#/core/text-transform4#<-expression:value.toNumber()', 70, 29).
+port(46, 'in', 'table2', 'SPOriginalOR2#/core/text-transform4#<-table2', 71, 34).
+port(47, 'out', 'col:call_number1', 'SPOriginalOR2#/core/text-transform4#->col:call_number1', 72, 35).
+port(48, 'in', 'col:Sponsor3', 'SPOriginalOR2#/MergeOperationsColumns<-col:Sponsor3', 76, 24).
+port(49, 'in', 'col:date1', 'SPOriginalOR2#/MergeOperationsColumns<-col:date1', 77, 27).
+port(50, 'in', 'col:dish_count1', 'SPOriginalOR2#/MergeOperationsColumns<-col:dish_count1', 78, 30).
+port(51, 'in', 'col:call_number1', 'SPOriginalOR2#/MergeOperationsColumns<-col:call_number1', 79, 35).
+port(52, 'out', 'table3', 'SPOriginalOR2#/MergeOperationsColumns->table3', 80, 36).
+
+% FACT: port_alias(port_id, alias).
+
+% FACT: port_uri_template(port_id, uri).
+
+% FACT: has_in_port(block_id, port_id).
+has_in_port(1, 1).
+has_in_port(1, 2).
+has_in_port(1, 3).
+has_in_port(1, 4).
+has_in_port(1, 5).
+has_in_port(1, 6).
+has_in_port(1, 7).
+has_in_port(1, 8).
+has_in_port(1, 9).
+has_in_port(1, 10).
+has_in_port(1, 11).
+has_in_port(1, 12).
+has_in_port(1, 13).
+has_in_port(1, 14).
+has_in_port(2, 16).
+has_in_port(2, 17).
+has_in_port(2, 18).
+has_in_port(3, 20).
+has_in_port(3, 21).
+has_in_port(4, 23).
+has_in_port(4, 24).
+has_in_port(4, 25).
+has_in_port(5, 27).
+has_in_port(5, 28).
+has_in_port(5, 29).
+has_in_port(6, 31).
+has_in_port(6, 32).
+has_in_port(6, 33).
+has_in_port(7, 35).
+has_in_port(7, 36).
+has_in_port(7, 37).
+has_in_port(8, 39).
+has_in_port(8, 40).
+has_in_port(8, 41).
+has_in_port(8, 42).
+has_in_port(9, 44).
+has_in_port(9, 45).
+has_in_port(9, 46).
+has_in_port(10, 48).
+has_in_port(10, 49).
+has_in_port(10, 50).
+has_in_port(10, 51).
+
+% FACT: has_out_port(block_id, port_id).
+has_out_port(1, 15).
+has_out_port(2, 19).
+has_out_port(3, 22).
+has_out_port(4, 26).
+has_out_port(5, 30).
+has_out_port(6, 34).
+has_out_port(7, 38).
+has_out_port(8, 43).
+has_out_port(9, 47).
+has_out_port(10, 52).
+
+% FACT: data(data_id, data_name, qualified_data_name).
+data(1, 'col-name:call_number', 'col-name:call_number').
+data(2, 'oldColumnName:sponsor', 'oldColumnName:sponsor').
+data(3, 'separator:","', 'separator:","').
+data(4, 'expression:value.toDate()', 'expression:value.toDate()').
+data(5, 'expression:value.toLowercase()', 'expression:value.toLowercase()').
+data(6, 'col-name:Sponsor', 'col-name:Sponsor').
+data(7, 'col-name:date', 'col-name:date').
+data(8, 'newColumnName:Sponsor', 'newColumnName:Sponsor').
+data(9, 'expression:value.toNumber()', 'expression:value.toNumber()').
+data(10, 'col-name:dish_count', 'col-name:dish_count').
+data(11, 'removeOriginalColumn:False', 'removeOriginalColumn:False').
+data(12, 'expression:value.trim()', 'expression:value.trim()').
+data(13, 'table0', 'table0').
+data(14, 'table3', 'table3').
+data(15, 'oldColumnName:sponsor', 'SPOriginalOR2#.oldColumnName:sponsor').
+data(16, 'newColumnName:Sponsor', 'SPOriginalOR2#.newColumnName:Sponsor').
+data(17, 'table0', 'SPOriginalOR2#.table0').
+data(18, 'table1', 'SPOriginalOR2#.table1').
+data(19, 'col-name:Sponsor', 'SPOriginalOR2#.col-name:Sponsor').
+data(20, 'col:Sponsor1', 'SPOriginalOR2#.col:Sponsor1').
+data(21, 'expression:value.trim()', 'SPOriginalOR2#.expression:value.trim()').
+data(22, 'col:Sponsor2', 'SPOriginalOR2#.col:Sponsor2').
+data(23, 'expression:value.toLowercase()', 'SPOriginalOR2#.expression:value.toLowercase()').
+data(24, 'col:Sponsor3', 'SPOriginalOR2#.col:Sponsor3').
+data(25, 'col-name:date', 'SPOriginalOR2#.col-name:date').
+data(26, 'expression:value.toDate()', 'SPOriginalOR2#.expression:value.toDate()').
+data(27, 'col:date1', 'SPOriginalOR2#.col:date1').
+data(28, 'col-name:dish_count', 'SPOriginalOR2#.col-name:dish_count').
+data(29, 'expression:value.toNumber()', 'SPOriginalOR2#.expression:value.toNumber()').
+data(30, 'col:dish_count1', 'SPOriginalOR2#.col:dish_count1').
+data(31, 'separator:","', 'SPOriginalOR2#.separator:","').
+data(32, 'removeOriginalColumn:False', 'SPOriginalOR2#.removeOriginalColumn:False').
+data(33, 'col-name:call_number', 'SPOriginalOR2#.col-name:call_number').
+data(34, 'table2', 'SPOriginalOR2#.table2').
+data(35, 'col:call_number1', 'SPOriginalOR2#.col:call_number1').
+data(36, 'table3', 'SPOriginalOR2#.table3').
+
+% FACT: channel(channel_id, data_id).
+channel(1, 14).
+channel(2, 15).
+channel(3, 16).
+channel(4, 17).
+channel(5, 19).
+channel(6, 19).
+channel(7, 19).
+channel(8, 18).
+channel(9, 18).
+channel(10, 18).
+channel(11, 18).
+channel(12, 21).
+channel(13, 20).
+channel(14, 23).
+channel(15, 22).
+channel(16, 25).
+channel(17, 26).
+channel(18, 28).
+channel(19, 29).
+channel(20, 29).
+channel(21, 31).
+channel(22, 32).
+channel(23, 33).
+channel(24, 33).
+channel(25, 34).
+channel(26, 24).
+channel(27, 27).
+channel(28, 30).
+channel(29, 35).
+channel(30, 1).
+channel(31, 1).
+channel(32, 2).
+channel(33, 1).
+channel(34, 1).
+channel(35, 3).
+channel(36, 4).
+channel(37, 5).
+channel(38, 6).
+channel(39, 6).
+channel(40, 6).
+channel(41, 7).
+channel(42, 8).
+channel(43, 9).
+channel(44, 9).
+channel(45, 10).
+channel(46, 11).
+channel(47, 12).
+channel(48, 13).
+channel(49, 36).
+
+% FACT: port_connects_to_channel(port_id, channel_id).
+port_connects_to_channel(52, 1).
+port_connects_to_channel(16, 2).
+port_connects_to_channel(17, 3).
+port_connects_to_channel(18, 4).
+port_connects_to_channel(20, 5).
+port_connects_to_channel(23, 6).
+port_connects_to_channel(27, 7).
+port_connects_to_channel(19, 8).
+port_connects_to_channel(21, 8).
+port_connects_to_channel(19, 9).
+port_connects_to_channel(33, 9).
+port_connects_to_channel(19, 10).
+port_connects_to_channel(37, 10).
+port_connects_to_channel(19, 11).
+port_connects_to_channel(42, 11).
+port_connects_to_channel(24, 12).
+port_connects_to_channel(22, 13).
+port_connects_to_channel(25, 13).
+port_connects_to_channel(28, 14).
+port_connects_to_channel(26, 15).
+port_connects_to_channel(29, 15).
+port_connects_to_channel(31, 16).
+port_connects_to_channel(32, 17).
+port_connects_to_channel(35, 18).
+port_connects_to_channel(36, 19).
+port_connects_to_channel(45, 20).
+port_connects_to_channel(39, 21).
+port_connects_to_channel(40, 22).
+port_connects_to_channel(41, 23).
+port_connects_to_channel(44, 24).
+port_connects_to_channel(43, 25).
+port_connects_to_channel(46, 25).
+port_connects_to_channel(30, 26).
+port_connects_to_channel(48, 26).
+port_connects_to_channel(34, 27).
+port_connects_to_channel(49, 27).
+port_connects_to_channel(38, 28).
+port_connects_to_channel(50, 28).
+port_connects_to_channel(47, 29).
+port_connects_to_channel(51, 29).
+port_connects_to_channel(41, 30).
+port_connects_to_channel(44, 31).
+port_connects_to_channel(16, 32).
+port_connects_to_channel(41, 33).
+port_connects_to_channel(44, 34).
+port_connects_to_channel(39, 35).
+port_connects_to_channel(32, 36).
+port_connects_to_channel(28, 37).
+port_connects_to_channel(20, 38).
+port_connects_to_channel(23, 39).
+port_connects_to_channel(27, 40).
+port_connects_to_channel(31, 41).
+port_connects_to_channel(17, 42).
+port_connects_to_channel(36, 43).
+port_connects_to_channel(45, 44).
+port_connects_to_channel(35, 45).
+port_connects_to_channel(40, 46).
+port_connects_to_channel(24, 47).
+port_connects_to_channel(18, 48).
+port_connects_to_channel(52, 49).
+
+% FACT: inflow_connects_to_channel(port_id, channel_id).
+inflow_connects_to_channel(2, 2).
+inflow_connects_to_channel(9, 3).
+inflow_connects_to_channel(14, 4).
+inflow_connects_to_channel(7, 5).
+inflow_connects_to_channel(7, 6).
+inflow_connects_to_channel(7, 7).
+inflow_connects_to_channel(13, 12).
+inflow_connects_to_channel(6, 14).
+inflow_connects_to_channel(8, 16).
+inflow_connects_to_channel(5, 17).
+inflow_connects_to_channel(11, 18).
+inflow_connects_to_channel(10, 19).
+inflow_connects_to_channel(10, 20).
+inflow_connects_to_channel(4, 21).
+inflow_connects_to_channel(12, 22).
+inflow_connects_to_channel(3, 23).
+inflow_connects_to_channel(3, 24).
+inflow_connects_to_channel(1, 30).
+inflow_connects_to_channel(1, 31).
+inflow_connects_to_channel(2, 32).
+inflow_connects_to_channel(3, 33).
+inflow_connects_to_channel(3, 34).
+inflow_connects_to_channel(4, 35).
+inflow_connects_to_channel(5, 36).
+inflow_connects_to_channel(6, 37).
+inflow_connects_to_channel(7, 38).
+inflow_connects_to_channel(7, 39).
+inflow_connects_to_channel(7, 40).
+inflow_connects_to_channel(8, 41).
+inflow_connects_to_channel(9, 42).
+inflow_connects_to_channel(10, 43).
+inflow_connects_to_channel(10, 44).
+inflow_connects_to_channel(11, 45).
+inflow_connects_to_channel(12, 46).
+inflow_connects_to_channel(13, 47).
+inflow_connects_to_channel(14, 48).
+
+% FACT: outflow_connects_to_channel(port_id, channel_id).
+outflow_connects_to_channel(15, 1).
+outflow_connects_to_channel(15, 49).
+
+% FACT: uri_variable(uri_variable_id, variable_name, port_id).
+
+% FACT: log_template(log_template_id, port_id, entry_template, log_annotation_id).
+
+% FACT: log_template_variable(log_variable_id, variable_name, log_template_id).
+
+% FACT: assert(program_id, subject_id, predicate, object_id).
+

@@ -1,0 +1,94 @@
+#@begin SPOriginalOR2#@desc Workflow of Linear original openrefine history
+#@param col-name:country
+#@param oldColumnName:dy
+#@param separator:","
+#@param newColumnName:day
+#@param col-name:scientificName
+#@param oldColumnName:mo
+#@param col-name:recordID
+#@param expression:value.toLowercase()
+#@param expression:value.toDate()
+#@param expression:value.toUppercase()
+#@param expression:value.toNumber()
+#@param removeOriginalColumn:False
+#@param col-name:year
+#@param newColumnName:month
+#@param oldColumnName:yr
+#@param newColumnName:year
+#@param expression:value.trim()
+#@in table0
+#@out table5
+#@begin core/column-rename0#@desc Rename column mo to month
+#@param oldColumnName:mo
+#@param newColumnName:month
+#@in table0
+#@out table1
+#@end core/column-rename0
+#@begin core/column-rename1#@desc Rename column dy to day
+#@param oldColumnName:dy
+#@param newColumnName:day
+#@in table1
+#@out table2
+#@end core/column-rename1
+#@begin core/column-rename2#@desc Rename column yr to year
+#@param oldColumnName:yr
+#@param newColumnName:year
+#@in table2
+#@out table3
+#@end core/column-rename2
+#@begin core/text-transform0#@desc Text transform on cells in column country using expression value.toUppercase()
+#@param col-name:country
+#@param expression:value.toUppercase()
+#@in table3
+#@out col:country1
+#@end core/text-transform0
+#@begin core/mass-edit0#@desc Mass edit cells in column country
+#@param col-name:country
+#@in col:country1
+#@out col:country2
+#@end core/mass-edit0
+#@begin core/text-transform1#@desc Text transform on cells in column recordID using expression value.toNumber()
+#@param col-name:recordID
+#@param expression:value.toNumber()
+#@in table3
+#@out col:recordID1
+#@end core/text-transform1
+#@begin core/text-transform2#@desc Text transform on cells in column year using expression value.toDate()
+#@param col-name:year
+#@param expression:value.toDate()
+#@in table3
+#@out col:year1
+#@end core/text-transform2
+#@begin core/mass-edit1#@desc Mass edit cells in column scientificName
+#@param col-name:"scientificName"
+#@in table3
+#@out col:scientificName1
+#@end core/mass-edit2
+#@begin core/text-transform3#@desc Text transform on cells in column scientificName using expression value.trim()
+#@param col-name:scientificName
+#@param expression:value.trim()
+#@in col:scientificName1
+#@out col:scientificName2
+#@end core/text-transform3
+#@begin core/text-transform4#@desc Text transform on cells in column scientificName using expression value.toLowercase()
+#@param col-name:scientificName
+#@param expression:value.toLowercase()
+#@in col:scientificName2
+#@out col:scientificName3
+#@end core/text-transform4
+#@begin core/column-split0#@desc Split column scientificName by separator
+
+#@param separator:","
+#@param removeOriginalColumn:False
+#@param col-name:scientificName
+#@in col:scientificName3
+#@out table4
+#@end core/column-split0
+#@begin MergeOperationsColumns #@desc Merge the Parallel Column operations
+#@in col:country2
+#@in col:recordID1
+#@in col:year1
+#@in table4
+#@out table5
+#@end MergeOperationsColumns
+#@end SPOriginalOR2

@@ -1,0 +1,65 @@
+#@begin LinearOriginalOR#@desc Workflow of Linear original openrefine history
+#@param col-name:call_number
+#@param oldColumnName:sponsor
+#@param col-name:call_number 1
+#@param separator:","
+#@param expression:value.toDate()
+#@param expression:value.toLowercase()
+#@param col-name:Sponsor
+#@param col-name:date
+#@param newColumnName:Sponsor
+#@param expression:value.toNumber()
+#@param col-name:dish_count
+#@param removeOriginalColumn:False
+#@param expression:value.trim()
+#@in table0
+#@out table8
+#@begin core/column-rename0#@desc Rename column sponsor to Sponsor
+#@param oldColumnName:sponsor
+#@param newColumnName:Sponsor
+#@in table0
+#@out table1
+#@end core/column-rename0
+#@begin core/mass-edit0#@desc Mass edit cells in column Sponsor
+#@param col-name:Sponsor
+#@in table1
+#@out table2
+#@end core/mass-edit0
+#@begin core/text-transform0#@desc Text transform on cells in column Sponsor using expression value.trim()
+#@param col-name:Sponsor
+#@param expression:value.trim()
+#@in table2
+#@out table3
+#@end core/text-transform0
+#@begin core/text-transform1#@desc Text transform on cells in column Sponsor using expression value.toLowercase()
+#@param col-name:Sponsor
+#@param expression:value.toLowercase()
+#@in table3
+#@out table4
+#@end core/text-transform1
+#@begin core/text-transform2#@desc Text transform on cells in column date using expression value.toDate()
+#@param col-name:date
+#@param expression:value.toDate()
+#@in table4
+#@out table5
+#@end core/text-transform2
+#@begin core/text-transform3#@desc Text transform on cells in column dish_count using expression value.toNumber()
+#@param col-name:dish_count
+#@param expression:value.toNumber()
+#@in table5
+#@out table6
+#@end core/text-transform3
+#@begin core/column-split0#@desc Split column call_number by separator
+#@param col-name:call_number
+#@param separator:","
+#@param removeOriginalColumn:False
+#@in table6
+#@out table7
+#@end core/column-split0
+#@begin core/text-transform4#@desc Text transform on cells in column call_number 1 using expression value.toNumber()
+#@param col-name:call_number 1
+#@param expression:value.toNumber()
+#@in table7
+#@out table8
+#@end core/text-transform4
+#@end LinearOriginalOR

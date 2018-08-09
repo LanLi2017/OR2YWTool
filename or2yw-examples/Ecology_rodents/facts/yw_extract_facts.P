@@ -1,0 +1,123 @@
+% FACT: extract_source(source_id, source_path).
+extract_source(1, 'yw/2Original_SPParseYW.txt').
+% FACT: annotation(annotation_id, source_id, line_number, tag, keyword, value).
+annotation(1, 1, 1, 'begin', '@begin', 'SPOriginalOR2#').
+annotation(2, 1, 1, 'desc', '@desc', 'Workflow of Linear original openrefine history').
+annotation(3, 1, 2, 'param', '@param', 'col-name:country').
+annotation(4, 1, 3, 'param', '@param', 'oldColumnName:dy').
+annotation(5, 1, 4, 'param', '@param', 'separator:","').
+annotation(6, 1, 5, 'param', '@param', 'newColumnName:day').
+annotation(7, 1, 6, 'param', '@param', 'col-name:scientificName').
+annotation(8, 1, 7, 'param', '@param', 'oldColumnName:mo').
+annotation(9, 1, 8, 'param', '@param', 'col-name:recordID').
+annotation(10, 1, 9, 'param', '@param', 'expression:value.toLowercase()').
+annotation(11, 1, 10, 'param', '@param', 'expression:value.toDate()').
+annotation(12, 1, 11, 'param', '@param', 'expression:value.toUppercase()').
+annotation(13, 1, 12, 'param', '@param', 'expression:value.toNumber()').
+annotation(14, 1, 13, 'param', '@param', 'removeOriginalColumn:False').
+annotation(15, 1, 14, 'param', '@param', 'col-name:year').
+annotation(16, 1, 15, 'param', '@param', 'newColumnName:month').
+annotation(17, 1, 16, 'param', '@param', 'oldColumnName:yr').
+annotation(18, 1, 17, 'param', '@param', 'newColumnName:year').
+annotation(19, 1, 18, 'param', '@param', 'expression:value.trim()').
+annotation(20, 1, 19, 'in', '@in', 'table0').
+annotation(21, 1, 20, 'out', '@out', 'table5').
+annotation(22, 1, 21, 'begin', '@begin', 'core/column-rename0#').
+annotation(23, 1, 21, 'desc', '@desc', 'Rename column mo to month').
+annotation(24, 1, 22, 'param', '@param', 'oldColumnName:mo').
+annotation(25, 1, 23, 'param', '@param', 'newColumnName:month').
+annotation(26, 1, 24, 'in', '@in', 'table0').
+annotation(27, 1, 25, 'out', '@out', 'table1').
+annotation(28, 1, 26, 'end', '@end', 'core/column-rename0').
+annotation(29, 1, 27, 'begin', '@begin', 'core/column-rename1#').
+annotation(30, 1, 27, 'desc', '@desc', 'Rename column dy to day').
+annotation(31, 1, 28, 'param', '@param', 'oldColumnName:dy').
+annotation(32, 1, 29, 'param', '@param', 'newColumnName:day').
+annotation(33, 1, 30, 'in', '@in', 'table1').
+annotation(34, 1, 31, 'out', '@out', 'table2').
+annotation(35, 1, 32, 'end', '@end', 'core/column-rename1').
+annotation(36, 1, 33, 'begin', '@begin', 'core/column-rename2#').
+annotation(37, 1, 33, 'desc', '@desc', 'Rename column yr to year').
+annotation(38, 1, 34, 'param', '@param', 'oldColumnName:yr').
+annotation(39, 1, 35, 'param', '@param', 'newColumnName:year').
+annotation(40, 1, 36, 'in', '@in', 'table2').
+annotation(41, 1, 37, 'out', '@out', 'table3').
+annotation(42, 1, 38, 'end', '@end', 'core/column-rename2').
+annotation(43, 1, 39, 'begin', '@begin', 'core/text-transform0#').
+annotation(44, 1, 39, 'desc', '@desc', 'Text transform on cells in column country using expression value.toUppercase()').
+annotation(45, 1, 40, 'param', '@param', 'col-name:country').
+annotation(46, 1, 41, 'param', '@param', 'expression:value.toUppercase()').
+annotation(47, 1, 42, 'in', '@in', 'table3').
+annotation(48, 1, 43, 'out', '@out', 'col:country1').
+annotation(49, 1, 44, 'end', '@end', 'core/text-transform0').
+annotation(50, 1, 45, 'begin', '@begin', 'core/mass-edit0#').
+annotation(51, 1, 45, 'desc', '@desc', 'Mass edit cells in column country').
+annotation(52, 1, 46, 'param', '@param', 'col-name:country').
+annotation(53, 1, 47, 'in', '@in', 'col:country1').
+annotation(54, 1, 48, 'out', '@out', 'col:country2').
+annotation(55, 1, 49, 'end', '@end', 'core/mass-edit0').
+annotation(56, 1, 50, 'begin', '@begin', 'core/text-transform1#').
+annotation(57, 1, 50, 'desc', '@desc', 'Text transform on cells in column recordID using expression value.toNumber()').
+annotation(58, 1, 51, 'param', '@param', 'col-name:recordID').
+annotation(59, 1, 52, 'param', '@param', 'expression:value.toNumber()').
+annotation(60, 1, 53, 'in', '@in', 'table3').
+annotation(61, 1, 54, 'out', '@out', 'col:recordID1').
+annotation(62, 1, 55, 'end', '@end', 'core/text-transform1').
+annotation(63, 1, 56, 'begin', '@begin', 'core/text-transform2#').
+annotation(64, 1, 56, 'desc', '@desc', 'Text transform on cells in column year using expression value.toDate()').
+annotation(65, 1, 57, 'param', '@param', 'col-name:year').
+annotation(66, 1, 58, 'param', '@param', 'expression:value.toDate()').
+annotation(67, 1, 59, 'in', '@in', 'table3').
+annotation(68, 1, 60, 'out', '@out', 'col:year1').
+annotation(69, 1, 61, 'end', '@end', 'core/text-transform2').
+annotation(70, 1, 62, 'begin', '@begin', 'core/mass-edit1#').
+annotation(71, 1, 62, 'desc', '@desc', 'Mass edit cells in column scientificName').
+annotation(72, 1, 63, 'param', '@param', 'col-name:"scientificName"').
+annotation(73, 1, 64, 'in', '@in', 'table3').
+annotation(74, 1, 65, 'out', '@out', 'col:scientificName1').
+annotation(75, 1, 66, 'end', '@end', 'core/mass-edit1').
+annotation(76, 1, 67, 'begin', '@begin', 'core/text-transform3#').
+annotation(77, 1, 67, 'desc', '@desc', 'Text transform on cells in column scientificName using expression value.trim()').
+annotation(78, 1, 68, 'param', '@param', 'col-name:scientificName').
+annotation(79, 1, 69, 'param', '@param', 'expression:value.trim()').
+annotation(80, 1, 70, 'in', '@in', 'col:scientificName1').
+annotation(81, 1, 71, 'out', '@out', 'col:scientificName2').
+annotation(82, 1, 72, 'end', '@end', 'core/text-transform3').
+annotation(83, 1, 73, 'begin', '@begin', 'core/text-transform4#').
+annotation(84, 1, 73, 'desc', '@desc', 'Text transform on cells in column scientificName using expression value.toLowercase()').
+annotation(85, 1, 74, 'param', '@param', 'col-name:scientificName').
+annotation(86, 1, 75, 'param', '@param', 'expression:value.toLowercase()').
+annotation(87, 1, 76, 'in', '@in', 'col:scientificName2').
+annotation(88, 1, 77, 'out', '@out', 'col:scientificName3').
+annotation(89, 1, 78, 'end', '@end', 'core/text-transform4').
+annotation(90, 1, 79, 'begin', '@begin', 'core/column-split0#').
+annotation(91, 1, 79, 'desc', '@desc', 'Split column scientificName by separator').
+annotation(92, 1, 81, 'param', '@param', 'separator:","').
+annotation(93, 1, 82, 'param', '@param', 'removeOriginalColumn:False').
+annotation(94, 1, 83, 'param', '@param', 'col-name:scientificName').
+annotation(95, 1, 84, 'in', '@in', 'col:scientificName3').
+annotation(96, 1, 85, 'out', '@out', 'table4').
+annotation(97, 1, 86, 'end', '@end', 'core/column-split0').
+annotation(98, 1, 87, 'begin', '@begin', 'MergeOperationsColumns').
+annotation(99, 1, 87, 'desc', '@desc', 'Merge the Parallel Column operations').
+annotation(100, 1, 88, 'in', '@in', 'col:country2').
+annotation(101, 1, 89, 'in', '@in', 'col:recordID1').
+annotation(102, 1, 90, 'in', '@in', 'col:year1').
+annotation(103, 1, 91, 'in', '@in', 'table4').
+annotation(104, 1, 92, 'out', '@out', 'table5').
+annotation(105, 1, 93, 'end', '@end', 'MergeOperationsColumns').
+annotation(106, 1, 94, 'end', '@end', 'SPOriginalOR2').
+% FACT: annotation_qualifies(qualifying_annotation_id, primary_annotation_id).
+annotation_qualifies(2, 1).
+annotation_qualifies(23, 22).
+annotation_qualifies(30, 29).
+annotation_qualifies(37, 36).
+annotation_qualifies(44, 43).
+annotation_qualifies(51, 50).
+annotation_qualifies(57, 56).
+annotation_qualifies(64, 63).
+annotation_qualifies(71, 70).
+annotation_qualifies(77, 76).
+annotation_qualifies(84, 83).
+annotation_qualifies(91, 90).
+annotation_qualifies(99, 98).

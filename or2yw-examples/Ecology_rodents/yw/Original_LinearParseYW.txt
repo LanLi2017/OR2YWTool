@@ -1,0 +1,86 @@
+#@begin LinearOriginalOR#@desc Workflow of Linear original openrefine history
+#@param expression:value.toLowercase()
+#@param expression:value.toUppercase()
+#@param oldColumnName:yr
+#@param oldColumnName:dy
+#@param newColumnName:month
+#@param col-name:year
+#@param expression:value.toNumber()
+#@param col-name:scientificName
+#@param col-name:recordID
+#@param removeOriginalColumn:False
+#@param expression:value.toDate()
+#@param expression:value.trim()
+#@param col-name:country
+#@param oldColumnName:mo
+#@param separator:","
+#@param newColumnName:day
+#@param newColumnName:year
+#@in table0
+#@out table11
+#@begin core/column-rename0#@desc Rename column mo to month
+#@param oldColumnName:mo
+#@param newColumnName:month
+#@in table0
+#@out table1
+#@end core/column-rename0
+#@begin core/column-rename1#@desc Rename column dy to day
+#@param oldColumnName:dy
+#@param newColumnName:day
+#@in table1
+#@out table2
+#@end core/column-rename1
+#@begin core/column-rename2#@desc Rename column yr to year
+#@param oldColumnName:yr
+#@param newColumnName:year
+#@in table2
+#@out table3
+#@end core/column-rename2
+#@begin core/text-transform0#@desc Text transform on cells in column country using expression value.toUppercase()
+#@param col-name:country
+#@param expression:value.toUppercase()
+#@in table3
+#@out table4
+#@end core/text-transform0
+#@begin core/text-transform1#@desc Text transform on cells in column year using expression value.toDate()
+#@param col-name:year
+#@param expression:value.toDate()
+#@in table4
+#@out table5
+#@end core/text-transform1
+#@begin core/text-transform2#@desc Text transform on cells in column recordID using expression value.toNumber()
+#@param col-name:recordID
+#@param expression:value.toNumber()
+#@in table5
+#@out table6
+#@end core/text-transform2
+#@begin core/mass-edit0#@desc Mass edit cells in column country
+#@param col-name:country
+#@in table6
+#@out table7
+#@end core/mass-edit0
+#@begin core/mass-edit1#@desc Mass edit cells in column scientificName
+#@param col-name:scientificName
+#@in table7
+#@out table8
+#@end core/mass-edit1
+#@begin core/text-transform3#@desc Text transform on cells in column scientificName using expression value.trim()
+#@param col-name:scientificName
+#@param expression:value.trim()
+#@in table8
+#@out table9
+#@end core/text-transform3
+#@begin core/text-transform4#@desc Text transform on cells in column scientificName using expression value.toLowercase()
+#@param col-name:scientificName
+#@param expression:value.toLowercase()
+#@in table9
+#@out table10
+#@end core/text-transform4
+#@begin core/column-split0#@desc Split column scientificName by separator
+#@param col-name:scientificName
+#@param separator:","
+#@param removeOriginalColumn:False
+#@in table10
+#@out table11
+#@end core/column-split0
+#@end LinearOriginalOR

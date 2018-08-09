@@ -1,0 +1,7 @@
+% FACT: resource(resource_id, resource_uri).
+resource(1, 'data.json').
+% FACT: data_resource(data_id, resource_id).
+data_resource(1, 1).
+data_resource(5, 1).
+% FACT: uri_variable_value(resource_id, uri_variable_id, uri_variable_value).
+% FACT: log_variable_value(resource_id, log_entry_id, log_variable_id, log_variable_value).
