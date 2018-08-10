@@ -32,7 +32,7 @@ yw_generate.sh|  cheatsheet command
 
 2.Toolkit Usage
 ----------------
-1.Go to ../../script/ConfigTool.py; This config file is for users to choose whether to generate Linear or Serial-Parallel yw model. 
+1. Go to ../../script/ConfigTool.py; This config file is for users to choose whether to generate Linear or Serial-Parallel yw model. 
 
 You can choose to parse into Linear model
 
@@ -49,10 +49,17 @@ You can use yw command to graph into png file or pdf file:
 
       $ yw graph yw/Original_LinearParseYW.txt | dot -Tpng -o png/Linear.png && open png/Linear.png
 
-the outputs will be stored in folder png. 
+The outputs will be stored in folder png. 
 
+3. Linear && Serial-Parallel yw model:
 
+Linear Model:
 
+![](https://github.com/LanLi2017/OR2YWTool/blob/master/or2yw-examples/Ecology_rodents/png/Linear.png)
+
+Serial-Parallel Model:
+
+![](https://github.com/LanLi2017/OR2YWTool/blob/master/or2yw-examples/Ecology_rodents/png/Serial-Parallel.png)
 
 
 
