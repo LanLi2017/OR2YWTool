@@ -30,6 +30,10 @@ yw            |  The parsed yw comments
 yw.properties |  yw settings for graph(yw) command
 yw_generate.sh|  cheatsheet command
 
+2.Toolkit Usage
+----------------
+1.Go to ../../script/ConfigTool.py; This config file is for users to choose whether to generate Linear or Serial-Parallel yw model. 
+
 
 
 
