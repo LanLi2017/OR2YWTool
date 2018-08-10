@@ -2,8 +2,22 @@ import json
 from itertools import groupby
 from pprint import pprint
 
+def checkpath():
+    while True:
+        try:
+            path=raw_input("Enter the input file path: ")
+            with open(path,'r')as f:
+                f.close()
+        except IOError as e:
+            print(e)
+        else:
+            return path
+
 def main():
-    with open('userScript.json','r')as f:
+
+    inputjsonpath=checkpath()
+
+    with open(inputjsonpath,'r')as f:
         data=json.load(f)
         # first part rename and output dtable
         rename_c=0
