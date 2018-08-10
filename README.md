@@ -24,7 +24,7 @@ facts         |  "File for storing prolog facts about scripts"
 gv            |  Save the DOT output to a file
 pdf           |  Render gv file as PDF file using Graphviz's dot command
 png           |  Render gv file as PNG file using Graphviz's dot command
-results       |  
+results       |  Screenshot the models
 script        |  Auto-parsing file: Linear/Serial-Parallell and the Openrefine json file
 yw            |  The parsed yw comments
 yw.properties |  yw settings for graph(yw) command
@@ -59,7 +59,7 @@ Linear Model:
 
 Serial-Parallel Model:
 
-![](https://github.com/LanLi2017/OR2YWTool/blob/master/or2yw-examples/Ecology_rodents/png/Serial-Parallel.png)
+![](https://github.com/LanLi2017/OR2YWTool/blob/master/or2yw-examples/Ecology_rodents/results/SPScreen.png)
 
 
 
