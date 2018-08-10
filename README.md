@@ -43,11 +43,12 @@ And Enter the json file path to do the parsing.
 
 After this work is done, 'yw' folder will generate the comments file
 
-2. Using yw command to generate the pdf/png
+2. Using yw command to parse the txt comments file at yw folder
+You can use yw command to graph into png file or pdf file:
 
-     $ yw graph yw/Original_LinearParseYW.txt | dot -Tpng -o png/Linear.png && open png/Linear.png
+      $ yw graph yw/Original_LinearParseYW.txt | dot -Tpng -o png/Linear.png && open png/Linear.png
 
-the outputs will be stored in forder png/ 
+the outputs will be stored in folder png. 
 
 
 
