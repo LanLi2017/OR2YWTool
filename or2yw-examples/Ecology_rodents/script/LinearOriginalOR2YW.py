@@ -1,11 +1,22 @@
 
 import json
 
+def checkpath():
+    while True:
+        try:
+            path=raw_input("Enter the input file path: ")
+            with open(path,'r')as f:
+                f.close()
+        except IOError as e:
+            print(e)
+        else:
+            return path
+
 def main():
     inputdatalist=[]
 
-
-    with open('userScript.json','r')as f:
+    inputjsonpath=checkpath()
+    with open(inputjsonpath,'r')as f:
         data=json.load(f)
         outputfinal='table'+str(len(data))
         for dicts in data:
