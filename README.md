@@ -55,7 +55,7 @@ The outputs will be stored in folder png.
 
 Linear Model:
 
-![](https://github.com/LanLi2017/OR2YWTool/blob/master/or2yw-examples/Ecology_rodents/png/Linear.png)
+![](https://github.com/LanLi2017/OR2YWTool/blob/master/or2yw-examples/Ecology_rodents/results/LinearScreen.png)
 
 Serial-Parallel Model:
 
