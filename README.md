@@ -33,13 +33,20 @@ yw_generate.sh|  cheatsheet command
 2.Toolkit Usage
 ----------------
 1.Go to ../../script/ConfigTool.py; This config file is for users to choose whether to generate Linear or Serial-Parallel yw model. 
+
 You can choose to parse into Linear model
+
      $ python ConfigTool.py -L 
+     
      $ Enter the input file path: 
 And Enter the json file path to do the parsing.
+
 After this work is done, 'yw' folder will generate the comments file
-2. Using yw command to generate the pdf/png:
+
+2. Using yw command to generate the pdf/png
+
      $ yw graph yw/Original_LinearParseYW.txt | dot -Tpng -o png/Linear.png && open png/Linear.png
+
 the outputs will be stored in forder png/ 
 
 
