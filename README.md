@@ -32,7 +32,13 @@ yw_generate.sh|  cheatsheet command
 
 2.Toolkit Usage
 ----------------
-1. Go to ../../script/ConfigTool.py; This config file is for users to choose whether to generate Linear or Serial-Parallel yw model. 
+1. 
+a. run the ../../script/ConfigTool.sh
+in the terminal (macos system): 
+     
+     $ bash ConfigTool.sh 
+
+b. Go to ../../script/ConfigTool.py; This config file is for users to choose whether to generate Linear or Serial-Parallel yw model. 
 
 You can choose to parse into Linear model
 
