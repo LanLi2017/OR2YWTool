@@ -30,37 +30,39 @@ import urllib2_file
 import urllib2
 import urlparse
 
-from google.refine import facet
-from google.refine import history
+import facet
+import history
 
 REFINE_HOST = os.environ.get('OPENREFINE_HOST', os.environ.get('GOOGLE_REFINE_HOST', '127.0.0.1'))
-REFINE_PORT = os.environ.get('OPENREFINE_PORT', os.environ.get('GOOGLE_REFINE_PORT', '3333'))
+REFINE_PORT = os.environ.get('OPENREFINE_PORT', os.environ.get('GOOGLE_REFINE_PORT', '3337'))
 
 
 class RefineServer(object):
     """Communicate with a OpenRefine server."""
 
     @staticmethod
-    def url():
+    def url(refine_port):
         """Return the URL to the OpenRefine server."""
         server = 'http://' + REFINE_HOST
         if REFINE_PORT != '80':
-            server += ':' + REFINE_PORT
+            server += ':' + refine_port
         return server
 
-    def __init__(self, server=None):
+    def __init__(self, refine_port=None,server=None):
         if server is None:
-            server = self.url()
+            if refine_port is None:
+                server = self.url(REFINE_PORT)
+            else:
+                server=self.url(refine_port)
+
         self.server = server[:-1] if server.endswith('/') else server
-        self.__version = None     # see version @property below
+        self.__version = None  # see version @property below
 
     def urlopen(self, command, data=None, params=None, project_id=None):
         """Open a OpenRefine URL and with optional query params and POST data.
-
         data: POST data dict
         param: query params dict
         project_id: project ID as string
-
         Returns urllib2.urlopen iterable."""
         url = self.server + '/command/core/' + command
         if data is None:
@@ -105,7 +107,6 @@ class RefineServer(object):
 
     def get_version(self):
         """Return version data.
-
         {"revision":"r1836","full_version":"2.0 [r1836]",
          "full_name":"Google Refine 2.0 [r1836]","version":"2.0"}"""
         return self.urlopen_json('get-version')
@@ -119,7 +120,8 @@ class RefineServer(object):
 
 class Refine:
     """Class representing a connection to a OpenRefine server."""
-    def __init__(self, server):
+    def __init__(self, server,refine_port=None):
+        self.refine_port = refine_port
         if isinstance(server, RefineServer):
             self.server = server
         else:
@@ -127,7 +129,6 @@ class Refine:
 
     def list_projects(self):
         """Return a dict of projects indexed by id.
-
         {u'1877818633188': {
             'id': u'1877818633188', u'name': u'akg',
             u'modified': u'2011-04-07T12:30:07Z',
@@ -148,12 +149,15 @@ class Refine:
         return RefineProject(self.server, project_id)
 
     def new_project(self, project_file=None, project_name=None,
-                    project_format='', **kwargs):
+                    project_format='',**kwargs):
         """Create a OpenRefine project."""
-        defaults = { 'guessCellValueTypes' : False, 'headerLines' : 1, 'ignoreLines' : -1, 'includeFileSources' : False, 'limit' : -1, 'linesPerRow' : 1, 'processQuotes' : True, 'separator' : ',', 'skipDataLines' : 0, 'storeBlankCellsAsNulls' : True, 'storeBlankRows' : True, 'storeEmptyStrings' : True, 'trimStrings' : False }
+        defaults = {'guessCellValueTypes': False, 'headerLines': 1, 'ignoreLines': -1, 'includeFileSources': False,
+                    'limit': -1, 'linesPerRow': 1, 'processQuotes': True, 'separator': ',', 'skipDataLines': 0,
+                    'storeBlankCellsAsNulls': True, 'storeBlankRows': True, 'storeEmptyStrings': True,
+                    'trimStrings': False}
 
         # options
-        options = { 'format': project_format }
+        options = {'format': project_format}
         if project_file is not None:
             options['project-file'] = {
                 'fd': open(project_file),
@@ -168,7 +172,7 @@ class Refine:
         # params (the API requires a json in the 'option' POST argument)
         params = defaults
         params.update(kwargs)
-        params = { 'options': json.dumps(params) }
+        params = {'options': json.dumps(params)}
 
         # submit
         response = self.server.urlopen(
@@ -179,20 +183,22 @@ class Refine:
             urlparse.urlparse(response.geturl()).query)
         if 'project' in url_params:
             project_id = url_params['project'][0]
+
             # check number of rows
-            rows = RefineProject(RefineServer(),project_id).do_json('get-rows')['total']
+            rows = RefineProject(RefineServer(self.refine_port), refine_port=self.refine_port,project_id=project_id).do_json('get-rows')['total']
             if rows > 0:
                 print('{0}: {1}'.format('id', project_id))
                 print('{0}: {1}'.format('rows', rows))
-                return RefineProject(self.server, project_id)
+                return RefineProject(self.server, refine_port=self.refine_port,project_id=project_id), project_id, rows
             else:
-                raise Exception('Project contains 0 rows. Please check --help for mandatory arguments for xml, json, xlsx and ods')
+                raise Exception(
+                    'Project contains 0 rows. Please check --help for mandatory arguments for xml, json, xlsx and ods')
         else:
             raise Exception('Project not created')
 
+
 def RowsResponseFactory(column_index):
     """Factory for the parsing the output from get_rows().
-
     Uses the project's model's row cell index so that a row can be used
     as a dict by column name."""
 
@@ -240,13 +246,13 @@ def RowsResponseFactory(column_index):
 class RefineProject:
     """An OpenRefine project."""
 
-    def __init__(self, server, project_id=None):
+    def __init__(self, server, refine_port=None,project_id=None):
         if not isinstance(server, RefineServer):
             if '/project?project=' in server:
                 server, project_id = server.split('/project?project=')
                 server = RefineServer(server)
             elif re.match(r'\d+$', server):     # just digits => project ID
-                server, project_id = RefineServer(), server
+                server, project_id = RefineServer(refine_port), server
             else:
                 server = RefineServer(server)
         self.server = server
@@ -296,7 +302,6 @@ class RefineProject:
 
     def get_models(self):
         """Fill out column metadata.
-
         Column structure is a list of columns in their order.
         The cellIndex is an index for that column's data into the list returned
         from get_rows()."""
@@ -328,6 +333,11 @@ class RefineProject:
             else:
                 return
 
+    def get_operations(self):
+        #response_json = self.do_json('get-operations?project={}'.format(self.project_id))
+        response_json = urllib2.urlopen("http://127.0.0.1:3337/command/core/get-operations?project={}".format(self.project_id))
+        return response_json  # can be 'ok' or 'pending'
+
     def apply_operations(self, file_path, wait=True):
         json_data = open(file_path).read()
         response_json = self.do_json('apply-operations', {'operations': json_data})
@@ -358,12 +368,10 @@ class RefineProject:
 
     def compute_facets(self, facets=None):
         """Compute facets as per the project's engine.
-
         The response object has two attributes, mode & facets. mode is one of
         'row-based' or 'record-based'. facets is a magic list of facets in the
         same order as they were specified in the Engine. Magic allows the
         original Engine's facet as index into the response, e.g.,
-
         name_facet = TextFacet('name')
         response = project.compute_facets(name_facet)
         response.facets[name_facet]     # same as response.facets[0]
@@ -534,9 +542,7 @@ class RefineProject:
     # http://code.google.com/p/google-refine/wiki/ReconciliationServiceApi
     def guess_types_of_column(self, column, service):
         """Query the reconciliation service for what it thinks this column is.
-
         service: reconciliation endpoint URL
-
         Returns [
            {"id":"/domain/type","name":"Type Name","score":10.2,"count":18},
            ...
@@ -561,7 +567,6 @@ class RefineProject:
     def reconcile(self, column, service, reconciliation_type=None,
                   reconciliation_config=None):
         """Perform a reconciliation asynchronously.
-
         config: {
             "mode": "standard-service",
             "service": "http://.../reconcile/",
@@ -574,7 +579,6 @@ class RefineProject:
             "autoMatch": true,
             "columnDetails": []
         }
-
         Returns typically {'code': 'pending'}; call wait_until_idle() to wait
         for reconciliation to complete.
         """
