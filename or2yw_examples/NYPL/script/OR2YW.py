@@ -5,20 +5,19 @@ from openrefine_client_master.google.refine import refine
 
 
 class OR2YW:
-    def __init__(self,server_ip=None,server_port=None):
+    def __init__(self,server_port=None,server_host=None):
         """
         Init function for this class, put any initialization attributes that you need here
         """
-        self.server_ip=server_ip
+        self.server_host=server_host
         self.server_port=server_port
-        pass
 
     def get_projects(self):
         """
         return the list of projects (project_id,name) and or some rows sample for all projects in the server
         :return:
         """
-        return refine.Refine(refine.RefineServer(refine_port=self.server_port,server=self.server_ip)).list_projects()
+        return refine.Refine(refine.RefineServer(refine_port=self.server_port,refine_host=self.server_host)).list_projects()
 
     def get_json(self,id):
         """
@@ -26,7 +25,8 @@ class OR2YW:
         return the list of operations (json/dictionary) gathered using ORClientAPI
         :return:
         """
-        outputs=refine.RefineProject(refine.RefineServer(refine_port=self.server_port,server=self.server_ip),refine_port=self.server_port,project_id=id).get_operations()
+        outputs=refine.RefineProject(refine.RefineServer(refine_port=self.server_port,refine_host=self.server_host),
+                                     refine_port=self.server_port,refine_host=self.server_host,project_id=id).get_operations()
         return json.loads(outputs.read())
 
     def generate_yw_script(self,operations):
