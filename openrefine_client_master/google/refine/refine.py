@@ -41,19 +41,22 @@ class RefineServer(object):
     """Communicate with a OpenRefine server."""
 
     @staticmethod
-    def url(refine_port):
+    def url(refine_port,refine_host):
         """Return the URL to the OpenRefine server."""
-        server = 'http://' + REFINE_HOST
+        server = 'http://' + refine_host
         if REFINE_PORT != '80':
             server += ':' + refine_port
         return server
 
-    def __init__(self, refine_port=None,server=None):
+    def __init__(self, refine_port=None, refine_host=None,server=None):
+        #  server='http://'+refine_host+refine_host
         if server is None:
-            if refine_port is None:
-                server = self.url(REFINE_PORT)
-            else:
-                server=self.url(refine_port)
+            if refine_port is None and refine_host is None:
+                server = self.url(REFINE_PORT,REFINE_HOST)
+            elif refine_host is None:
+                server=self.url(refine_port,REFINE_HOST)
+            elif refine_port is None:
+                server=self.url(REFINE_PORT,refine_host)
 
         self.server = server[:-1] if server.endswith('/') else server
         self.__version = None  # see version @property below
@@ -120,8 +123,9 @@ class RefineServer(object):
 
 class Refine:
     """Class representing a connection to a OpenRefine server."""
-    def __init__(self, server,refine_port=None):
+    def __init__(self, server,refine_port=None,refine_host=None):
         self.refine_port = refine_port
+        self.refine_host=refine_host
         if isinstance(server, RefineServer):
             self.server = server
         else:
@@ -185,11 +189,11 @@ class Refine:
             project_id = url_params['project'][0]
 
             # check number of rows
-            rows = RefineProject(RefineServer(self.refine_port), refine_port=self.refine_port,project_id=project_id).do_json('get-rows')['total']
+            rows = RefineProject(RefineServer(refine_port=self.refine_port,refine_host=self.refine_host),refine_port=self.refine_port,refine_host=self.refine_host,project_id=project_id).do_json('get-rows')['total']
             if rows > 0:
                 print('{0}: {1}'.format('id', project_id))
                 print('{0}: {1}'.format('rows', rows))
-                return RefineProject(self.server, refine_port=self.refine_port,project_id=project_id), project_id, rows
+                return RefineProject(self.server, refine_port=self.refine_port,refine_host=self.refine_host,project_id=project_id), project_id, rows
             else:
                 raise Exception(
                     'Project contains 0 rows. Please check --help for mandatory arguments for xml, json, xlsx and ods')
@@ -246,13 +250,13 @@ def RowsResponseFactory(column_index):
 class RefineProject:
     """An OpenRefine project."""
 
-    def __init__(self, server, refine_port=None,project_id=None):
+    def __init__(self, server, refine_port=None, refine_host=None,project_id=None):
         if not isinstance(server, RefineServer):
             if '/project?project=' in server:
                 server, project_id = server.split('/project?project=')
                 server = RefineServer(server)
             elif re.match(r'\d+$', server):     # just digits => project ID
-                server, project_id = RefineServer(refine_port), server
+                server, project_id = RefineServer(refine_port,refine_host), server
             else:
                 server = RefineServer(server)
         self.server = server
@@ -260,6 +264,10 @@ class RefineProject:
             self.refine_port=REFINE_PORT
         else:
             self.refine_port=refine_port
+        if refine_host is None:
+            self.refine_host=REFINE_HOST
+        else:
+            self.refine_host= refine_host
         if not project_id:
             raise Exception('Missing OpenRefine project ID')
         self.project_id = project_id
@@ -339,7 +347,7 @@ class RefineProject:
 
     def get_operations(self):
         #response_json = self.do_json('get-operations?project={}'.format(self.project_id))
-        response_json = urllib2.urlopen("http://127.0.0.1:{}/command/core/get-operations?project={}".format(self.refine_port,self.project_id))
+        response_json = urllib2.urlopen("http://{}:{}/command/core/get-operations?project={}".format(self.refine_host,self.refine_port,self.project_id))
         return response_json  # can be 'ok' or 'pending'
 
     def apply_operations(self, file_path, wait=True):
