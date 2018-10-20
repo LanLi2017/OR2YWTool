@@ -1,8 +1,11 @@
 # import all library needed for this class
+import json
+
+from openrefine_client_master.google.refine import refine
 
 
 class OR2YW:
-    def __init__(self,server_ip,server_port):
+    def __init__(self,server_ip=None,server_port=None):
         """
         Init function for this class, put any initialization attributes that you need here
         """
@@ -15,16 +18,16 @@ class OR2YW:
         return the list of projects (project_id,name) and or some rows sample for all projects in the server
         :return:
         """
+        return refine.Refine(refine.RefineServer(refine_port=self.server_port,server=self.server_ip)).list_projects()
 
-        pass
-
-    def get_operations(self,id):
+    def get_json(self,id):
         """
         id: project id which we want to create workflow with
         return the list of operations (json/dictionary) gathered using ORClientAPI
         :return:
         """
-        pass
+        outputs=refine.RefineProject(refine.RefineServer(refine_port=self.server_port,server=self.server_ip),refine_port=self.server_port,project_id=id).get_operations()
+        return json.loads(outputs.read())
 
     def generate_yw_script(self,operations):
         """
