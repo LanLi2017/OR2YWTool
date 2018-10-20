@@ -256,6 +256,10 @@ class RefineProject:
             else:
                 server = RefineServer(server)
         self.server = server
+        if refine_port is None:
+            self.refine_port=REFINE_PORT
+        else:
+            self.refine_port=refine_port
         if not project_id:
             raise Exception('Missing OpenRefine project ID')
         self.project_id = project_id
@@ -335,7 +339,7 @@ class RefineProject:
 
     def get_operations(self):
         #response_json = self.do_json('get-operations?project={}'.format(self.project_id))
-        response_json = urllib2.urlopen("http://127.0.0.1:3337/command/core/get-operations?project={}".format(self.project_id))
+        response_json = urllib2.urlopen("http://127.0.0.1:{}/command/core/get-operations?project={}".format(self.refine_port,self.project_id))
         return response_json  # can be 'ok' or 'pending'
 
     def apply_operations(self, file_path, wait=True):
