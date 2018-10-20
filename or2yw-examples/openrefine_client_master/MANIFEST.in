@@ -1,4 +1,0 @@
-include README.rst
-include COPYING.txt
-recursive-include tests/data *.csv
-recursive-include tests      *.py

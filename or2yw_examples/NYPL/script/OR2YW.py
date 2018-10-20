@@ -1,5 +1,5 @@
 # import all library needed for this class
-from OR2YWTool.openrefine_client_master.google.refine import refine
+
 
 class OR2YW:
     def __init__(self,server_ip,server_port):
