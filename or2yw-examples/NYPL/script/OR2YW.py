@@ -1,5 +1,5 @@
 # import all library needed for this class
-
+from OR2YWTool.openrefine_client_master.google.refine import refine
 
 class OR2YW:
     def __init__(self,server_ip,server_port):
@@ -15,6 +15,7 @@ class OR2YW:
         return the list of projects (project_id,name) and or some rows sample for all projects in the server
         :return:
         """
+
         pass
 
     def get_operations(self,id):
