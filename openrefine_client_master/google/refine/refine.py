@@ -50,6 +50,7 @@ class RefineServer(object):
 
     def __init__(self, refine_port=None, refine_host=None,server=None):
         #  server='http://'+refine_host+refine_host
+        #print(server,refine_port,refine_host)
         if server is None:
             if refine_port is None and refine_host is None:
                 server = self.url(REFINE_PORT,REFINE_HOST)
@@ -57,7 +58,9 @@ class RefineServer(object):
                 server=self.url(refine_port,REFINE_HOST)
             elif refine_port is None:
                 server=self.url(REFINE_PORT,refine_host)
-
+            else:
+                server = self.url(refine_port, refine_host)
+        #print(server)
         self.server = server[:-1] if server.endswith('/') else server
         self.__version = None  # see version @property below
 
