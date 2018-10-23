@@ -2,6 +2,7 @@ import json
 from itertools import groupby
 from pprint import pprint
 
+
 def checkpath():
     while True:
         try:

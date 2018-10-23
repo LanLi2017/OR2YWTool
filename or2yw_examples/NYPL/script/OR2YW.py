@@ -4,6 +4,8 @@ import json
 from openrefine_client_master.google.refine import refine
 from itertools import groupby
 import StringIO
+from subprocess import call
+
 
 class OR2YW:
     def __init__(self, server_host="localhost", server_port="3333", doc_root="/"):
@@ -385,7 +387,16 @@ class OR2YW:
         return binary image
         :return:
         """
-        pass
+        import subprocess
+        # create temporary file
+        with open("tmp.txt","w") as f:
+            f.write(yw_script)
+
+        cmd = "cat tmp.txt | java -jar yesworkflow-0.2.0-jar-with-dependencies.jar graph -c extract.comment='#' > output-tmp.gv"
+        ps = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        ps.wait()
+        cmd = "dot -Tpng output-tmp.gv -o output.png"
+        ps = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
 
 if __name__ == '__main__':
@@ -397,4 +408,5 @@ if __name__ == '__main__':
     print(operations)
     yw_script = OR2YW().generate_yw_script(operations["entries"])
     print(yw_script)
+    OR2YW().generate_yw_image(yw_script)
 
