@@ -32,7 +32,7 @@ class OR2YW:
         id: project id which we want to create workflow with
         return the list of operations (json/dictionary) gathered using ORClientAPI
         :return:
-        >>> sample_id = "2289658246838"
+        >>> sample_id = "2438670021504"
         >>> OR2YW().get_json(sample_id) # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
         {...}
         """
@@ -392,11 +392,15 @@ class OR2YW:
         with open("tmp.txt","w") as f:
             f.write(yw_script)
 
-        cmd = "cat tmp.txt | java -jar yesworkflow-0.2.0-jar-with-dependencies.jar graph -c extract.comment='#' > output-tmp.gv"
+        cmd = "cat tmp.txt | java -jar yesworkflow-0.2.2.0-jar-with-dependencies.jar graph -c extract.comment='#' > output-tmp.gv"
         ps = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         ps.wait()
+        print 0
         cmd = "dot -Tpng output-tmp.gv -o output.png"
+        # dot -Tpng gv/Linear.gv -o png/Linear.png
+        print 1
         ps = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        print 2
 
 
 if __name__ == '__main__':
@@ -404,7 +408,7 @@ if __name__ == '__main__':
     projects = OR2YW().get_projects()
     print(projects)
     # get operations
-    operations = OR2YW().get_json("2289658246838")
+    operations = OR2YW().get_json("2438670021504")
     print(operations)
     yw_script = OR2YW().generate_yw_script(operations["entries"])
     print(yw_script)
