@@ -501,6 +501,7 @@ def main(argv):
     if pas_req:
         or2yw_proc = OR2YWFileProcessor()
         or2yw_proc.generate_yw_file(input_file=argobj["input"],output_file=argobj["output"])
+        print("File {} generated.".format(argobj["output"]))
     else:
         parser.print_help()
 
