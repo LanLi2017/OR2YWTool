@@ -1,6 +1,9 @@
 from or2ywtool.OR2YWCore import OR2YWFileProcessor
+import sys
+import argparse;
 
-def run(argv):
+def run():
+    argv = sys.argv
     # required argument
     reqs = ["input","output"]
     parser = argparse.ArgumentParser(description='OR2YW v0.01')
@@ -32,4 +35,4 @@ def run(argv):
         parser.print_help()
 
 if __name__ == '__main__':
-    run(sys.argv)
+    run()
