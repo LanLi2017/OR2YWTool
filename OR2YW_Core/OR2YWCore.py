@@ -2,7 +2,9 @@
 import json
 
 from itertools import groupby
-import StringIO
+from io import StringIO
+import sys
+import argparse;
 
 class OR2YW:
     def __init__(self):
@@ -51,7 +53,7 @@ class OR2YW:
 
         # parse and print it out
         #f = open('../yw/Original_LinearParseYW.txt', 'w')
-        f = StringIO.StringIO()
+        f = StringIO()
         f.write('#@begin LinearOriginalOR#@desc Workflow of Linear original openrefine history\n')
         for sublist in list(deinputdatalist):
             f.write('#@param ' + sublist + '\n')
@@ -192,7 +194,7 @@ class OR2YW:
         # parse into YW model
         # create a string buffer instead
         # f = open('../yw/2Original_SPParseYW.txt', 'w')
-        f = StringIO.StringIO()
+        f = StringIO()
         f.write('#@begin SPOriginalOR2#@desc Workflow of Linear original openrefine history\n')
         for sublist in list(deinputdatalist):
             f.write('#@param ' + sublist + '\n')
@@ -474,10 +476,35 @@ class OR2YWFileProcessor():
             raise BaseException("Type Only Serial or Parallel ")
 
     def generate_yw_file(self,input_file,output_file,type="serial"):
-        yw_dict = self.generate_yw_file(input_file,type)
+        yw_dict = self.generate_yw(input_file,type)
         with open(output_file,"w") as file:
             file.writelines(yw_dict)
 
 
+def main(argv):
+    # required argument
+    reqs = ["input","output"]
+    parser = argparse.ArgumentParser(description='OR2YW v0.01')
+    parser.add_argument('-i','--input',
+            help='openrefine json file')
+    parser.add_argument('-o', '--output',
+                        help='yesworkflow output file')
+    args = parser.parse_args(argv[1:])
+    argobj = vars(args);
+    #print(argobj)
+    pas_req = True
+    for req in reqs:
+        if argobj[req]==None:
+            pas_req = False
+            break
+
+    if pas_req:
+        or2yw_proc = OR2YWFileProcessor()
+        or2yw_proc.generate_yw_file(input_file=argobj["input"],output_file=argobj["output"])
+    else:
+        parser.print_help()
+
 if __name__ == '__main__':
-    pass
+    main(sys.argv)
+
+
