@@ -1,3 +1,5 @@
+from or2ywtool.OR2YWCore import OR2YWFileProcessor
+
 def run(argv):
     # required argument
     reqs = ["input","output"]

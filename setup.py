@@ -1,6 +1,6 @@
-from distutils.core import setup
+from setuptools import setup
 setup(
-  name = 'OR2YWTool',
+  name = 'or2ywtool',
   packages = ['or2ywtool'],
   version = '0.01',
   description = 'OR2YW Tool',
@@ -28,7 +28,7 @@ setup(
   ],
   entry_points={
         'console_scripts': [
-            'or2yw = OR2YWTool.__main__:run'
+            'or2yw = or2ywtool.__main__:run'
         ],
     }
 )
