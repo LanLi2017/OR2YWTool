@@ -124,7 +124,7 @@ class OR2YW:
             if "columnName" in tdata.keys():
                 data.append(tdata)
 
-        print(json.dumps(data))
+        #print(json.dumps(data))
         # first part rename and output dtable
         rename_c = 0
 
@@ -489,6 +489,10 @@ def main(argv):
             help='openrefine json file')
     parser.add_argument('-o', '--output',
                         help='yesworkflow output file')
+    parser.add_argument('-t','--type', default="serial",
+            help='Produce [serial,paralel] workflow, Default: serial')
+    parser.add_argument('-ot','--outputtype', default="yw",
+            help='Produce output type [yw,gv,png,svg,pdf], Default: yw')
     args = parser.parse_args(argv[1:])
     argobj = vars(args);
     #print(argobj)
@@ -500,7 +504,7 @@ def main(argv):
 
     if pas_req:
         or2yw_proc = OR2YWFileProcessor()
-        or2yw_proc.generate_yw_file(input_file=argobj["input"],output_file=argobj["output"])
+        or2yw_proc.generate_yw_file(input_file=argobj["input"],output_file=argobj["output"],type=argobj["type"])
         print("File {} generated.".format(argobj["output"]))
     else:
         parser.print_help()
