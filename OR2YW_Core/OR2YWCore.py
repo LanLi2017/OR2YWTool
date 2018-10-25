@@ -473,7 +473,7 @@ class OR2YWFileProcessor():
         elif type == "parallel":
             return OR2YW.generate_yw_parallel(json_dict)
         else:
-            raise BaseException("Type Only Serial or Parallel ")
+            raise BaseException("Workflow type Only Serial or Parallel ")
 
     def generate_yw_file(self,input_file,output_file,type="serial"):
         yw_dict = self.generate_yw(input_file,type)
@@ -490,9 +490,9 @@ def main(argv):
     parser.add_argument('-o', '--output',
                         help='yesworkflow output file')
     parser.add_argument('-t','--type', default="serial",
-            help='Produce [serial,paralel] workflow, Default: serial')
+            help='Workflow Type, Produce [serial,paralel] workflow, Default: serial')
     parser.add_argument('-ot','--outputtype', default="yw",
-            help='Produce output type [yw,gv,png,svg,pdf], Default: yw')
+            help='Output Type, Produce output [yw,gv,png,svg,pdf], Default: yw')
     args = parser.parse_args(argv[1:])
     argobj = vars(args);
     #print(argobj)
@@ -503,9 +503,12 @@ def main(argv):
             break
 
     if pas_req:
-        or2yw_proc = OR2YWFileProcessor()
-        or2yw_proc.generate_yw_file(input_file=argobj["input"],output_file=argobj["output"],type=argobj["type"])
-        print("File {} generated.".format(argobj["output"]))
+        try:
+            or2yw_proc = OR2YWFileProcessor()
+            or2yw_proc.generate_yw_file(input_file=argobj["input"],output_file=argobj["output"],type=argobj["type"])
+            print("File {} generated.".format(argobj["output"]))
+        except BaseException as exc:
+            print(exc)
     else:
         parser.print_help()
 
