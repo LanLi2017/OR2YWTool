@@ -1,0 +1,40 @@
+#@begin LinearOriginalOR#@desc Workflow of Linear original openrefine history
+#@param expression:value.toTitlecase()
+#@param col-name:statecode
+#@param col-name:eq_site_limit
+#@param col-name:county
+#@param expression:value.toLowercase()
+#@param expression:value.toNumber()
+#@in table0
+#@out table5
+#@begin core/text-transform0#@desc Text transform on cells in column county using expression value.toLowercase()
+#@param col-name:county
+#@param expression:value.toLowercase()
+#@in table0
+#@out table1
+#@end core/text-transform0
+#@begin core/text-transform1#@desc Text transform on cells in column eq_site_limit using expression value.toNumber()
+#@param col-name:eq_site_limit
+#@param expression:value.toNumber()
+#@in table1
+#@out table2
+#@end core/text-transform1
+#@begin core/text-transform2#@desc Text transform on cells in column county using expression value.toTitlecase()
+#@param col-name:county
+#@param expression:value.toTitlecase()
+#@in table2
+#@out table3
+#@end core/text-transform2
+#@begin core/text-transform3#@desc Text transform on cells in column county using expression value.toLowercase()
+#@param col-name:county
+#@param expression:value.toLowercase()
+#@in table3
+#@out table4
+#@end core/text-transform3
+#@begin core/text-transform4#@desc Text transform on cells in column statecode using expression value.toLowercase()
+#@param col-name:statecode
+#@param expression:value.toLowercase()
+#@in table4
+#@out table5
+#@end core/text-transform4
+#@end LinearOriginalOR

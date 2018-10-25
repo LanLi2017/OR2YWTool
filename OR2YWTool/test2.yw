@@ -1,0 +1,46 @@
+#@begin SPOriginalOR2#@desc Workflow of Linear original openrefine history
+#@param expression:value.toTitlecase()
+#@param expression:value.toLowercase()
+#@param col-name:statecode
+#@param expression:value.toNumber()
+#@param col-name:county
+#@param col-name:eq_site_limit
+#@in table0
+#@out table1
+#@begin core/text-transform0#@desc Text transform on cells in column county using expression value.toLowercase()
+#@param col-name:county
+#@param expression:value.toLowercase()
+#@in table0
+#@out col:county1
+#@end core/text-transform0
+#@begin core/text-transform1#@desc Text transform on cells in column county using expression value.toTitlecase()
+#@param col-name:county
+#@param expression:value.toTitlecase()
+#@in col:county1
+#@out col:county2
+#@end core/text-transform1
+#@begin core/text-transform2#@desc Text transform on cells in column county using expression value.toLowercase()
+#@param col-name:county
+#@param expression:value.toLowercase()
+#@in col:county2
+#@out col:county3
+#@end core/text-transform2
+#@begin core/text-transform3#@desc Text transform on cells in column eq_site_limit using expression value.toNumber()
+#@param col-name:eq_site_limit
+#@param expression:value.toNumber()
+#@in table0
+#@out col:eq_site_limit1
+#@end core/text-transform3
+#@begin core/text-transform4#@desc Text transform on cells in column statecode using expression value.toLowercase()
+#@param col-name:statecode
+#@param expression:value.toLowercase()
+#@in table0
+#@out col:statecode1
+#@end core/text-transform4
+#@begin MergeOperationsColumns #@desc Merge the Parallel Column operations
+#@in col:county3
+#@in col:eq_site_limit1
+#@in col:statecode1
+#@out table1
+#@end MergeOperationsColumns
+#@end SPOriginalOR2
