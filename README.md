@@ -35,7 +35,7 @@ yw_generate.sh|  cheatsheet command
 1. Python Version : 3+
 a. Install the or2yw package from pip install: 
      
-       $ pip  install upgrade --index-url https://test.pypi.org/simple/ or2ywtool==0.0.1 
+       $ pip  install upgrade --index-url https://test.pypi.org/simple/ or2ywtool
 
 (Note: double check the pip version, if pip is for version 2, then use pip3 install...)
 
