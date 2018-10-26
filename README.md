@@ -44,18 +44,21 @@ a. Install the or2yw package from pip install:
        $ or2yw --help
         OR2YW v0.01
 
+          OR2YW v0.0.1
+
           optional arguments:
             -h, --help            show this help message and exit
             -i INPUT, --input INPUT
                                   openrefine json file
             -o OUTPUT, --output OUTPUT
                                   yesworkflow output file
-            -t TYPE, --type TYPE  Workflow Type, Produce [serial,paralel] workflow,
+            -t TYPE, --type TYPE  Workflow Type, Produce [serial,parallel] workflow,
                                   Default: serial
             -ot OUTPUTTYPE, --outputtype OUTPUTTYPE
                                   Output Type, Produce output [yw,gv,png,svg,pdf],
-                                  Default: yw
-        
+                                  Default: yw (only yw for now other file type will
+                                  available in the next release)
+
    a. Generate Serial yw file:
       
        $ or2yw -i test.json -o test.yw -t 
