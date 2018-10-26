@@ -6,15 +6,15 @@ def run():
     argv = sys.argv
     # required argument
     reqs = ["input","output"]
-    parser = argparse.ArgumentParser(description='OR2YW v0.01')
+    parser = argparse.ArgumentParser(description='OR2YW v0.0.1')
     parser.add_argument('-i','--input',
             help='openrefine json file')
     parser.add_argument('-o', '--output',
                         help='yesworkflow output file')
     parser.add_argument('-t','--type', default="serial",
-            help='Workflow Type, Produce [serial,paralel] workflow, Default: serial')
+            help='Workflow Type, Produce [serial,parallel] workflow, Default: serial')
     parser.add_argument('-ot','--outputtype', default="yw",
-            help='Output Type, Produce output [yw,gv,png,svg,pdf], Default: yw')
+            help='Output Type, Produce output [yw,gv,png,svg,pdf], Default: yw (only yw for now other file type will available in the next release)')
     args = parser.parse_args(argv[1:])
     argobj = vars(args);
     #print(argobj)

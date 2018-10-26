@@ -2,9 +2,10 @@ from setuptools import setup
 setup(
   name = 'or2ywtool',
   packages = ['or2ywtool'],
-  version = '0.0.2',
+  version = '0.0.1',
   description = 'OR2YW Tool',
   url = 'https://github.com/LanLi2017/OR2YWTool',
+  authors = "Lan,Li; Parulian, Nikolaus; Ludaescher Bertram",
   classifiers=[  # Optional
     # How mature is this project? Common values are
     #   3 - Alpha
