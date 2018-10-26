@@ -459,6 +459,23 @@ class OR2YW:
 
         return output_string
 
+    @staticmethod
+    def generate_vg(yw_string,gv_file):
+        temp_folder = ""
+        tempid = str(uuid.uuid4())
+        text_name = "tmp-" + tempid + ".yw"
+        #gv_name = "tmp-" + tempid + ".gv"
+        with open(temp_folder + text_name, "w") as f:
+            f.write(yw_string)
+
+        cmd = "cat {} | yw graph -c extract.comment='#' > {}".format(temp_folder + text_name, gv_file)
+        ps = subprocess.Popen(cmd, shell=True,stderr=subprocess.STDOUT)
+        output, error_output = ps.communicate()
+        ps.wait()
+        if len(error_output) > 0:
+            raise BaseException("you  must have yes workflow installed")
+
+
 class OR2YWFileProcessor():
     def __init__(self):
         pass
@@ -475,8 +492,17 @@ class OR2YWFileProcessor():
         else:
             raise BaseException("Workflow type Only Serial or Parallel ")
 
+    def generate_vg(self,input_file,output_file,type="serial"):
+        yw_string = self.generate_yw(input_file=input_file,type=type)
+        OR2YW.generate_vg(yw_string,output_file)
+        return output_file
+
+
     def generate_yw_file(self,input_file,output_file,type="serial"):
         yw_dict = self.generate_yw(input_file,type)
         with open(output_file,"w") as file:
             file.writelines(yw_dict)
+        return output_file
+
+
 
