@@ -32,40 +32,39 @@ yw_generate.sh|  cheatsheet command
 
 2.Toolkit Usage
 ----------------
-1. 
-a. run the ../../script/ConfigTool.sh
-in the terminal (macos system): 
+1. Python Version : 3+
+a. Install the or2yw package from pip install: 
      
-     $ bash ConfigTool.sh 
+       $ pip  install upgrade --index-url https://test.pypi.org/simple/ or2ywtool==0.0.1 
 
-b. Go to ../../script/ConfigTool.py; This config file is for users to choose whether to generate Linear or Serial-Parallel yw model. 
+(Note: double check the pip version, if pip is for version 2, then use pip3 install...)
 
-You can choose to parse into Linear model
+2. After successfully install the or2yw tool, use commands for generating YW file:
 
-     $ python ConfigTool.py -L 
-     
-     $ Enter the input file path: 
-And Enter the json file path to do the parsing.
+       $ or2yw --help
+        OR2YW v0.01
 
-After this work is done, 'yw' folder will generate the comments file
+          optional arguments:
+            -h, --help            show this help message and exit
+            -i INPUT, --input INPUT
+                                  openrefine json file
+            -o OUTPUT, --output OUTPUT
+                                  yesworkflow output file
+            -t TYPE, --type TYPE  Workflow Type, Produce [serial,paralel] workflow,
+                                  Default: serial
+            -ot OUTPUTTYPE, --outputtype OUTPUTTYPE
+                                  Output Type, Produce output [yw,gv,png,svg,pdf],
+                                  Default: yw
+        
+   a. Generate Serial yw file:
+      
+       $ or2yw -i test.json -o test.yw -t 
+   
+   b. Generate Parallel yw file:
+       
+       $ or2yw -i test.json -o test.yw -t parallel
+   
 
-2. Using yw command to parse the txt comments file at yw folder
-
-You can use yw command to graph into png file or pdf file:
-
-      $ yw graph yw/Original_LinearParseYW.txt | dot -Tpng -o png/Linear.png && open png/Linear.png
-
-The outputs will be stored in folder png. 
-
-3. Linear && Serial-Parallel yw model:
-
-Linear Model:
-
-![](https://github.com/LanLi2017/OR2YWTool/blob/master/or2yw-examples/Ecology_rodents/results/LinearScreen.png)
-
-Serial-Parallel Model:
-
-![](https://github.com/LanLi2017/OR2YWTool/blob/master/or2yw-examples/Ecology_rodents/results/SPScreen.png)
-
+  
 
 
