@@ -15,7 +15,7 @@ class OR2YW:
         pass
 
     @staticmethod
-    def generate_yw_serial(operations):
+    def generate_yw_serial(operations,title="Linear_OR",description="Linear OpenRefine Workflow"):
         inputdatalist = []
         data = operations
         outputfinal = 'table' + str(len(data))
@@ -54,7 +54,7 @@ class OR2YW:
         # parse and print it out
         #f = open('../yw/Original_LinearParseYW.txt', 'w')
         f = StringIO()
-        f.write('#@begin LinearOriginalOR#@desc Workflow of Linear original openrefine history\n')
+        f.write('#@begin {0} #@desc {1}\n'.format(title,description))
         for sublist in list(deinputdatalist):
             f.write('#@param ' + sublist + '\n')
         f.write('#@in table0\n')
@@ -104,13 +104,13 @@ class OR2YW:
                 f.write('#@end core/column-split%d\n' % colsplit_c)
                 colsplit_c += 1
 
-        f.write('#@end LinearOriginalOR\n')
+        f.write('#@end {}\n'.format(title))
         output_string = f.getvalue()
         f.close()
         return output_string
 
     @staticmethod
-    def generate_yw_parallel(operations):
+    def generate_yw_parallel(operations,title="Parallel_OR",description="Parallel OpenRefine Workflow"):
         """
         given a list of operations in dictionary format, return yes workflow script in text
         id: list of operations dictionary / json format
@@ -195,7 +195,7 @@ class OR2YW:
         # create a string buffer instead
         # f = open('../yw/2Original_SPParseYW.txt', 'w')
         f = StringIO()
-        f.write('#@begin SPOriginalOR2#@desc Workflow of Linear original openrefine history\n')
+        f.write('#@begin {}#@desc {}\n'.format(title,description))
         for sublist in list(deinputdatalist):
             f.write('#@param ' + sublist + '\n')
         f.write('#@in table0\n')
@@ -453,7 +453,7 @@ class OR2YW:
         f.write('#@out table%d\n' % outtable)
         f.write('#@end MergeOperationsColumns\n')
 
-        f.write('#@end SPOriginalOR2\n')
+        f.write('#@end {}\n'.format(title))
         output_string = f.getvalue()
         f.close()
 
@@ -480,15 +480,17 @@ class OR2YWFileProcessor():
     def __init__(self):
         pass
 
-    def generate_yw(self,input_file,type="serial"):
+    #def generate_yw(self,input_file,type="serial",title=None,description=None):
+    def generate_yw(self, input_file, type="serial", **kwargs):
         # read file
+        #print(kwargs)
         json_dict = None
         with open(input_file,"r") as file:
             json_dict = json.load(file)
         if type == "serial":
-            return OR2YW.generate_yw_serial(json_dict)
+            return OR2YW.generate_yw_serial(json_dict, **kwargs)
         elif type == "parallel":
-            return OR2YW.generate_yw_parallel(json_dict)
+            return OR2YW.generate_yw_parallel(json_dict, **kwargs)
         else:
             raise BaseException("Workflow type Only Serial or Parallel ")
 
@@ -498,8 +500,9 @@ class OR2YWFileProcessor():
         return output_file
 
 
-    def generate_yw_file(self,input_file,output_file,type="serial"):
-        yw_dict = self.generate_yw(input_file,type)
+    def generate_yw_file(self,input_file,output_file,type="serial", **kwargs):
+        #print(kwargs)
+        yw_dict = self.generate_yw(input_file,type,**kwargs)
         with open(output_file,"w") as file:
             file.writelines(yw_dict)
         return output_file
