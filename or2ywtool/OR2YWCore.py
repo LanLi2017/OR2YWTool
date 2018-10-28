@@ -435,6 +435,10 @@ class OR2YW:
         path = os.path.dirname(OR2YWCore.__file__)
         #print(path)
 
+        import shutil
+        # copy yw.properties to run directory
+        shutil.copyfile(path+"/yw.properties","./yw.properties")
+
         cmd = "cat {} | {} -jar {} graph -c extract.comment='#' > {}".format(temp_folder + text_name, java_path, path+"/yesworkflow-0.2.2.0-SNAPSHOT-jar-with-dependencies.jar", gv_file)
         ps = subprocess.Popen(cmd, shell=True,stderr=subprocess.STDOUT)
         output, error_output = ps.communicate()

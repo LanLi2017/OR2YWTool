@@ -6,7 +6,7 @@ setup(
   description = 'OR2YW Tool',
   url = 'https://github.com/LanLi2017/OR2YWTool',
   authors = "Lan,Li; Parulian, Nikolaus; Ludaescher Bertram",
-  package_data={'or2ywtool': ['yesworkflow-0.2.2.0-SNAPSHOT-jar-with-dependencies.jar']},
+  package_data={'or2ywtool': ['yesworkflow-0.2.2.0-SNAPSHOT-jar-with-dependencies.jar','yw.properties']},
   include_package_data=True,
   classifiers=[  # Optional
     # How mature is this project? Common values are
