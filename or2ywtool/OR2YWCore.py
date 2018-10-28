@@ -408,7 +408,66 @@ class OR2YW:
         result = writefile(title=title, description=description, inputlist=inputlist,
                              table_counter=tablec, yw=ywdicts)
         print(result)
+        return result
 
+    @staticmethod
+    def generate_vg(yw_string,gv_file,java_path=None):
+        temp_folder = ""
+        tempid = str(uuid.uuid4())
+        text_name = "tmp-" + tempid + ".yw"
+        #gv_name = "tmp-" + tempid + ".gv"
+        with open(temp_folder + text_name, "w") as f:
+            f.write(yw_string)
+        # look for java
+        print(java_path)
+        if java_path!=None:
+            if not os.path.isfile(java_path):
+                raise BaseException(
+                    "Java Binary: {} not found".format(java_path))
+        elif FileHelper.is_tool("java"):
+            java_path = "java"
+        #print(java_path)
+        if java_path==None:
+            #print("You must have java to run this operation")
+            raise BaseException("You must have java to run this operation, or use --java={java_path} to specify java binary")
+
+        from or2ywtool import OR2YWCore
+        path = os.path.dirname(OR2YWCore.__file__)
+        #print(path)
+
+        cmd = "cat {} | {} -jar {} graph -c extract.comment='#' > {}".format(temp_folder + text_name, java_path, path+"/yesworkflow-0.2.2.0-SNAPSHOT-jar-with-dependencies.jar", gv_file)
+        ps = subprocess.Popen(cmd, shell=True,stderr=subprocess.STDOUT)
+        output, error_output = ps.communicate()
+        ps.wait()
+        os.remove(temp_folder + text_name)
+        if error_output != None:
+            raise BaseException("you  must have java installed")
+        return gv_file
+
+    @staticmethod
+    def generate_dot(yw_string, dot_file, dot_type="png", java_path=None,dot_path=None):
+        temp_folder = ""
+        tempid = str(uuid.uuid4())
+        vg_filename = "{}.vg".format(tempid)
+        vg_filename = OR2YW.generate_vg(yw_string,vg_filename,java_path=java_path)
+        if dot_path!=None:
+            if not os.path.isfile(dot_path):
+                raise BaseException(
+                    "Dot binary: {} not found".format(dot_path))
+        elif FileHelper.is_tool("dot"):
+            dot_path = "dot"
+        if dot_path==None:
+            raise BaseException(
+                "You must have dot (graphviz) to run this operation, or use --dot={dot_path} to specify dot binary")
+        print(dot_path)
+        cmd = "{} -T{} {} -o {}".format(dot_path, dot_type, vg_filename, dot_file)
+        ps = subprocess.Popen(cmd, shell=True,stderr=subprocess.STDOUT)
+        output, error_output = ps.communicate()
+        ps.wait()
+        os.remove(vg_filename)
+        if error_output != None:
+            raise BaseException("you  must have dot (graphviz) installed")
+        return dot_file
 
 class OR2YWFileProcessor():
     def __init__(self):

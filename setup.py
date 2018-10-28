@@ -2,7 +2,7 @@ from setuptools import setup
 setup(
   name = 'or2ywtool',
   packages = ['or2ywtool'],
-  version = '0.0.3',
+  version = '0.0.4',
   description = 'OR2YW Tool',
   url = 'https://github.com/LanLi2017/OR2YWTool',
   authors = "Lan,Li; Parulian, Nikolaus; Ludaescher Bertram",
