@@ -193,7 +193,7 @@ def writefile(title,description,inputlist,table_counter,yw):
             wf=WF(innerdicts,inputl,tablec,massedit_c,rename_c,texttransform_c,split_c,add_c,col_counter)
             if innerdicts['op']=='core/column-rename':
                 outname=wf.rename()
-                print('rename',outname)
+                #print('rename',outname)
                 f.write('#@begin {}{} #@desc {}\n'.format(innerdicts['op'],rename_c,innerdicts['description']))
                 f.write('#@param oldColumnName:{}\n'.format(innerdicts['oldColumnName']))
                 f.write('#@param newColumnName:{}\n'.format(innerdicts['newColumnName']))
@@ -205,7 +205,7 @@ def writefile(title,description,inputlist,table_counter,yw):
                 outputname=outname
             elif innerdicts['op']=='core/column-addition':
                 outname=wf.addition()
-                print('add',outname)
+                #print('add',outname)
                 f.write('#@begin {}{} #@desc {}\n'.format(innerdicts['op'],add_c,innerdicts['description']))
                 f.write('#@param baseColumnName:{}\n'.format(innerdicts['baseColumnName']))
                 f.write('#@param columnInsertIndex:{}\n'.format(innerdicts['columnInsertIndex']))
@@ -218,7 +218,7 @@ def writefile(title,description,inputlist,table_counter,yw):
                 outputname=outname
             elif innerdicts['op']=='core/column-split':
                 outname=wf.split()
-                print('split',outname)
+                #print('split',outname)
                 f.write('#@begin {}{} #@desc {}\n'.format(innerdicts['op'],split_c,innerdicts['description']))
                 f.write('#@param col-name:{}\n'.format(innerdicts['columnName']))
                 f.write('#@param removeOriginalColumn:{}\n'.format(innerdicts['removeOriginalColumn']))
@@ -259,7 +259,7 @@ def writefile(title,description,inputlist,table_counter,yw):
             add_c=wf.addc
         outputnamelist.append(outputname)
     # merge:
-    print(outputnamelist)
+    #print(outputnamelist)
     f.write('#@begin MergeOperationsColumns #@desc Merge the Parallel Column operations\n')
     for out_name in outputnamelist:
         f.write('#@in {}\n'.format(out_name))
@@ -407,7 +407,7 @@ class OR2YW:
 
         result = writefile(title=title, description=description, inputlist=inputlist,
                              table_counter=tablec, yw=ywdicts)
-        print(result)
+        #print(result)
         return result
 
     @staticmethod
@@ -419,7 +419,6 @@ class OR2YW:
         with open(temp_folder + text_name, "w") as f:
             f.write(yw_string)
         # look for java
-        print(java_path)
         if java_path!=None:
             if not os.path.isfile(java_path):
                 raise BaseException(
@@ -430,7 +429,7 @@ class OR2YW:
         if java_path==None:
             #print("You must have java to run this operation")
             raise BaseException("You must have java to run this operation, or use --java={java_path} to specify java binary")
-
+        print("java found: ",java_path)
         from or2ywtool import OR2YWCore
         path = os.path.dirname(OR2YWCore.__file__)
         #print(path)
@@ -463,7 +462,7 @@ class OR2YW:
         if dot_path==None:
             raise BaseException(
                 "You must have dot (graphviz) to run this operation, or use --dot={dot_path} to specify dot binary")
-        print(dot_path)
+        print("dot found: ",dot_path)
         cmd = "{} -T{} {} -o {}".format(dot_path, dot_type, vg_filename, dot_file)
         ps = subprocess.Popen(cmd, shell=True,stderr=subprocess.STDOUT)
         output, error_output = ps.communicate()
