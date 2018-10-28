@@ -104,20 +104,42 @@ This tool is aimed to connect OpenRefine Recipe which is written in JSON format 
    a. Check your graphviz version:
       
      $ dot -V 
-     
-   b. Install the latest version:
+     dot - graphviz version 2.39.20160823.1445 (20160823.1445)
+    libdir = "/usr/local/lib/graphviz"
+    Activated plugin library: libgvplugin_dot_layout.6.dylib
+    Using layout: dot:dot_layout
+    Activated plugin library: libgvplugin_core.6.dylib
+    Using render: dot:core
+    Using device: dot:dot:core
+    The plugin configuration file:
+      /usr/local/lib/graphviz/config6
+        was successfully loaded.
+        render	:  dot dot_json fig json json0 map mp pic pov ps quartz svg tk vml xdot xdot_json
+        layout	:  circo dot fdp neato nop nop1 nop2 osage patchwork sfdp twopi
+        textlayout	:  textlayout
+        device	:  bmp canon cgimage cmap cmapx cmapx_np dot dot_json eps exr fig gif gv icns ico imap imap_np ismap jp2 jpe jpeg jpg json json0 mp pct pdf pic pict plain plain-ext png pov ps ps2 psd sgi svg svgz tga tif tiff tk vml vmlz xdot xdot1.2 xdot1.4 xdot_json
+        loadimage	:  (lib) bmp eps gif jpe jpeg jpg pdf png ps svg
    
-   1). For Mac users (use Homebrew):
+   **Do check your dot information, there may occur some issues like: "Format: pdf/png not recognized...., then make sure the device can support the formats here."
+     
+   b. Install the latest version [Download Graphviz](https://www.graphviz.org/download/):
+   
+   1). For Mac users (ex.use Homebrew):
     
     $ brew install graphviz
     
-   2). For Windows users ():
+   2). For Windows users, choose one of the methods from the [download](https://www.graphviz.org/download/) website
    
    
-   3). For Linux users():
+   3). For Linux users, choose one of the methods from the [download](https://www.graphviz.org/download/) website
+   
+   c.If the format is not recognized:
+    
    
    
-   c. Use the command to generate the Yesworkflow PDF/PNG file (insert the json file in the correct path, and the output file name):
+   
+   
+   d. Use the command to generate the Yesworkflow PDF/PNG file (insert the json file in the correct path, and the output file name):
    
    ex1. Generate **Parallel Yesworkflow model PDF file:
    
