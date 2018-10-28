@@ -444,7 +444,7 @@ class OR2YW:
         ps.wait()
         os.remove(temp_folder + text_name)
         if error_output != None:
-            raise BaseException("you  must have java installed")
+            raise BaseException("you  must have java installed\n"+error_output)
         return gv_file
 
     @staticmethod
@@ -469,7 +469,7 @@ class OR2YW:
         ps.wait()
         os.remove(vg_filename)
         if error_output != None:
-            raise BaseException("you  must have dot (graphviz) installed")
+            raise BaseException("you  must have dot (graphviz) installed\n"+error_output)
         return dot_file
 
 class OR2YWFileProcessor():
