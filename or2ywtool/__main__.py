@@ -15,7 +15,7 @@ def run():
             help='Workflow Type, Produce [serial,parallel] workflow, Default: serial')
     parser.add_argument('-ot','--outputtype', default="yw",
             help='Output Type, Produce output [yw,gv,png,svg,pdf], Default: yw')
-    parser.add_argument('-j','--java',default=None,help="Java Path, if not initialized will use the java installation environment path")
+    parser.add_argument('-java','--java',default=None,help="Java Path, if not initialized will use the java installation environment path")
     parser.add_argument('-dot','--dot',default=None,help="Dot Path, if not initialized will use the dot installation environment path")
     parser.add_argument('-title','--title', default=None,
             help='Title for the Workflow')
