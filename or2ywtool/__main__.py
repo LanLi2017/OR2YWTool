@@ -15,9 +15,11 @@ def run():
             help='Workflow Type, Produce [serial,parallel] workflow, Default: serial')
     parser.add_argument('-ot','--outputtype', default="yw",
             help='Output Type, Produce output [yw,gv,png,svg,pdf], Default: yw (only yw for now other file type will available in the next release)')
-    parser.add_argument('-ti','--title', default=None,
+    parser.add_argument('-j','--java',default=None,help="Java Path, if not initialized will use the java installation environment path")
+    parser.add_argument('-dot','--dot',default=None,help="Dot Path, if not initialized will use the dot installation environment path")
+    parser.add_argument('-title','--title', default=None,
             help='Title for the Workflow')
-    parser.add_argument('-d','--description', default=None,
+    parser.add_argument('-desc','--description', default=None,
             help='Description for the Workflow')
     args = parser.parse_args(argv[1:])
     argobj = vars(args);
@@ -31,9 +33,21 @@ def run():
     if pas_req:
         try:
             or2yw_proc = OR2YWFileProcessor()
-            or2yw_proc.generate_yw_file(input_file=argobj["input"],output_file=argobj["output"],type=argobj["type"],title=argobj["title"],description=argobj["description"])
+            if argobj["outputtype"] == "yw":
+                or2yw_proc.generate_yw_file(input_file=argobj["input"],output_file=argobj["output"],type=argobj["type"],title=argobj["title"],description=argobj["description"])
+            elif argobj["outputtype"] == "gv":
+                or2yw_proc.generate_vg_file(input_file=argobj["input"], output_file=argobj["output"],
+                                            type=argobj["type"], title=argobj["title"],
+                                            description=argobj["description"],java_path=argobj["java"])
+            elif argobj["outputtype"] in ["png","svg","pdf"]:
+                or2yw_proc.generate_dot_file(input_file=argobj["input"], output_file=argobj["output"], dot_type=argobj["outputtype"],
+                                            type=argobj["type"], title=argobj["title"],
+                                            description=argobj["description"],java_path=argobj["java"],dot_path=argobj["dot"])
+            else:
+                raise BaseException("output type not recognized: {}".format(argobj["outputtype"]))
             print("File {} generated.".format(argobj["output"]))
         except BaseException as exc:
+            parser.print_help()
             print(exc)
     else:
         parser.print_help()
