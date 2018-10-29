@@ -91,11 +91,11 @@ This tool is aimed to connect OpenRefine Recipe which is written in JSON format 
 
    a. Generate Serial yw file:
       
-       $ python -m or2ywtool -i or2ywtool/test.json -o test.yw -t 
+       $ or2yw -i or2ywtool/test.json -o test.yw -t 
    
    b. Generate Parallel yw file:
        
-       $ python -m or2ywtool -i or2ywtool/test.json -o test.yw -t parallel
+       $ or2yw -i or2ywtool/test.json -o test.yw -t parallel
        
    c. Test on Yesworkflow Editor: [Yesworkflow](http://try.yesworkflow.org/)
        
@@ -143,19 +143,19 @@ This tool is aimed to connect OpenRefine Recipe which is written in JSON format 
    
    ex1. Generate **Parallel Yesworkflow model PDF file:
    
-    $ python -m or2ywtool -i or2ywtool/test.json -o testa.pdf -ot pdf -t parallel
+    $ or2yw -i or2ywtool/test.json -o testa.pdf -ot pdf -t parallel
    
    ex2. Generate **Parallel Yesworkflow model PNG file:
    
-    $ python -m or2ywtool -i or2ywtool/test.json -o testa.png -ot png -t parallel
+    $ or2yw -i or2ywtool/test.json -o testa.png -ot png -t parallel
     
    ex3. Generate **Linear Yesworkflow model PDF file:
      
-    $ python -m or2ywtool -i or2ywtool/test.json -o testa.pdf -ot pdf
+    $ or2yw -i or2ywtool/test.json -o testa.pdf -ot pdf
     
    ex4. Generate **Linear Yesworkflow model PNG file:
     
-    $ python -m or2ywtool -i or2ywtool/test.json -o testa.png -ot png
+    $ or2yw -i or2ywtool/test.json -o testa.png -ot png
    
     
 
