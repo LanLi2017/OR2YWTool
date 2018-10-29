@@ -62,7 +62,7 @@ This tool is aimed to connect OpenRefine Recipe which is written in JSON format 
 
 2.1 Generate yw file , copy and paste on Yesworkflow Editor (No need to install other dependency packages)
 
-       $ python -m or2ywtool
+       $ or2yw
          usage: __main__.py [-h] [-i INPUT] [-o OUTPUT] [-t TYPE] [-ot OUTPUTTYPE]
                    [-j JAVA] [-dot DOT] [-title TITLE] [-desc DESCRIPTION]
 
