@@ -1,0 +1,107 @@
+[
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column sponsor using expression value.toLowercase()",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "sponsor",
+    "expression": "value.toLowercase()",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column date using expression value.toDate()",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "date",
+    "expression": "value.toDate()",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column page_count using expression value.toNumber()",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "page_count",
+    "expression": "value.toNumber()",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/column-rename",
+    "description": "Rename column sponsor to Sponsor",
+    "oldColumnName": "sponsor",
+    "newColumnName": "Sponsor"
+  },
+  {
+    "op": "core/column-addition",
+    "description": "Create column Sponsor1 at index 3 based on column Sponsor using expression grel:value",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "newColumnName": "Sponsor1",
+    "columnInsertIndex": 3,
+    "baseColumnName": "Sponsor",
+    "expression": "grel:value",
+    "onError": "keep-original"
+  },
+  {
+    "op": "core/column-split",
+    "description": "Split column Sponsor by separator",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "Sponsor",
+    "guessCellType": true,
+    "removeOriginalColumn": true,
+    "mode": "separator",
+    "separator": " ",
+    "regex": false,
+    "maxColumns": 0
+  },
+  {
+    "op": "core/column-rename",
+    "description": "Rename column Sponsor 1 to test_Sponsor",
+    "oldColumnName": "Sponsor 1",
+    "newColumnName": "test_Sponsor"
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column date using expression value.toNumber()",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "date",
+    "expression": "value.toNumber()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/column-addition",
+    "description": "Create column page_count1 at index 40 based on column page_count using expression grel:value",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "newColumnName": "page_count1",
+    "columnInsertIndex": 40,
+    "baseColumnName": "page_count",
+    "expression": "grel:value",
+    "onError": "set-to-blank"
+  }
+]
