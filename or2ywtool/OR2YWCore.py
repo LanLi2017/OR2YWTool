@@ -284,6 +284,10 @@ class OR2YW:
 
     @staticmethod
     def generate_yw_serial(operations,title="Linear_OR",description="Linear OpenRefine Workflow"):
+        if title==None:
+            title = "Linear_OR"
+        if description==None:
+            description = "Linear OpenRefine Workflow"
         inputdatalist = []
         data = operations
         outputfinal = 'table' + str(len(data))
@@ -385,6 +389,11 @@ class OR2YW:
         return yw_script (text / string)
         :return:
         """
+        if title==None:
+            title = "Parallel_OR"
+        if description==None:
+            description = "Parallel OpenRefine Workflow"
+            
         data=operations
         tablec=0
         inputlist = []

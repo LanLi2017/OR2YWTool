@@ -14,7 +14,7 @@ setup(
   long_description=long_description,
   long_description_content_type='text/markdown',
   url = 'https://github.com/LanLi2017/OR2YWTool',
-  authors = "Lan,Li; Parulian, Nikolaus; Ludaescher Bertram",
+  author = "Lan,Li; Parulian, Nikolaus; Ludaescher Bertram",
   package_data={'or2ywtool': ['yesworkflow-0.2.2.0-SNAPSHOT-jar-with-dependencies.jar','yw.properties']},
   include_package_data=True,
   classifiers=[  # Optional
