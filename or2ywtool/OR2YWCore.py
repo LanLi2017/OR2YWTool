@@ -312,6 +312,13 @@ class OR2YW:
                 inputdatalist.append(separator)
                 inputdatalist.append(remove)
 
+            elif dicts['op']=='core/column-addition':
+                colname = 'col-name:' + dicts['baseColumnName']
+                newColumnName='newColumnName:{}'.format(dicts['newColumnName'])
+                inputdatalist.append(colname)
+                inputdatalist.append(newColumnName)
+
+
         deinputdatalist = set(inputdatalist)
 
         # for sublist in list(deinputdatalist):
@@ -331,6 +338,7 @@ class OR2YW:
         massedit_c = 0
         texttrans_c = 0
         colsplit_c = 0
+        coladdit_c=0
         table_c = 0
         for dicts in data:
             if dicts['op'] == 'core/column-rename':
@@ -371,6 +379,29 @@ class OR2YW:
                 f.write('#@out table%d\n' % table_c)
                 f.write('#@end core/column-split%d\n' % colsplit_c)
                 colsplit_c += 1
+                # {
+                #     "op": "core/column-addition",
+                #     "description": "Create column Sponsor1 at index 3 based on column Sponsor using expression grel:value",
+                #     "engineConfig": {
+                #         "mode": "row-based",
+                #         "facets": []
+                #     },
+                #     "newColumnName": "Sponsor1",
+                #     "columnInsertIndex": 3,
+                #     "baseColumnName": "Sponsor",
+                #     "expression": "grel:value",
+                #     "onError": "keep-original"
+                # },
+            elif dicts['op']=='core/column-addition':
+                f.write('#@begin core/column-addition%d' % coladdit_c + '#@desc ' + dicts['description'] + '\n')
+                f.write('#@param col-name:' + dicts['baseColumnName'] + '\n')
+                f.write('#@param newColumnName:' + '"%s"' % (dicts['newColumnName']) + '\n')
+                f.write('#@in table%d\n' % table_c)
+                table_c += 1
+                f.write('#@out table%d\n' % table_c)
+                f.write('#@end core/column-addition%d\n' % coladdit_c)
+                coladdit_c += 1
+
 
         f.write('#@end {}\n'.format(title))
         output_string = f.getvalue()
