@@ -163,6 +163,7 @@ def getInputlist(params,tablec,inputl):
 def ruleforinput(ind,outname):
     if ind==0:
         in_name='table0'
+        print('dd')
 
     else:
         in_name='{}'.format(outname)
