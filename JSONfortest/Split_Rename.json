@@ -1,0 +1,36 @@
+[
+  {
+    "op": "core/column-split",
+    "description": "Split column sponsor by separator",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "sponsor",
+    "guessCellType": true,
+    "removeOriginalColumn": true,
+    "mode": "separator",
+    "separator": " ",
+    "regex": false,
+    "maxColumns": 0
+  },
+  {
+    "op": "core/column-rename",
+    "description": "Rename column sponsor 1 to Sponsor1",
+    "oldColumnName": "sponsor 1",
+    "newColumnName": "Sponsor1"
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column event using expression value.toLowercase()",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "event",
+    "expression": "value.toLowercase()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  }
+]
