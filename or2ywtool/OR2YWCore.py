@@ -89,7 +89,10 @@ class WF:
         # "expression": "grel:cells.name.value + cells.event.value",   \.\w+\.
         collist=addition_dependency(self.params)
         self.parlist.extend([newcol_name,basecol_name,colInsert_index])
-        self.parlist.extend(collist)
+        if len(collist)>1:
+            mergecol_name0='mergecolname0:{}'.format(collist[0].replace(" ", "_"))
+            mergecol_name1='mergecolname1:{}'.format(collist[1].replace(" ", "_"))
+            self.parlist.extend([mergecol_name0,mergecol_name1])
         self.table_counter+=1
         self.addc+=1
         outname='table{}'.format(self.table_counter)
@@ -132,8 +135,12 @@ def add_dependency(wf):
                 wf[i]['dependency']=wf[i]['oldColumnName'].split()[0]
             for j in range(i+1,len(wf)):
                 if wf[j]['op']=='core/column-addition':
-                    if wf[j]['baseColumnName']==wf[i]['newColumnName']:
-                        wf[j]['dependency']=wf[i]['oldColumnName']
+                    #
+                    collist=addition_dependency(wf[j])
+                    if len(collist)==1:
+                        wf[j]['dependency']= wf[j]['newColumnName']
+                    # all of the columns in collist should be the dependency
+                    wf[j]['dependency']=collist
                 elif wf[j]['op']=='core/column-rename':
                     if any([wf[j]['oldColumnName']==wf[i]['newColumnName'],wf[j]['newColumnName']==wf[i]['oldColumnName']]):
                         wf[j]['dependency']=wf[i]['dependency']
@@ -141,25 +148,31 @@ def add_dependency(wf):
                     if wf[j]['columnName'].split()[0]==wf[i]['newColumnName']:
                         wf[j]['dependency']=wf[i]['dependency']
         elif wf[i]['op']=='core/column-addition':
+            collist=addition_dependency(wf[i])
             if 'dependency' not in wf[i]:
-                wf[i]['dependency']=wf[i]['baseColumnName'].split()[0]
+                wf[i]['dependency']=collist
             for j in range(i+1,len(wf)):
                 if wf[j]['op']=='core/column-addition':
-                    if wf[j]['baseColumnName']==wf[i]['newColumnName']:
-                        wf[j]['dependency']=wf[i]['dependency']
+                    subcollist=addition_dependency(wf[j])
+                    if len(subcollist)==1:
+                        wf[j]['dependency']=wf[j]['newColumnName']
+                    wf[j]['dependency']=subcollist
                 elif wf[j]['op']=='core/column-rename':
-                    if any([wf[j]['oldColumnName']==wf[i]['newColumnName'],wf[j]['oldColumnName']==wf[i]['baseColumnName']]):
-                        wf[j]['dependency']=wf[i]['dependency']
+                    if wf[j]['oldColumnName']==wf[i]['newColumnName']:
+                        wf[j]['dependency']=wf[i]['newColumnName']
                 else:
-                    if any([wf[j]['columnName'].split()[0]==wf[i]['baseColumnName'],wf[j]['columnName'].split()[0]==wf[i]['newColumnName']]):
-                        wf[j]['dependency']=wf[i]['dependency']
+                    if wf[j]['columnName'].split()[0]==wf[i]['newColumnName']:
+                        wf[j]['dependency']=wf[i]['newColumnName']
         elif wf[i]['op']=='core/column-split':
             if 'dependency' not in wf[i]:
                 wf[i]['dependency']=wf[i]['columnName'].split()[0]
             for j in range(i+1,len(wf)):
                 if wf[j]['op']=='core/column-addition':
-                    if wf[j]['baseColumnName'].split()[0]==wf[i]['columnName'].split()[0]:
-                        wf[j]['dependency']=wf[i]['dependency']
+                    collist=addition_dependency(wf[j])
+                    if len(collist)==1:
+                        #  no dependency here
+                        wf[j]['dependency']=wf[j]['newColumnName']
+                    wf[j]['dependency']=collist
                 elif wf[j]['op']=='core/column-rename':
                     if wf[j]['oldColumnName'].split()[0]==wf[i]['columnName'].split()[0]:
                         wf[j]['dependency']=wf[i]['dependency']
@@ -279,10 +292,19 @@ def writefile(title,description,inputlist,table_counter,yw):
                 # need further edition
                 b_coln=innerdicts['baseColumnName']
                 n_coln=innerdicts['columnInsertIndex']
+                collist=addition_dependency(innerdicts)
+                    # mergecol_name0='mergecolname0:{}'.format(collist[0])
+                    # mergecol_name1='mergecolname1:{}'.format(collist[1])
+
                 f.write('#@begin {}{} #@desc {}\n'.format(innerdicts['op'],add_c,innerdicts['description']))
                 f.write('#@param baseColumnName:{}\n'.format(b_coln.replace(" ", "_")))
                 f.write('#@param columnInsertIndex:{}\n'.format(n_coln))
                 f.write('#@param newColumnName:{}\n'.format(innerdicts['newColumnName']))
+                if len(collist)>1:
+                    mergecol_name0=collist[0].replace(" ", "_")
+                    mergecol_name1=collist[1].replace(" ", "_")
+                    f.write('#@param mergecolname0:{}\n'.format(mergecol_name0))
+                    f.write('#@param mergecolname1:{}\n'.format(mergecol_name1))
                 # here need further edition
                 in_name=ruleforinput(key_l,value_l,ind,outputname,b_coln)
                 f.write('#@in {}\n'.format(in_name))
