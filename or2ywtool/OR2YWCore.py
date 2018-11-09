@@ -1,5 +1,7 @@
 # import all library needed for this class
 import json
+import re
+from collections import Counter
 
 from itertools import groupby
 from io import StringIO
@@ -20,6 +22,25 @@ class FileHelper:
         return find_executable(name) is not None
 
 
+def addition_dependency(params):
+    # two kinds of expressions :
+    # 1. the column name has space: "grel:cells[\"Sponsor 2\"].value + cells[\"Sponsor 7\"].value"  : [A-Z]\w+ \d
+    # 2. the column name does not have space: "grel:cells.name.value + cells.event.value" :   \.\w+\.
+    #  normal one: "grel:value"
+    exp=params['expression']
+    res=params['baseColumnName'].replace(" ", "_")
+    if exp=='"grel:value"':
+    #      missing information here: if no merge other columns, we still do not know if the new column is set
+    # --------dependency as basecolumnName
+       result=res
+       return result
+    result=re.findall('\.\w+\.',exp)
+    if result:
+        return result
+    else:
+        return re.findall('[A-Z]\w+ \d',exp)
+
+
 class WF:
     def __init__(self,params,inputlist,tablec=0,mass_editc=0,rename_c=0,textt_c=0,split_c=0,add_c=0,col_counter=0):
         self.parlist = inputlist
@@ -33,7 +54,7 @@ class WF:
         self.addc=add_c
 
     def text_transform(self):
-        col=self.params['columnName']
+        col=(self.params['columnName']).replace(" ", "_")
         expre=self.params['expression']
         columnnName='col-name:{}'.format(col)
         expression='expression:{}'.format(expre)
@@ -44,8 +65,8 @@ class WF:
         return outname
 
     def rename(self):
-        oldcol=self.params['oldColumnName']
-        newcol=self.params['newColumnName']
+        oldcol=(self.params['oldColumnName']).replace(" ", "_")
+        newcol=(self.params['newColumnName']).replace(" ", "_")
         oldcol_name='oldColumnName:{}'.format(oldcol)
         newcol_name='newColumnName:{}'.format(newcol)
         self.parlist.extend([oldcol_name,newcol_name])
@@ -55,22 +76,27 @@ class WF:
         return outname
 
     def addition(self):
-        newcol=self.params['newColumnName']
-        basecol=self.params['baseColumnName']
+        newcol=(self.params['newColumnName']).replace(" ", "_")
+        basecol=(self.params['baseColumnName']).replace(" ", "_")
         colInsert=self.params['columnInsertIndex']
         expre=self.params['expression']
         newcol_name='newColumnName:{}'.format(newcol)
         basecol_name='baseColumnName:{}'.format(basecol)
         colInsert_index='columnInsertIndex:{}'.format(colInsert)
         expression='expression:{}'.format(expre)
-        self.parlist.extend([newcol_name,basecol_name,colInsert_index,expression])
+        # "expression": "grel:cells[\"Sponsor 2\"].value + cells[\"Sponsor 7\"].value"
+        # "expression": "grel:value"
+        # "expression": "grel:cells.name.value + cells.event.value",   \.\w+\.
+        collist=addition_dependency(self.params)
+        self.parlist.extend([newcol_name,basecol_name,colInsert_index])
+        self.parlist.extend(collist)
         self.table_counter+=1
         self.addc+=1
         outname='table{}'.format(self.table_counter)
         return outname
 
     def split(self):
-        col=self.params['columnName']
+        col=(self.params['columnName']).replace(" ", "_")
         removeOR=self.params['removeOriginalColumn']
         separ=self.params['separator']
         col_name='col-name:{}'.format(col)
@@ -83,7 +109,7 @@ class WF:
         return outname
 
     def mass_edit(self):
-        col=self.params['columnName']
+        col=(self.params['columnName']).replace(" ", "_")
         expre=self.params['expression']
 #         edits=self.params['']
         col_name='col-name:{}'.format(col)
@@ -99,7 +125,7 @@ def add_dependency(wf):
     for i in range(len(wf)):
         # print(i)
         if any([wf[i]['op']=='core/text-transform',wf[i]['op']=='core/mass-edit']):
-            wf[i]['dependency']=wf[i]['columnName']
+            wf[i]['dependency']=wf[i]['columnName'].split()[0]
 
         elif wf[i]['op']=='core/column-rename':
             if 'dependency' not in wf[i]:
@@ -160,14 +186,50 @@ def getInputlist(params,tablec,inputl):
     return inputlist,table_counter
 
 
-def ruleforinput(ind,outname):
+def ruleforinput(key_l,value_l,ind,outname,colname):
+    # ['A', 'A 1', 'A 2']
+    # ['table0', 'A 1',...]
+    # {'A': 'table0' , 'A 1': 'table1', 'A 2': '...','' }
+
+    key_l.append(colname)
+    #     ['A','A 1']
+    value_l.append(outname)
+    lenth_list=len(key_l)
+    #     ['table0','table1']
+    in_name=''
+    # linklist={ k.replace(' ', '_'): v for k, v in olinklist.items() }
     if ind==0:
         in_name='table0'
-        print('dd')
-
     else:
-        in_name='{}'.format(outname)
+        # search......' A 1 '
+        for idx, name in enumerate(key_l):
+            if len(name.split())>1 and colname not in key_l[:lenth_list-1] :  # some condition you like
+                # do sth with idx
+                value_l[lenth_list-1]=value_l[idx]
+                in_name='{}'.format(value_l[lenth_list-1])
+                break
+            else:
+                in_name='{}'.format(outname)
     return in_name
+
+
+def get_branch_leafs(parents, children):
+    children_number = Counter(parents)
+    for node in parents:
+        if children_number[node] > 1:
+            return list(filter(lambda child: children_number[child] == 0, children))
+    return [children[-1]]  # no branch
+
+
+def ruleforoutput(out_l,in_l):
+    # in_l:  ['table0', 'col:sponsor1','table1','table2','table3','table3','table4']
+    # out_l: ['col:sponsor1','table1','table2','table3','table4', 'table5','table6']
+    # duplicate names in in_l:  same input:  branches-> positions
+    # make sure the branches are also the dead end -> positions in out_l not shown in in_l
+    # using tree to solve this:  Counter: more than one child means branching happen;
+    #  find all of the children node from this branch and return it
+    branch=get_branch_leafs(in_l,out_l)
+    return branch
 
 
 def writefile(title,description,inputlist,table_counter,yw):
@@ -178,6 +240,8 @@ def writefile(title,description,inputlist,table_counter,yw):
     f.write('#@in table0\n')
     f.write('#@out table{}\n'.format(table_counter+1))
     # write contents
+    key_l=[]
+    value_l=[]
     tablec=0
     massedit_c=0
     texttransform_c=0
@@ -185,72 +249,91 @@ def writefile(title,description,inputlist,table_counter,yw):
     rename_c=0
     add_c=0
     inputl=[]
-    outputnamelist=[]
+    outnamelist=[]
     for innerlist in yw:
         ind=0
-        outputname=''
+        outputname='table0'
         col_counter=0
+        output=[]
+        outputnamelist=[]
+        innamelist=[]
         for innerdicts in innerlist:
             wf=WF(innerdicts,inputl,tablec,massedit_c,rename_c,texttransform_c,split_c,add_c,col_counter)
             if innerdicts['op']=='core/column-rename':
                 outname=wf.rename()
-                #print('rename',outname)
+                ocol_n=innerdicts['oldColumnName']
+                ncol_n=innerdicts['newColumnName']
                 f.write('#@begin {}{} #@desc {}\n'.format(innerdicts['op'],rename_c,innerdicts['description']))
-                f.write('#@param oldColumnName:{}\n'.format(innerdicts['oldColumnName']))
-                f.write('#@param newColumnName:{}\n'.format(innerdicts['newColumnName']))
-                in_name=ruleforinput(ind,outputname)
+                f.write('#@param oldColumnName:{}\n'.format(ocol_n.replace(" ", "_")))
+                f.write('#@param newColumnName:{}\n'.format(ncol_n.replace(" ", "_")))
+                in_name=ruleforinput(key_l,value_l,ind,outputname,ocol_n)
                 f.write('#@in {}\n'.format(in_name))
                 f.write('#@out {}\n'.format(outname))
                 f.write('#@end {}{}\n'.format(innerdicts['op'],rename_c))
                 ind+=1
                 outputname=outname
+                outputnamelist.append(outputname)
+                innamelist.append(in_name)
             elif innerdicts['op']=='core/column-addition':
                 outname=wf.addition()
-                #print('add',outname)
+                # need further edition
+                b_coln=innerdicts['baseColumnName']
+                n_coln=innerdicts['columnInsertIndex']
                 f.write('#@begin {}{} #@desc {}\n'.format(innerdicts['op'],add_c,innerdicts['description']))
-                f.write('#@param baseColumnName:{}\n'.format(innerdicts['baseColumnName']))
-                f.write('#@param columnInsertIndex:{}\n'.format(innerdicts['columnInsertIndex']))
+                f.write('#@param baseColumnName:{}\n'.format(b_coln.replace(" ", "_")))
+                f.write('#@param columnInsertIndex:{}\n'.format(n_coln))
                 f.write('#@param newColumnName:{}\n'.format(innerdicts['newColumnName']))
-                in_name=ruleforinput(ind,outputname)
+                # here need further edition
+                in_name=ruleforinput(key_l,value_l,ind,outputname,b_coln)
                 f.write('#@in {}\n'.format(in_name))
                 f.write('#@out {}\n'.format(outname))
                 f.write('#@end {}{}\n'.format(innerdicts['op'],add_c))
                 ind+=1
                 outputname=outname
+                outputnamelist.append(outputname)
+                innamelist.append(in_name)
             elif innerdicts['op']=='core/column-split':
                 outname=wf.split()
-                #print('split',outname)
+                col_n=innerdicts['columnName']
                 f.write('#@begin {}{} #@desc {}\n'.format(innerdicts['op'],split_c,innerdicts['description']))
-                f.write('#@param col-name:{}\n'.format(innerdicts['columnName']))
+                f.write('#@param col-name:{}\n'.format(col_n.replace(" ", "_")))
                 f.write('#@param removeOriginalColumn:{}\n'.format(innerdicts['removeOriginalColumn']))
                 f.write('#@param separator:{}\n'.format(innerdicts['separator']))
-                in_name=ruleforinput(ind,outputname)
+                in_name=ruleforinput(key_l,value_l,ind,outputname,col_n)
                 f.write('#@in {}\n'.format(in_name))
                 f.write('#@out {}\n'.format(outname))
                 f.write('#@end {}{}\n'.format(innerdicts['op'],split_c))
                 ind+=1
                 outputname=outname
+                outputnamelist.append(outputname)
+                innamelist.append(in_name)
             elif innerdicts['op']=='core/text-transform':
                 outname=wf.text_transform()
+                col_n=innerdicts['columnName']
                 f.write('#@begin {}{} #@desc {}\n'.format(innerdicts['op'],texttransform_c,innerdicts['description']))
-                f.write('#@param col-name:{}\n'.format(innerdicts['columnName']))
+                f.write('#@param col-name:{}\n'.format(col_n.replace(" ", "_")))
                 f.write('#@param expression:{}\n'.format(innerdicts['expression']))
-                in_name=ruleforinput(ind,outputname)
+                in_name=ruleforinput(key_l,value_l,ind,outputname,col_n)
                 f.write('#@in {}\n'.format(in_name))
                 f.write('#@out {}\n'.format(outname))
                 f.write('#@end {}{}\n'.format(innerdicts['op'],texttransform_c))
                 ind+=1
                 outputname=outname
+                outputnamelist.append(outputname)
+                innamelist.append(in_name)
             elif innerdicts['op']=='core/mass-edit':
                 outname=wf.mass_edit()
+                col_n=innerdicts['columnName']
                 f.write('#@begin {}{} #@desc {}\n'.format(innerdicts['op'],massedit_c,innerdicts['description']))
-                f.write('#@param col-name:{}\n'.format(innerdicts['columnName']))
-                in_name=ruleforinput(ind,outputname)
+                f.write('#@param col-name:{}\n'.format(col_n.replace(" ", "_")))
+                in_name=ruleforinput(key_l,value_l,ind,outputname,col_n)
                 f.write('#@in {}\n'.format(in_name))
                 f.write('#@out {}\n'.format(outname))
                 f.write('#@end {}{}\n'.format(innerdicts['op'],massedit_c))
                 ind+=1
                 outputname=outname
+                outputnamelist.append(outputname)
+                innamelist.append(in_name)
             col_counter=wf.col_counter
             tablec=wf.table_counter
             massedit_c=wf.mass_editc
@@ -258,11 +341,11 @@ def writefile(title,description,inputlist,table_counter,yw):
             texttransform_c=wf.texttc
             split_c=wf.splitc
             add_c=wf.addc
-        outputnamelist.append(outputname)
+        output.extend(ruleforoutput(outputnamelist,innamelist))
+        outnamelist.extend(output)
     # merge:
-    #print(outputnamelist)
     f.write('#@begin MergeOperationsColumns #@desc Merge the Parallel Column operations\n')
-    for out_name in outputnamelist:
+    for out_name in outnamelist:
         f.write('#@in {}\n'.format(out_name))
 
     f.write('#@out table{}\n'.format(table_counter+1))
@@ -425,7 +508,7 @@ class OR2YW:
             title = "Parallel_OR"
         if description==None:
             description = "Parallel OpenRefine Workflow"
-            
+
         data=operations
         tablec=0
         inputlist = []
