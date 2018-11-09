@@ -28,17 +28,27 @@ def addition_dependency(params):
     # 2. the column name does not have space: "grel:cells.name.value + cells.event.value" :   \.\w+\.
     #  normal one: "grel:value"
     exp=params['expression']
-    res=params['baseColumnName'].replace(" ", "_")
-    if exp=='"grel:value"':
+    res=params['newColumnName'].replace(" ", "_")
+    if exp=='grel:value':
     #      missing information here: if no merge other columns, we still do not know if the new column is set
     # --------dependency as basecolumnName
        result=res
+       print('value: {}'.format(result))
        return result
     result=re.findall('\.\w+\.',exp)
     if result:
+        newm=[]
+        for col in result:
+            newm.append(col[1:len(col)-1].replace(" ", "_"))
+        result=newm
         return result
     else:
-        return re.findall('[A-Z]\w+ \d',exp)
+        result=re.findall('[A-Z]\w+ \d',exp)
+        newm=[]
+        for col in result:
+            newm.append(col.replace(" ", "_"))
+        result=newm
+        return result
 
 
 class WF:
@@ -89,7 +99,7 @@ class WF:
         # "expression": "grel:cells.name.value + cells.event.value",   \.\w+\.
         collist=addition_dependency(self.params)
         self.parlist.extend([newcol_name,basecol_name,colInsert_index])
-        if len(collist)>1:
+        if type(collist) is list:
             mergecol_name0='mergecolname0:{}'.format(collist[0].replace(" ", "_"))
             mergecol_name1='mergecolname1:{}'.format(collist[1].replace(" ", "_"))
             self.parlist.extend([mergecol_name0,mergecol_name1])
@@ -203,7 +213,6 @@ def ruleforinput(key_l,value_l,ind,outname,colname):
     # ['A', 'A 1', 'A 2']
     # ['table0', 'A 1',...]
     # {'A': 'table0' , 'A 1': 'table1', 'A 2': '...','' }
-
     key_l.append(colname)
     #     ['A','A 1']
     value_l.append(outname)
@@ -289,24 +298,34 @@ def writefile(title,description,inputlist,table_counter,yw):
                 innamelist.append(in_name)
             elif innerdicts['op']=='core/column-addition':
                 outname=wf.addition()
-                # need further edition
+                # no dependency just one column
+                new_coln=innerdicts['newColumnName']
                 b_coln=innerdicts['baseColumnName']
                 n_coln=innerdicts['columnInsertIndex']
                 collist=addition_dependency(innerdicts)
                     # mergecol_name0='mergecolname0:{}'.format(collist[0])
                     # mergecol_name1='mergecolname1:{}'.format(collist[1])
-
                 f.write('#@begin {}{} #@desc {}\n'.format(innerdicts['op'],add_c,innerdicts['description']))
                 f.write('#@param baseColumnName:{}\n'.format(b_coln.replace(" ", "_")))
                 f.write('#@param columnInsertIndex:{}\n'.format(n_coln))
                 f.write('#@param newColumnName:{}\n'.format(innerdicts['newColumnName']))
-                if len(collist)>1:
+                if type(collist) is list:
                     mergecol_name0=collist[0].replace(" ", "_")
                     mergecol_name1=collist[1].replace(" ", "_")
                     f.write('#@param mergecolname0:{}\n'.format(mergecol_name0))
                     f.write('#@param mergecolname1:{}\n'.format(mergecol_name1))
+                    in_name0=ruleforinput(key_l,value_l,ind,outputname,mergecol_name0)
+                    in_name1=ruleforinput(key_l,value_l,ind,outputname,mergecol_name1)
+                    f.write('#@in {}\n'.format(in_name0))
+                    f.write('#@in {}\n'.format(in_name1))
+                    f.write('#@out {}\n'.format(outname))
+                    f.write('#@end {}{}\n'.format(innerdicts['op'],add_c))
+                    ind+=1
+                    outputname=outname
+                    outputnamelist.extend([outputname,outputname])
+                    innamelist.extend([mergecol_name0,mergecol_name1])
                 # here need further edition
-                in_name=ruleforinput(key_l,value_l,ind,outputname,b_coln)
+                in_name=ruleforinput(key_l,value_l,ind,outputname,new_coln)
                 f.write('#@in {}\n'.format(in_name))
                 f.write('#@out {}\n'.format(outname))
                 f.write('#@end {}{}\n'.format(innerdicts['op'],add_c))
