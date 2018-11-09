@@ -325,14 +325,15 @@ def writefile(title,description,inputlist,table_counter,yw):
                     outputnamelist.extend([outputname,outputname])
                     innamelist.extend([mergecol_name0,mergecol_name1])
                 # here need further edition
-                in_name=ruleforinput(key_l,value_l,ind,outputname,new_coln)
-                f.write('#@in {}\n'.format(in_name))
-                f.write('#@out {}\n'.format(outname))
-                f.write('#@end {}{}\n'.format(innerdicts['op'],add_c))
-                ind+=1
-                outputname=outname
-                outputnamelist.append(outputname)
-                innamelist.append(in_name)
+                else:
+                    in_name=ruleforinput(key_l,value_l,ind,outputname,new_coln)
+                    f.write('#@in {}\n'.format(in_name))
+                    f.write('#@out {}\n'.format(outname))
+                    f.write('#@end {}{}\n'.format(innerdicts['op'],add_c))
+                    ind+=1
+                    outputname=outname
+                    outputnamelist.append(outputname)
+                    innamelist.append(in_name)
             elif innerdicts['op']=='core/column-split':
                 outname=wf.split()
                 col_n=innerdicts['columnName']
