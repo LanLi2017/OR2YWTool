@@ -89,16 +89,12 @@ class WF:
         newcol=(self.params['newColumnName']).replace(" ", "_")
         basecol=(self.params['baseColumnName']).replace(" ", "_")
         colInsert=self.params['columnInsertIndex']
-        expre=self.params['expression']
-        newcol_name='newColumnName:{}'.format(newcol)
-        basecol_name='baseColumnName:{}'.format(basecol)
         colInsert_index='columnInsertIndex:{}'.format(colInsert)
-        expression='expression:{}'.format(expre)
         # "expression": "grel:cells[\"Sponsor 2\"].value + cells[\"Sponsor 7\"].value"
         # "expression": "grel:value"
         # "expression": "grel:cells.name.value + cells.event.value",   \.\w+\.
         collist=addition_dependency(self.params)
-        self.parlist.extend([newcol_name,basecol_name,colInsert_index])
+        self.parlist.extend([newcol,basecol,colInsert_index])
         if type(collist) is list:
             mergecol_name0='mergecolname0:{}'.format(collist[0].replace(" ", "_"))
             mergecol_name1='mergecolname1:{}'.format(collist[1].replace(" ", "_"))
@@ -107,6 +103,7 @@ class WF:
         self.addc+=1
         outname='table{}'.format(self.table_counter)
         return outname
+
 
     def split(self):
         col=(self.params['columnName']).replace(" ", "_")
@@ -145,12 +142,8 @@ def add_dependency(wf):
                 wf[i]['dependency']=wf[i]['oldColumnName'].split()[0]
             for j in range(i+1,len(wf)):
                 if wf[j]['op']=='core/column-addition':
-                    #
-                    collist=addition_dependency(wf[j])
-                    if len(collist)==1:
-                        wf[j]['dependency']= wf[j]['newColumnName']
+                    wf[j]['dependency']= wf[j]['newColumnName'].split()[0]
                     # all of the columns in collist should be the dependency
-                    wf[j]['dependency']=collist
                 elif wf[j]['op']=='core/column-rename':
                     if any([wf[j]['oldColumnName']==wf[i]['newColumnName'],wf[j]['newColumnName']==wf[i]['oldColumnName']]):
                         wf[j]['dependency']=wf[i]['dependency']
@@ -158,31 +151,24 @@ def add_dependency(wf):
                     if wf[j]['columnName'].split()[0]==wf[i]['newColumnName']:
                         wf[j]['dependency']=wf[i]['dependency']
         elif wf[i]['op']=='core/column-addition':
-            collist=addition_dependency(wf[i])
             if 'dependency' not in wf[i]:
-                wf[i]['dependency']=collist
+                wf[i]['dependency']=wf[i]['newColumnName']
             for j in range(i+1,len(wf)):
                 if wf[j]['op']=='core/column-addition':
-                    subcollist=addition_dependency(wf[j])
-                    if len(subcollist)==1:
-                        wf[j]['dependency']=wf[j]['newColumnName']
-                    wf[j]['dependency']=subcollist
+                    wf[j]['dependency']=wf[j]['newColumnName']
                 elif wf[j]['op']=='core/column-rename':
                     if wf[j]['oldColumnName']==wf[i]['newColumnName']:
-                        wf[j]['dependency']=wf[i]['newColumnName']
+                        wf[j]['dependency']=wf[i]['newColumnName'].split()[0]
                 else:
                     if wf[j]['columnName'].split()[0]==wf[i]['newColumnName']:
-                        wf[j]['dependency']=wf[i]['newColumnName']
+                        wf[j]['dependency']=wf[i]['newColumnName'].split()[0]
         elif wf[i]['op']=='core/column-split':
             if 'dependency' not in wf[i]:
                 wf[i]['dependency']=wf[i]['columnName'].split()[0]
             for j in range(i+1,len(wf)):
                 if wf[j]['op']=='core/column-addition':
-                    collist=addition_dependency(wf[j])
-                    if len(collist)==1:
-                        #  no dependency here
-                        wf[j]['dependency']=wf[j]['newColumnName']
-                    wf[j]['dependency']=collist
+                    #  no dependency here
+                    wf[j]['dependency']=wf[j]['newColumnName'].split()[0]
                 elif wf[j]['op']=='core/column-rename':
                     if wf[j]['oldColumnName'].split()[0]==wf[i]['columnName'].split()[0]:
                         wf[j]['dependency']=wf[i]['dependency']
@@ -314,26 +300,14 @@ def writefile(title,description,inputlist,table_counter,yw):
                     mergecol_name1=collist[1].replace(" ", "_")
                     f.write('#@param mergecolname0:{}\n'.format(mergecol_name0))
                     f.write('#@param mergecolname1:{}\n'.format(mergecol_name1))
-                    in_name0=ruleforinput(key_l,value_l,ind,outputname,mergecol_name0)
-                    in_name1=ruleforinput(key_l,value_l,ind,outputname,mergecol_name1)
-                    f.write('#@in {}\n'.format(in_name0))
-                    f.write('#@in {}\n'.format(in_name1))
-                    f.write('#@out {}\n'.format(outname))
-                    f.write('#@end {}{}\n'.format(innerdicts['op'],add_c))
-                    ind+=1
-                    outputname=outname
-                    outputnamelist.extend([outputname,outputname])
-                    innamelist.extend([mergecol_name0,mergecol_name1])
-                # here need further edition
-                else:
-                    in_name=ruleforinput(key_l,value_l,ind,outputname,new_coln)
-                    f.write('#@in {}\n'.format(in_name))
-                    f.write('#@out {}\n'.format(outname))
-                    f.write('#@end {}{}\n'.format(innerdicts['op'],add_c))
-                    ind+=1
-                    outputname=outname
-                    outputnamelist.append(outputname)
-                    innamelist.append(in_name)
+                in_name=ruleforinput(key_l,value_l,ind,outputname,new_coln)
+                f.write('#@in {}\n'.format(in_name))
+                f.write('#@out {}\n'.format(outname))
+                f.write('#@end {}{}\n'.format(innerdicts['op'],add_c))
+                ind+=1
+                outputname=outname
+                outputnamelist.append(outputname)
+                innamelist.append(in_name)
             elif innerdicts['op']=='core/column-split':
                 outname=wf.split()
                 col_n=innerdicts['columnName']
