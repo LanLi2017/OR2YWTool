@@ -6,7 +6,7 @@ from collections import Counter
 from itertools import groupby
 from io import StringIO
 import sys
-import argparse;
+import argparse
 import os
 import uuid
 import subprocess
@@ -22,13 +22,24 @@ class FileHelper:
         return find_executable(name) is not None
 
 
-def addition_dependency(params):
+class YesWorkflowNode:
+    def __init__(self, name, desc=''):
+        self.name = name
+        self.desc = desc
+        self.params = []
+        self.in_node_names = []
+        self.out_node_names = []
+
+        self.raw_operator = None
+
+
+def merge_basename(operator):
     # two kinds of expressions :
     # 1. the column name has space: "grel:cells[\"Sponsor 2\"].value + cells[\"Sponsor 7\"].value"  : [A-Z]\w+ \d
     # 2. the column name does not have space: "grel:cells.name.value + cells.event.value" :   \.\w+\.
     #  normal one: "grel:value"
-    exp=params['expression']
-    res=params['newColumnName'].replace(" ", "_")
+    exp=operator['expression']
+    res=operator['baseColumnName']
     if exp=='grel:value':
     #      missing information here: if no merge other columns, we still do not know if the new column is set
     # --------dependency as basecolumnName
@@ -39,339 +50,177 @@ def addition_dependency(params):
     if result:
         newm=[]
         for col in result:
-            newm.append(col[1:len(col)-1].replace(" ", "_"))
+            newm.append(col[1:len(col)-1])
         result=newm
         return result
     else:
         result=re.findall('[A-Z]\w+ \d',exp)
         newm=[]
         for col in result:
-            newm.append(col.replace(" ", "_"))
+            newm.append(col)
         result=newm
         return result
 
 
-class WF:
-    def __init__(self,params,inputlist,tablec=0,mass_editc=0,rename_c=0,textt_c=0,split_c=0,add_c=0,col_counter=0):
-        self.parlist = inputlist
-        self.params=params
-        self.table_counter=tablec
-        self.col_counter=col_counter
-        self.mass_editc=mass_editc
-        self.renamec=rename_c
-        self.texttc=textt_c
-        self.splitc=split_c
-        self.addc=add_c
+def may_be_split_by(new_column_name, base_column_name):
+    new_column_name=new_column_name.replace(" ","_")
+    base_column_name=base_column_name.replace(" ","_")
+    if len(new_column_name) <= len(base_column_name):
+        return False
 
-    def text_transform(self):
-        col=(self.params['columnName']).replace(" ", "_")
-        expre=self.params['expression']
-        columnnName='col-name:{}'.format(col)
-        expression='expression:{}'.format(expre)
-        self.parlist.extend([columnnName,expression])
-        self.col_counter+=1
-        self.texttc+=1
-        outname='col:{}{}'.format(col,self.col_counter)
-        return outname
+    base_part = new_column_name[:len(base_column_name)]
+    addition_part = new_column_name[len(base_column_name):]
+    print(addition_part)
+    if base_part != base_column_name:
+        return False
+    if not re.fullmatch(r'_\d+', addition_part):
+        return False
 
-    def rename(self):
-        oldcol=(self.params['oldColumnName']).replace(" ", "_")
-        newcol=(self.params['newColumnName']).replace(" ", "_")
-        oldcol_name='oldColumnName:{}'.format(oldcol)
-        newcol_name='newColumnName:{}'.format(newcol)
-        self.parlist.extend([oldcol_name,newcol_name])
-        self.table_counter+=1
-        self.renamec+=1
-        outname='table{}'.format(self.table_counter)
-        return outname
-
-    def addition(self):
-        newcol=(self.params['newColumnName']).replace(" ", "_")
-        basecol=(self.params['baseColumnName']).replace(" ", "_")
-        colInsert=self.params['columnInsertIndex']
-        colInsert_index='columnInsertIndex:{}'.format(colInsert)
-        # "expression": "grel:cells[\"Sponsor 2\"].value + cells[\"Sponsor 7\"].value"
-        # "expression": "grel:value"
-        # "expression": "grel:cells.name.value + cells.event.value",   \.\w+\.
-        collist=addition_dependency(self.params)
-        self.parlist.extend([newcol,basecol,colInsert_index])
-        if type(collist) is list:
-            mergecol_name0='mergecolname0:{}'.format(collist[0].replace(" ", "_"))
-            mergecol_name1='mergecolname1:{}'.format(collist[1].replace(" ", "_"))
-            self.parlist.extend([mergecol_name0,mergecol_name1])
-        self.table_counter+=1
-        self.addc+=1
-        outname='table{}'.format(self.table_counter)
-        return outname
+    return True
 
 
-    def split(self):
-        col=(self.params['columnName']).replace(" ", "_")
-        removeOR=self.params['removeOriginalColumn']
-        separ=self.params['separator']
-        col_name='col-name:{}'.format(col)
-        removeor='removeOriginalColumn:{}'.format(removeOR)
-        separator='separator:{}'.format(separ)
-        self.parlist.extend([col_name,removeor,separator])
-        self.table_counter+=1
-        self.splitc+=1
-        outname='table{}'.format(self.table_counter)
-        return outname
+def translate_operator_json_to_yes_workflow(json_data):
+    yes_workflow_data = []
 
-    def mass_edit(self):
-        col=(self.params['columnName']).replace(" ", "_")
-        expre=self.params['expression']
-#         edits=self.params['']
-        col_name='col-name:{}'.format(col)
-        expression='expression:{}'.format(expre)
-        self.parlist.extend([col_name,expression])
-        self.col_counter+=1
-        self.mass_editc+=1
-        outname='col:{}{}'.format(col,self.col_counter)
-        return outname
+    nodes_num_about_column = Counter()
 
-
-def add_dependency(wf):
-    for i in range(len(wf)):
-        # print(i)
-        if any([wf[i]['op']=='core/text-transform',wf[i]['op']=='core/mass-edit']):
-            wf[i]['dependency']=wf[i]['columnName'].split()[0]
-
-        elif wf[i]['op']=='core/column-rename':
-            if 'dependency' not in wf[i]:
-                wf[i]['dependency']=wf[i]['oldColumnName'].split()[0]
-            for j in range(i+1,len(wf)):
-                if wf[j]['op']=='core/column-addition':
-                    wf[j]['dependency']= wf[j]['newColumnName'].split()[0]
-                    # all of the columns in collist should be the dependency
-                elif wf[j]['op']=='core/column-rename':
-                    if any([wf[j]['oldColumnName']==wf[i]['newColumnName'],wf[j]['newColumnName']==wf[i]['oldColumnName']]):
-                        wf[j]['dependency']=wf[i]['dependency']
-                else:
-                    if wf[j]['columnName'].split()[0]==wf[i]['newColumnName']:
-                        wf[j]['dependency']=wf[i]['dependency']
-        elif wf[i]['op']=='core/column-addition':
-            if 'dependency' not in wf[i]:
-                wf[i]['dependency']=wf[i]['newColumnName']
-            for j in range(i+1,len(wf)):
-                if wf[j]['op']=='core/column-addition':
-                    wf[j]['dependency']=wf[j]['newColumnName']
-                elif wf[j]['op']=='core/column-rename':
-                    if wf[j]['oldColumnName']==wf[i]['newColumnName']:
-                        wf[j]['dependency']=wf[i]['newColumnName'].split()[0]
-                else:
-                    if wf[j]['columnName'].split()[0]==wf[i]['newColumnName']:
-                        wf[j]['dependency']=wf[i]['newColumnName'].split()[0]
-        elif wf[i]['op']=='core/column-split':
-            if 'dependency' not in wf[i]:
-                wf[i]['dependency']=wf[i]['columnName'].split()[0]
-            for j in range(i+1,len(wf)):
-                if wf[j]['op']=='core/column-addition':
-                    #  no dependency here
-                    wf[j]['dependency']=wf[j]['newColumnName'].split()[0]
-                elif wf[j]['op']=='core/column-rename':
-                    if wf[j]['oldColumnName'].split()[0]==wf[i]['columnName'].split()[0]:
-                        wf[j]['dependency']=wf[i]['dependency']
-                else:
-                    if wf[j]['columnName'].split()[0]==wf[i]['columnName'].split()[0]:
-                        wf[j]['dependency']=wf[i]['dependency']
-    return wf
-
-
-def getInputlist(params,tablec,inputl):
-    wf=WF(params,inputl,tablec)
-    if params['op']=='core/column-rename':
-        wf.rename()
-    elif params['op']=='core/column-addition':
-        wf.addition()
-    elif params['op']=='core/column-split':
-        wf.split()
-    elif params['op']=='core/text-transform':
-        wf.text_transform()
-    elif params['op']=='core/mass-edit':
-        wf.mass_edit()
-    inputlist=wf.parlist
-    table_counter=wf.table_counter
-    return inputlist,table_counter
-
-
-def ruleforinput(key_l,value_l,ind,outname,colname):
-    # ['A', 'A 1', 'A 2']
-    # ['table0', 'A 1',...]
-    # {'A': 'table0' , 'A 1': 'table1', 'A 2': '...','' }
-    key_l.append(colname)
-    #     ['A','A 1']
-    value_l.append(outname)
-    lenth_list=len(key_l)
-    #     ['table0','table1']
-    in_name=''
-    # linklist={ k.replace(' ', '_'): v for k, v in olinklist.items() }
-    if ind==0:
-        in_name='table0'
-    else:
-        # search......' A 1 '
-        for idx, name in enumerate(key_l):
-            if len(name.split())>1 and colname not in key_l[:lenth_list-1] :  # some condition you like
-                # do sth with idx
-                value_l[lenth_list-1]=value_l[idx]
-                in_name='{}'.format(value_l[lenth_list-1])
-                break
+    def get_column_current_node(column_name):
+        column_name=column_name.replace(" ","_")
+        if column_name not in nodes_num_about_column:  # guess split
+            split_by = None
+            for prev_node in reversed(yes_workflow_data):  # newest split
+                if prev_node.raw_operator['op'] == 'core/column-split':
+                    if may_be_split_by(
+                            column_name,
+                            prev_node.raw_operator['columnName'],
+                    ):
+                        split_by = prev_node
+                        break
+            if split_by is not None:  # possible split found
+                node_id = nodes_num_about_column[column_name] = 1
+                node_name = column_name + '_' + str(node_id)
+                split_by.out_node_names.append(node_name)
+                return node_name
             else:
-                in_name='{}'.format(outname)
-    return in_name
+                return create_new_node_of_column(column_name)
+        else:
+            node_id = nodes_num_about_column[column_name]
+            return column_name + '_' + str(node_id)
+
+    def create_new_node_of_column(column_name):
+        column_name=column_name.replace(" ","_")
+        nodes_num_about_column[column_name] += 1
+        return get_column_current_node(column_name)
+
+    for operator in json_data:
+        node = YesWorkflowNode(
+            name=operator['op'],
+            # if no description, 'no description'
+            desc=operator.get('description', 'no description'),
+        )
+        node.raw_operator = operator
+
+        if operator['op'] == 'core/column-addition':  # merge operation
+        #     basecol=(self.params['baseColumnName']).replace(" ", "_")
+        # colInsert=self.params['columnInsertIndex']
+        # newcol=(self.params['newColumnName']).replace(" ", "_")
+            node.params+=[
+                "baseColumnName:{}".format(operator['baseColumnName'].replace(" ","_")),
+                "InsertPosition:{}".format(operator['columnInsertIndex']),
+                "newColumnName:{}".format(operator['newColumnName']),
+                "GRELexpression:{}".format(operator['expression'])
+            ]
+            basename=merge_basename(operator)
+            if type(basename) is list:
+                baseColumnName0=basename[0]
+                baseColumnName1= basename[1]
+                node.in_node_names += [
+                    get_column_current_node(baseColumnName0.replace(" ","_")),
+                    get_column_current_node(baseColumnName1.replace(" ","_")),
+                ]
+            else:
+                node.in_node_names += [
+                    get_column_current_node(basename.replace(" ","_")),
+                ]
+            node.out_node_names += [
+                create_new_node_of_column(operator['newColumnName'].replace(" ","_")),
+            ]
+
+        elif operator['op'] == 'core/column-split':  # split operation
+            node.params+=[
+                "columnName:{}".format(operator['columnName'].replace(" ","_")),
+                "removeOriginalColumn:{}".format(operator['removeOriginalColumn']),
+                "separator:{}".format(operator['separator']),
+            ]
+            node.in_node_names += [
+                get_column_current_node(operator['columnName']),
+            ]
+        elif operator['op'] == 'core/column-rename':  # split operation
+            node.params+=[
+                "oldColumnName:{}".format(operator['oldColumnName']),
+                "newColumnName:{}".format(operator['newColumnName']),
+            ]
+            node.in_node_names += [
+                get_column_current_node(operator['oldColumnName']),
+            ]
+            node.out_node_names += [
+                create_new_node_of_column(operator['newColumnName']),
+            ]
+        else:  # normal unary operation
+            node.params+=[
+                "columnName:{}".format(operator['columnName']),
+                "expression:{}".format(operator['expression']),
+            ]
+            node.in_node_names += [
+                get_column_current_node(operator['columnName']),
+            ]
+            node.out_node_names += [
+                create_new_node_of_column(operator['columnName']),
+            ]
+
+        yes_workflow_data.append(node)
+
+    return yes_workflow_data
 
 
-def get_branch_leafs(parents, children):
-    children_number = Counter(parents)
-    for node in parents:
-        if children_number[node] > 1:
-            return list(filter(lambda child: children_number[child] == 0, children))
-    return [children[-1]]  # no branch
+def getparams_from_ywdata(yes_workflow_data):
+    paramsinputlist=[]
+    for node in yes_workflow_data:
+        for params_name in node.params:
+            paramsinputlist.append(params_name)
+    return list(set(paramsinputlist))
 
 
-def ruleforoutput(out_l,in_l):
-    # in_l:  ['table0', 'col:sponsor1','table1','table2','table3','table3','table4']
-    # out_l: ['col:sponsor1','table1','table2','table3','table4', 'table5','table6']
-    # duplicate names in in_l:  same input:  branches-> positions
-    # make sure the branches are also the dead end -> positions in out_l not shown in in_l
-    # using tree to solve this:  Counter: more than one child means branching happen;
-    #  find all of the children node from this branch and return it
-    branch=get_branch_leafs(in_l,out_l)
-    return branch
+def getinput_from_ywdata(yes_workflow_data):
+    inputlist=[]
+    for node in yes_workflow_data:
+        for in_node_name in node.in_node_names:
+            inputlist.append(in_node_name)
+    return list(set(inputlist))
 
 
-def writefile(title,description,inputlist,table_counter,yw):
-    f=StringIO()
-    f.write('#@begin {} #@desc {}\n'.format(title,description))
-    for sublist in inputlist:
-        f.write('#@param {}\n'.format(sublist))
-    f.write('#@in table0\n')
-    f.write('#@out table{}\n'.format(table_counter+1))
-    # write contents
-    key_l=[]
-    value_l=[]
-    tablec=0
-    massedit_c=0
-    texttransform_c=0
-    split_c=0
-    rename_c=0
-    add_c=0
-    inputl=[]
-    outnamelist=[]
-    for innerlist in yw:
-        ind=0
-        outputname='table0'
-        col_counter=0
-        output=[]
-        outputnamelist=[]
-        innamelist=[]
-        for innerdicts in innerlist:
-            wf=WF(innerdicts,inputl,tablec,massedit_c,rename_c,texttransform_c,split_c,add_c,col_counter)
-            if innerdicts['op']=='core/column-rename':
-                outname=wf.rename()
-                ocol_n=innerdicts['oldColumnName']
-                ncol_n=innerdicts['newColumnName']
-                f.write('#@begin {}{} #@desc {}\n'.format(innerdicts['op'],rename_c,innerdicts['description']))
-                f.write('#@param oldColumnName:{}\n'.format(ocol_n.replace(" ", "_")))
-                f.write('#@param newColumnName:{}\n'.format(ncol_n.replace(" ", "_")))
-                in_name=ruleforinput(key_l,value_l,ind,outputname,ocol_n)
-                f.write('#@in {}\n'.format(in_name))
-                f.write('#@out {}\n'.format(outname))
-                f.write('#@end {}{}\n'.format(innerdicts['op'],rename_c))
-                ind+=1
-                outputname=outname
-                outputnamelist.append(outputname)
-                innamelist.append(in_name)
-            elif innerdicts['op']=='core/column-addition':
-                outname=wf.addition()
-                # no dependency just one column
-                new_coln=innerdicts['newColumnName']
-                b_coln=innerdicts['baseColumnName']
-                n_coln=innerdicts['columnInsertIndex']
-                collist=addition_dependency(innerdicts)
-                    # mergecol_name0='mergecolname0:{}'.format(collist[0])
-                    # mergecol_name1='mergecolname1:{}'.format(collist[1])
-                f.write('#@begin {}{} #@desc {}\n'.format(innerdicts['op'],add_c,innerdicts['description']))
-                f.write('#@param baseColumnName:{}\n'.format(b_coln.replace(" ", "_")))
-                f.write('#@param columnInsertIndex:{}\n'.format(n_coln))
-                f.write('#@param newColumnName:{}\n'.format(innerdicts['newColumnName']))
-                if type(collist) is list:
-                    mergecol_name0=collist[0].replace(" ", "_")
-                    mergecol_name1=collist[1].replace(" ", "_")
-                    f.write('#@param mergecolname0:{}\n'.format(mergecol_name0))
-                    f.write('#@param mergecolname1:{}\n'.format(mergecol_name1))
-                in_name=ruleforinput(key_l,value_l,ind,outputname,new_coln)
-                f.write('#@in {}\n'.format(in_name))
-                f.write('#@out {}\n'.format(outname))
-                f.write('#@end {}{}\n'.format(innerdicts['op'],add_c))
-                ind+=1
-                outputname=outname
-                outputnamelist.append(outputname)
-                innamelist.append(in_name)
-            elif innerdicts['op']=='core/column-split':
-                outname=wf.split()
-                col_n=innerdicts['columnName']
-                f.write('#@begin {}{} #@desc {}\n'.format(innerdicts['op'],split_c,innerdicts['description']))
-                f.write('#@param col-name:{}\n'.format(col_n.replace(" ", "_")))
-                f.write('#@param removeOriginalColumn:{}\n'.format(innerdicts['removeOriginalColumn']))
-                f.write('#@param separator:{}\n'.format(innerdicts['separator']))
-                in_name=ruleforinput(key_l,value_l,ind,outputname,col_n)
-                f.write('#@in {}\n'.format(in_name))
-                f.write('#@out {}\n'.format(outname))
-                f.write('#@end {}{}\n'.format(innerdicts['op'],split_c))
-                ind+=1
-                outputname=outname
-                outputnamelist.append(outputname)
-                innamelist.append(in_name)
-            elif innerdicts['op']=='core/text-transform':
-                outname=wf.text_transform()
-                col_n=innerdicts['columnName']
-                f.write('#@begin {}{} #@desc {}\n'.format(innerdicts['op'],texttransform_c,innerdicts['description']))
-                f.write('#@param col-name:{}\n'.format(col_n.replace(" ", "_")))
-                f.write('#@param expression:{}\n'.format(innerdicts['expression']))
-                in_name=ruleforinput(key_l,value_l,ind,outputname,col_n)
-                f.write('#@in {}\n'.format(in_name))
-                f.write('#@out {}\n'.format(outname))
-                f.write('#@end {}{}\n'.format(innerdicts['op'],texttransform_c))
-                ind+=1
-                outputname=outname
-                outputnamelist.append(outputname)
-                innamelist.append(in_name)
-            elif innerdicts['op']=='core/mass-edit':
-                outname=wf.mass_edit()
-                col_n=innerdicts['columnName']
-                f.write('#@begin {}{} #@desc {}\n'.format(innerdicts['op'],massedit_c,innerdicts['description']))
-                f.write('#@param col-name:{}\n'.format(col_n.replace(" ", "_")))
-                in_name=ruleforinput(key_l,value_l,ind,outputname,col_n)
-                f.write('#@in {}\n'.format(in_name))
-                f.write('#@out {}\n'.format(outname))
-                f.write('#@end {}{}\n'.format(innerdicts['op'],massedit_c))
-                ind+=1
-                outputname=outname
-                outputnamelist.append(outputname)
-                innamelist.append(in_name)
-            col_counter=wf.col_counter
-            tablec=wf.table_counter
-            massedit_c=wf.mass_editc
-            rename_c=wf.renamec
-            texttransform_c=wf.texttc
-            split_c=wf.splitc
-            add_c=wf.addc
-        output.extend(ruleforoutput(outputnamelist,innamelist))
-        outnamelist.extend(output)
-    # merge:
-    f.write('#@begin MergeOperationsColumns #@desc Merge the Parallel Column operations\n')
-    for out_name in outnamelist:
-        f.write('#@in {}\n'.format(out_name))
+def getouput_from_ywdata(yes_workflow_data):
+    outputlist=[]
+    for node in yes_workflow_data:
+        for out_node_name in node.out_node_names:
+            outputlist.append(out_node_name)
+    return list(set(outputlist))
 
-    f.write('#@out table{}\n'.format(table_counter+1))
-    f.write('#@end MergeOperationsColumns\n')
 
-    f.write('#@end {}\n'.format(title))
-    output_string=f.getvalue()
-    f.close()
+def write_yes_workflow_data_to_file(yes_workflow_data, file):
+    counter=0
+    for node in yes_workflow_data:
+        print('#@begin {}{}'.format(node.name,counter), '#@desc', node.desc, file=file)
+        for param in node.params:
+            print('#@param', param, file=file)
+        for in_node_name in node.in_node_names:
+            print('#@in', in_node_name, file=file)
+        for out_node_name in node.out_node_names:
+            print('#@out', out_node_name, file=file)
+        print('#@end {}{}'.format(node.name,counter), file=file)
+        counter+=1
 
-    return output_string
+
 
 
 class OR2YW:
@@ -524,31 +373,28 @@ class OR2YW:
             title = "Parallel_OR"
         if description==None:
             description = "Parallel OpenRefine Workflow"
+        yes_workflow_data = translate_operator_json_to_yes_workflow(operations)
+        with open('yes_workflow_script.txt', 'wt', encoding='utf-8') as f:
+            print('#@begin {}'.format(title),'#@desc{}'.format(description), file=f)
+            inputlist=getinput_from_ywdata(yes_workflow_data)
+            paramslist=getparams_from_ywdata(yes_workflow_data)
+            for params in paramslist:
+                print('#@param {}'.format(params), file=f)
+            for input in inputlist:
+                print('#@in {}'.format(input),file=f)
+            print('#@out {}'.format('CleanData'),file=f)
 
-        data=operations
-        tablec=0
-        inputlist = []
-        for datadicts in data:
-            inputlist = getInputlist(datadicts, tablec, inputlist)[0]
-            tablec = getInputlist(datadicts, tablec, inputlist)[1]
-        inputlist = list(set(inputlist))
+            # Data Cleaning steps
+            write_yes_workflow_data_to_file(yes_workflow_data, f)
 
-        # begin name:  params["op"]
-        #  columnName,  newColumnName,  baseColumnName, baseColumnName
-        # {'column A name': [],   'column B name': []}
-
-        dependencydicts = {}
-        dependencydata = add_dependency(data)
-        # group them according to the dependency
-        for dicts in dependencydata:
-            dependencydicts.setdefault(dicts['dependency'], []).append(dicts)
-
-        ywdicts = dependencydicts.values()
-
-        result = writefile(title=title, description=description, inputlist=inputlist,
-                             table_counter=tablec, yw=ywdicts)
-        #print(result)
-        return result
+            # merge??
+            print('#@begin CombineDataCleaningChanges', file=f)
+            outputlist=getouput_from_ywdata(yes_workflow_data)
+            for output in outputlist:
+                print('#@in {}'.format(output), file=f)
+            print('#@out {}'.format('CleanData'), file=f)
+            print('#@end {}'.format('CombineDataCleaningChanges'),file=f)
+            print('#@end {}'.format(title), file=f)
 
     @staticmethod
     def generate_vg(yw_string,gv_file,java_path=None):
