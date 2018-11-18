@@ -374,27 +374,31 @@ class OR2YW:
         if description==None:
             description = "Parallel OpenRefine Workflow"
         yes_workflow_data = translate_operator_json_to_yes_workflow(operations)
-        with open('yes_workflow_script.txt', 'wt', encoding='utf-8') as f:
-            print('#@begin {}'.format(title),'#@desc{}'.format(description), file=f)
-            inputlist=getinput_from_ywdata(yes_workflow_data)
-            paramslist=getparams_from_ywdata(yes_workflow_data)
-            for params in paramslist:
-                print('#@param {}'.format(params), file=f)
-            for input in inputlist:
-                print('#@in {}'.format(input),file=f)
-            print('#@out {}'.format('CleanData'),file=f)
+        f = StringIO()
+        #with open('yes_workflow_script.txt', 'wt', encoding='utf-8') as f:
+        print('#@begin {}'.format(title),'#@desc{}'.format(description), file=f)
+        inputlist=getinput_from_ywdata(yes_workflow_data)
+        paramslist=getparams_from_ywdata(yes_workflow_data)
+        for params in paramslist:
+            print('#@param {}'.format(params), file=f)
+        for input in inputlist:
+            print('#@in {}'.format(input),file=f)
+        print('#@out {}'.format('CleanData'),file=f)
 
-            # Data Cleaning steps
-            write_yes_workflow_data_to_file(yes_workflow_data, f)
+        # Data Cleaning steps
+        write_yes_workflow_data_to_file(yes_workflow_data, f)
 
-            # merge??
-            print('#@begin CombineDataCleaningChanges', file=f)
-            outputlist=getouput_from_ywdata(yes_workflow_data)
-            for output in outputlist:
-                print('#@in {}'.format(output), file=f)
-            print('#@out {}'.format('CleanData'), file=f)
-            print('#@end {}'.format('CombineDataCleaningChanges'),file=f)
-            print('#@end {}'.format(title), file=f)
+        # merge??
+        print('#@begin CombineDataCleaningChanges', file=f)
+        outputlist=getouput_from_ywdata(yes_workflow_data)
+        for output in outputlist:
+            print('#@in {}'.format(output), file=f)
+        print('#@out {}'.format('CleanData'), file=f)
+        print('#@end {}'.format('CombineDataCleaningChanges'),file=f)
+        print('#@end {}'.format(title), file=f)
+        output_string = f.getvalue()
+        f.close()
+        return output_string
 
     @staticmethod
     def generate_vg(yw_string,gv_file,java_path=None):

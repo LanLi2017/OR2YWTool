@@ -47,8 +47,9 @@ def run():
                 raise BaseException("output type not recognized: {}".format(argobj["outputtype"]))
             print("File {} generated.".format(argobj["output"]))
         except BaseException as exc:
+            import traceback
             parser.print_help()
-            print(exc)
+            traceback.print_exc()
     else:
         parser.print_help()
 
