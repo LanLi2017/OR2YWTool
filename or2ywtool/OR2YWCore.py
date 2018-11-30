@@ -366,6 +366,19 @@ class OR2YW:
         f.write('#@end {}\n'.format(title))
         output_string = f.getvalue()
         f.close()
+
+        # clear space chars in param, in, and out notation
+        output_list = output_string.split("\n")
+        for i,x in enumerate(output_list):
+            if x.startswith("#@param"):
+                output_list[i] = "#@param " + x[8:].replace(" ","_")
+            elif x.startswith("#@in"):
+                output_list[i] = "#@in " + x[5:].replace(" ", "_")
+            elif x.startswith("#@out"):
+                output_list[i] = "#@out " + x[6:].replace(" ", "_")
+
+        output_string = "\n".join(output_list)
+
         # output_string = output_string.replace('"','\\"')
         return output_string
 
