@@ -184,6 +184,10 @@ def translate_operator_json_to_yes_workflow(json_data):
                 create_new_node_of_column(operator['columnName']),
             ]
 
+        # rewrite the params, replace space with _ to avoid unexpected cut values
+        for i,x in enumerate(node.params):
+            node.params[i] = x.replace(" ","_")
+
         yes_workflow_data.append(node)
 
     return yes_workflow_data
@@ -384,9 +388,9 @@ class OR2YW:
         inputlist = getinput_from_ywdata(yes_workflow_data)
         paramslist = getparams_from_ywdata(yes_workflow_data)
         for params in paramslist:
-            print('#@param {}'.format(params), file=f)
+            print('#@param {}'.format(params.replace(" ","_")), file=f)
         for input in inputlist:
-            print('#@in {}'.format(input), file=f)
+            print('#@in {}'.format(input.replace(" ","_")), file=f)
         print('#@out {}'.format('CleanData'), file=f)
 
         # Data Cleaning steps
@@ -396,7 +400,7 @@ class OR2YW:
         print('#@begin CombineDataCleaningChanges', file=f)
         outputlist = getouput_from_ywdata(yes_workflow_data)
         for output in outputlist:
-            print('#@in {}'.format(output), file=f)
+            print('#@in {}'.format(output.replace(" ","_")), file=f)
         print('#@out {}'.format('CleanData'), file=f)
         print('#@end {}'.format('CombineDataCleaningChanges'), file=f)
         print('#@end {}'.format(title), file=f)
