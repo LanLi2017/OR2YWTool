@@ -1,0 +1,2782 @@
+#@begin Linear_OR #@desc Linear OpenRefine Workflow
+#@param expression:grel:value.replace(/[0-9]+(1ST|2ND|3RD)_/,_"")
+#@param expression:grel:value.replace('DEJEUNER','BREAKFAST')
+#@param expression:grel:value.replace('BALL','BANQUET')
+#@param col-name:occasion
+#@param expression:grel:value.replace('BANCHETTO','BANQUET')
+#@param expression:grel:value.replace("LUNCHEON",_"LUNCH")
+#@param expression:grel:value.replace("A_LA_CARTE",_"")
+#@param expression:grel:if_(value.contains('LUNCH'),'LUNCH',
+if (value.contains('AFTERNOON TEA'), 'AFTERNOON TEA',
+if (value.contains('BANQUET'), 'BANQUET',
+value)))
+#@param expression:grel:if_(isNotNull(value.match(/.*_(BANQUET|BREAKFAST|LUNCH|DINNER)?_(TO|FOR|OF|AT)?_.*/)),_"EVENT;"+value,_value)
+#@param expression:grel:value.replace('ON_OCCASION','')
+#@param expression:grel:value.replace('CARTE_DU_JOUR','DAILY')
+#@param newColumnName:event_meal
+#@param expression:grel:"DINNER"
+#@param col-name:location
+#@param expression:grel:"ANNUAL;DINNER;"
+#@param expression:grel:value.replace('TIFFIN',_'LUNCH')
+#@param expression:grel:EVENT;ANNUAL;
+#@param col-name:meal
+#@param newColumnName:event_pre_tag
+#@param expression:grel:value.replace(/(1ST|2ND|3RD)_/,_"")
+#@param expression:grel:if_(isNotNull(value.match(/.*[\[\]()?"].*/)),_value.replace(/[\[\]()?"]/,_""),_value)
+#@param expression:grel:"EVENT;BANQUET;"
+#@param col-name:notes
+#@param newColumnName:event_tagged
+#@param expression:grel:toUppercase(value)
+#@param expression:grel:if_(isNotNull(value.match(/'.*/)),_value.replace(/^'/,_""),_value)
+#@param expression:grel:null
+#@param expression:grel:value.replace(/[0-9]+N?(TH)?_/,_"")
+#@param expression:grel:if_(value.contains('DAILY'),'DAILY',value)
+#@param col-name:event
+#@param expression:grel:"DAILY"
+#@param expression:grel:value.replace('RECEPTION','BANQUET')
+#@param newColumnName:meal
+#@param expression:grel:"BREAKFAST"
+#@param newColumnName:occasion_tagged
+#@param newColumnName:MEAL
+#@param expression:grel:value.replace('IN_HONOR',_'')
+#@param expression:grel:value.replace('SOUPER',_'DINNER')
+#@param expression:grel:value.replace('SUPPER','DINNER')
+#@param expression:grel:"LUNCH"
+#@param expression:grel:"RITE;ANNIVERSARY;"
+#@param expression:grel:"EVENT;"+value
+#@in table0
+#@out table525
+#@begin core/text-transform0#@desc Text transform on cells in column event using expression grel:null
+#@param col-name:event
+#@param expression:grel:null
+#@in table0
+#@out table1
+#@end core/text-transform0
+#@begin core/text-transform1#@desc Text transform on cells in column occasion using expression grel:null
+#@param col-name:occasion
+#@param expression:grel:null
+#@in table1
+#@out table2
+#@end core/text-transform1
+#@begin core/text-transform2#@desc Text transform on cells in column location using expression grel:null
+#@param col-name:location
+#@param expression:grel:null
+#@in table2
+#@out table3
+#@end core/text-transform2
+#@begin core/text-transform3#@desc Text transform on cells in column notes using expression grel:null
+#@param col-name:notes
+#@param expression:grel:null
+#@in table3
+#@out table4
+#@end core/text-transform3
+#@begin core/mass-edit0#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table4
+#@out table5
+#@end core/mass-edit0
+#@begin core/mass-edit1#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table5
+#@out table6
+#@end core/mass-edit1
+#@begin core/text-transform4#@desc Text transform on cells in column event using expression grel:toUppercase(value)
+#@param col-name:event
+#@param expression:grel:toUppercase(value)
+#@in table6
+#@out table7
+#@end core/text-transform4
+#@begin core/text-transform5#@desc Text transform on cells in column event using expression grel:if (isNotNull(value.match(/'.*/)), value.replace(/^'/, \"\"), value)
+#@param col-name:event
+#@param expression:grel:if_(isNotNull(value.match(/'.*/)),_value.replace(/^'/,_""),_value)
+#@in table7
+#@out table8
+#@end core/text-transform5
+#@begin core/text-transform6#@desc Text transform on cells in column event using expression grel:if (isNotNull(value.match(/.*[\[\]()?\"].*/)), value.replace(/[\[\]()?\"]/, \"\"), value)
+#@param col-name:event
+#@param expression:grel:if_(isNotNull(value.match(/.*[\[\]()?"].*/)),_value.replace(/[\[\]()?"]/,_""),_value)
+#@in table8
+#@out table9
+#@end core/text-transform6
+#@begin core/text-transform7#@desc Text transform on cells in column event using expression grel:value.replace(/[0-9]+N?(TH)? /, \"\")
+#@param col-name:event
+#@param expression:grel:value.replace(/[0-9]+N?(TH)?_/,_"")
+#@in table9
+#@out table10
+#@end core/text-transform7
+#@begin core/text-transform8#@desc Text transform on cells in column event using expression grel:value.replace(/[0-9]+(1ST|2ND|3RD) /, \"\")
+#@param col-name:event
+#@param expression:grel:value.replace(/[0-9]+(1ST|2ND|3RD)_/,_"")
+#@in table10
+#@out table11
+#@end core/text-transform8
+#@begin core/text-transform9#@desc Text transform on cells in column event using expression grel:value.replace(/(1ST|2ND|3RD) /, \"\")
+#@param col-name:event
+#@param expression:grel:value.replace(/(1ST|2ND|3RD)_/,_"")
+#@in table11
+#@out table12
+#@end core/text-transform9
+#@begin core/text-transform10#@desc Text transform on cells in column event using expression grel:value.replace(\"A LA CARTE\", \"\")
+#@param col-name:event
+#@param expression:grel:value.replace("A_LA_CARTE",_"")
+#@in table12
+#@out table13
+#@end core/text-transform10
+#@begin core/mass-edit2#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table13
+#@out table14
+#@end core/mass-edit2
+#@begin core/text-transform11#@desc Text transform on cells in column event using expression grel:value.replace(\"LUNCHEON\", \"LUNCH\")
+#@param col-name:event
+#@param expression:grel:value.replace("LUNCHEON",_"LUNCH")
+#@in table14
+#@out table15
+#@end core/text-transform11
+#@begin core/text-transform12#@desc Text transform on cells in column event using expression grel:value.replace('SUPPER','DINNER')
+#@param col-name:event
+#@param expression:grel:value.replace('SUPPER','DINNER')
+#@in table15
+#@out table16
+#@end core/text-transform12
+#@begin core/text-transform13#@desc Text transform on cells in column event using expression grel:value.replace('BANCHETTO','BANQUET')
+#@param col-name:event
+#@param expression:grel:value.replace('BANCHETTO','BANQUET')
+#@in table16
+#@out table17
+#@end core/text-transform13
+#@begin core/text-transform14#@desc Text transform on cells in column event using expression grel:value.replace('IN HONOR', '')
+#@param col-name:event
+#@param expression:grel:value.replace('IN_HONOR',_'')
+#@in table17
+#@out table18
+#@end core/text-transform14
+#@begin core/text-transform15#@desc Text transform on cells in column event using expression grel:value.replace('ON OCCASION','')
+#@param col-name:event
+#@param expression:grel:value.replace('ON_OCCASION','')
+#@in table18
+#@out table19
+#@end core/text-transform15
+#@begin core/mass-edit3#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table19
+#@out table20
+#@end core/mass-edit3
+#@begin core/text-transform16#@desc Text transform on cells in column event using expression grel:value.replace('CARTE DU JOUR','DAILY')
+#@param col-name:event
+#@param expression:grel:value.replace('CARTE_DU_JOUR','DAILY')
+#@in table20
+#@out table21
+#@end core/text-transform16
+#@begin core/text-transform17#@desc Text transform on cells in column event using expression grel:\"DAILY\"
+#@param col-name:event
+#@param expression:grel:"DAILY"
+#@in table21
+#@out table22
+#@end core/text-transform17
+#@begin core/text-transform18#@desc Text transform on cells in column event using expression grel:value.replace('DEJEUNER','BREAKFAST')
+#@param col-name:event
+#@param expression:grel:value.replace('DEJEUNER','BREAKFAST')
+#@in table22
+#@out table23
+#@end core/text-transform18
+#@begin core/text-transform19#@desc Text transform on cells in column event using expression grel:\"LUNCH\"
+#@param col-name:event
+#@param expression:grel:"LUNCH"
+#@in table23
+#@out table24
+#@end core/text-transform19
+#@begin core/mass-edit4#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table24
+#@out table25
+#@end core/mass-edit4
+#@begin core/text-transform20#@desc Text transform on cells in column event using expression grel:value.replace('TIFFIN', 'LUNCH')
+#@param col-name:event
+#@param expression:grel:value.replace('TIFFIN',_'LUNCH')
+#@in table25
+#@out table26
+#@end core/text-transform20
+#@begin core/text-transform21#@desc Text transform on cells in column event using expression grel:value.replace('BALL','BANQUET')
+#@param col-name:event
+#@param expression:grel:value.replace('BALL','BANQUET')
+#@in table26
+#@out table27
+#@end core/text-transform21
+#@begin core/text-transform22#@desc Text transform on cells in column event using expression grel:value.replace('RECEPTION','BANQUET')
+#@param col-name:event
+#@param expression:grel:value.replace('RECEPTION','BANQUET')
+#@in table27
+#@out table28
+#@end core/text-transform22
+#@begin core/mass-edit5#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table28
+#@out table29
+#@end core/mass-edit5
+#@begin core/column-addition0#@desc Create column meal at index 4 based on column event using expression grel:if (value.contains('DINNER'), 'DINNER', 
+if (value.contains('BREAKFAST'),'BREAKFAST', 
+value))
+#@param col-name:event
+#@param newColumnName:"meal"
+#@in table29
+#@out table30
+#@end core/column-addition0
+#@begin core/text-transform23#@desc Text transform on cells in column meal using expression grel:if (value.contains('LUNCH'),'LUNCH',
+if (value.contains('AFTERNOON TEA'), 'AFTERNOON TEA',
+if (value.contains('BANQUET'), 'BANQUET',
+value)))
+#@param col-name:meal
+#@param expression:grel:if_(value.contains('LUNCH'),'LUNCH',
+if (value.contains('AFTERNOON TEA'), 'AFTERNOON TEA',
+if (value.contains('BANQUET'), 'BANQUET',
+value)))
+#@in table30
+#@out table31
+#@end core/text-transform23
+#@begin core/text-transform24#@desc Text transform on cells in column meal using expression grel:if (value.contains('DAILY'),'DAILY',value)
+#@param col-name:meal
+#@param expression:grel:if_(value.contains('DAILY'),'DAILY',value)
+#@in table31
+#@out table32
+#@end core/text-transform24
+#@begin core/column-addition1#@desc Create column meal at index 4 based on column event using expression grel:if (value.contains('DINNER'), 'DINNER', 
+if (value.contains('BREAKFAST'),'BREAKFAST', 
+if (value.contains('LUNCH'),'LUNCH',
+if (value.contains('AFTERNOON TEA'), 'AFTERNOON TEA',
+if (value.contains('BANQUET'), 'BANQUET',
+if (value.contains('DAILY'), 'DAILY','UNKNOWN'))))))
+#@param col-name:event
+#@param newColumnName:"meal"
+#@in table32
+#@out table33
+#@end core/column-addition1
+#@begin core/text-transform25#@desc Text transform on cells in column event using expression grel:\"DINNER\"
+#@param col-name:event
+#@param expression:grel:"DINNER"
+#@in table33
+#@out table34
+#@end core/text-transform25
+#@begin core/mass-edit6#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table34
+#@out table35
+#@end core/mass-edit6
+#@begin core/mass-edit7#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table35
+#@out table36
+#@end core/mass-edit7
+#@begin core/text-transform26#@desc Text transform on cells in column event using expression grel:\"BREAKFAST\"
+#@param col-name:event
+#@param expression:grel:"BREAKFAST"
+#@in table36
+#@out table37
+#@end core/text-transform26
+#@begin core/mass-edit8#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table37
+#@out table38
+#@end core/mass-edit8
+#@begin core/mass-edit9#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table38
+#@out table39
+#@end core/mass-edit9
+#@begin core/mass-edit10#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table39
+#@out table40
+#@end core/mass-edit10
+#@begin core/mass-edit11#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table40
+#@out table41
+#@end core/mass-edit11
+#@begin core/mass-edit12#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table41
+#@out table42
+#@end core/mass-edit12
+#@begin core/mass-edit13#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table42
+#@out table43
+#@end core/mass-edit13
+#@begin core/mass-edit14#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table43
+#@out table44
+#@end core/mass-edit14
+#@begin core/mass-edit15#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table44
+#@out table45
+#@end core/mass-edit15
+#@begin core/mass-edit16#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table45
+#@out table46
+#@end core/mass-edit16
+#@begin core/mass-edit17#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table46
+#@out table47
+#@end core/mass-edit17
+#@begin core/mass-edit18#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table47
+#@out table48
+#@end core/mass-edit18
+#@begin core/mass-edit19#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table48
+#@out table49
+#@end core/mass-edit19
+#@begin core/mass-edit20#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table49
+#@out table50
+#@end core/mass-edit20
+#@begin core/mass-edit21#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table50
+#@out table51
+#@end core/mass-edit21
+#@begin core/mass-edit22#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table51
+#@out table52
+#@end core/mass-edit22
+#@begin core/mass-edit23#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table52
+#@out table53
+#@end core/mass-edit23
+#@begin core/mass-edit24#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table53
+#@out table54
+#@end core/mass-edit24
+#@begin core/mass-edit25#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table54
+#@out table55
+#@end core/mass-edit25
+#@begin core/mass-edit26#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table55
+#@out table56
+#@end core/mass-edit26
+#@begin core/mass-edit27#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table56
+#@out table57
+#@end core/mass-edit27
+#@begin core/text-transform27#@desc Text transform on cells in column event using expression grel:value.replace('SOUPER', 'DINNER')
+#@param col-name:event
+#@param expression:grel:value.replace('SOUPER',_'DINNER')
+#@in table57
+#@out table58
+#@end core/text-transform27
+#@begin core/text-transform28#@desc Text transform on cells in column event using expression grel:\"DAILY\"
+#@param col-name:event
+#@param expression:grel:"DAILY"
+#@in table58
+#@out table59
+#@end core/text-transform28
+#@begin core/column-addition2#@desc Create column event_meal at index 4 based on column event using expression grel:if (value.contains('DINNER'), 'DINNER', 
+if (value.contains('BREAKFAST'),'BREAKFAST', 
+if (value.contains('LUNCH'),'LUNCH',
+if (value.contains('AFTERNOON TEA'), 'AFTERNOON TEA',
+if (value.contains('BANQUET'), 'BANQUET',
+if (value.contains('BRANCH'), 'BRANCH',
+if (value.contains('WINE'), 'DRINK',
+if (value.contains('BEVERAGE'), 'DRINK',
+if (value.contains('TEA'), 'DRINK',
+if (value.contains('DAILY'), 'DAILY','UNKNOWN'))))))))))
+#@param col-name:event
+#@param newColumnName:"event_meal"
+#@in table59
+#@out table60
+#@end core/column-addition2
+#@begin core/mass-edit28#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table60
+#@out table61
+#@end core/mass-edit28
+#@begin core/column-addition3#@desc Create column event_meal at index 4 based on column event using expression grel:if (value.contains('DINNER'), 'DINNER', 
+if (value.contains('BREAKFAST'),'BREAKFAST', 
+if (value.contains('LUNCH'),'LUNCH',
+if (value.contains('AFTERNOON TEA'), 'AFTERNOON TEA',
+if (value.contains('BANQUET'), 'BANQUET',
+if (value.contains('BRANCH'), 'BRANCH',
+if (value.contains('WINE'), 'DRINK',
+if (value.contains('BEVERAGE'), 'DRINK',
+if (value.contains('TEA'), 'DRINK',
+if (value.contains('CAFE'), 'CAFE',
+if (value.contains('DESSERT'), 'DESSERT',
+if (value.contains('DAILY'), 'DAILY','UNKNOWN'))))))))))))
+#@param col-name:event
+#@param newColumnName:"event_meal"
+#@in table61
+#@out table62
+#@end core/column-addition3
+#@begin core/mass-edit29#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table62
+#@out table63
+#@end core/mass-edit29
+#@begin core/mass-edit30#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table63
+#@out table64
+#@end core/mass-edit30
+#@begin core/mass-edit31#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table64
+#@out table65
+#@end core/mass-edit31
+#@begin core/mass-edit32#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table65
+#@out table66
+#@end core/mass-edit32
+#@begin core/mass-edit33#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table66
+#@out table67
+#@end core/mass-edit33
+#@begin core/mass-edit34#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table67
+#@out table68
+#@end core/mass-edit34
+#@begin core/mass-edit35#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table68
+#@out table69
+#@end core/mass-edit35
+#@begin core/mass-edit36#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table69
+#@out table70
+#@end core/mass-edit36
+#@begin core/mass-edit37#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table70
+#@out table71
+#@end core/mass-edit37
+#@begin core/mass-edit38#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table71
+#@out table72
+#@end core/mass-edit38
+#@begin core/mass-edit39#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table72
+#@out table73
+#@end core/mass-edit39
+#@begin core/mass-edit40#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table73
+#@out table74
+#@end core/mass-edit40
+#@begin core/mass-edit41#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table74
+#@out table75
+#@end core/mass-edit41
+#@begin core/mass-edit42#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table75
+#@out table76
+#@end core/mass-edit42
+#@begin core/mass-edit43#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table76
+#@out table77
+#@end core/mass-edit43
+#@begin core/mass-edit44#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table77
+#@out table78
+#@end core/mass-edit44
+#@begin core/mass-edit45#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table78
+#@out table79
+#@end core/mass-edit45
+#@begin core/mass-edit46#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table79
+#@out table80
+#@end core/mass-edit46
+#@begin core/mass-edit47#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table80
+#@out table81
+#@end core/mass-edit47
+#@begin core/mass-edit48#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table81
+#@out table82
+#@end core/mass-edit48
+#@begin core/mass-edit49#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table82
+#@out table83
+#@end core/mass-edit49
+#@begin core/mass-edit50#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table83
+#@out table84
+#@end core/mass-edit50
+#@begin core/mass-edit51#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table84
+#@out table85
+#@end core/mass-edit51
+#@begin core/mass-edit52#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table85
+#@out table86
+#@end core/mass-edit52
+#@begin core/mass-edit53#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table86
+#@out table87
+#@end core/mass-edit53
+#@begin core/mass-edit54#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table87
+#@out table88
+#@end core/mass-edit54
+#@begin core/mass-edit55#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table88
+#@out table89
+#@end core/mass-edit55
+#@begin core/mass-edit56#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table89
+#@out table90
+#@end core/mass-edit56
+#@begin core/mass-edit57#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table90
+#@out table91
+#@end core/mass-edit57
+#@begin core/mass-edit58#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table91
+#@out table92
+#@end core/mass-edit58
+#@begin core/mass-edit59#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table92
+#@out table93
+#@end core/mass-edit59
+#@begin core/mass-edit60#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table93
+#@out table94
+#@end core/mass-edit60
+#@begin core/mass-edit61#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table94
+#@out table95
+#@end core/mass-edit61
+#@begin core/mass-edit62#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table95
+#@out table96
+#@end core/mass-edit62
+#@begin core/mass-edit63#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table96
+#@out table97
+#@end core/mass-edit63
+#@begin core/mass-edit64#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table97
+#@out table98
+#@end core/mass-edit64
+#@begin core/mass-edit65#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table98
+#@out table99
+#@end core/mass-edit65
+#@begin core/mass-edit66#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table99
+#@out table100
+#@end core/mass-edit66
+#@begin core/mass-edit67#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table100
+#@out table101
+#@end core/mass-edit67
+#@begin core/mass-edit68#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table101
+#@out table102
+#@end core/mass-edit68
+#@begin core/mass-edit69#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table102
+#@out table103
+#@end core/mass-edit69
+#@begin core/mass-edit70#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table103
+#@out table104
+#@end core/mass-edit70
+#@begin core/mass-edit71#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table104
+#@out table105
+#@end core/mass-edit71
+#@begin core/mass-edit72#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table105
+#@out table106
+#@end core/mass-edit72
+#@begin core/mass-edit73#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table106
+#@out table107
+#@end core/mass-edit73
+#@begin core/mass-edit74#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table107
+#@out table108
+#@end core/mass-edit74
+#@begin core/mass-edit75#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table108
+#@out table109
+#@end core/mass-edit75
+#@begin core/mass-edit76#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table109
+#@out table110
+#@end core/mass-edit76
+#@begin core/mass-edit77#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table110
+#@out table111
+#@end core/mass-edit77
+#@begin core/mass-edit78#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table111
+#@out table112
+#@end core/mass-edit78
+#@begin core/mass-edit79#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table112
+#@out table113
+#@end core/mass-edit79
+#@begin core/mass-edit80#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table113
+#@out table114
+#@end core/mass-edit80
+#@begin core/mass-edit81#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table114
+#@out table115
+#@end core/mass-edit81
+#@begin core/mass-edit82#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table115
+#@out table116
+#@end core/mass-edit82
+#@begin core/mass-edit83#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table116
+#@out table117
+#@end core/mass-edit83
+#@begin core/mass-edit84#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table117
+#@out table118
+#@end core/mass-edit84
+#@begin core/mass-edit85#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table118
+#@out table119
+#@end core/mass-edit85
+#@begin core/mass-edit86#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table119
+#@out table120
+#@end core/mass-edit86
+#@begin core/mass-edit87#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table120
+#@out table121
+#@end core/mass-edit87
+#@begin core/mass-edit88#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table121
+#@out table122
+#@end core/mass-edit88
+#@begin core/mass-edit89#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table122
+#@out table123
+#@end core/mass-edit89
+#@begin core/mass-edit90#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table123
+#@out table124
+#@end core/mass-edit90
+#@begin core/mass-edit91#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table124
+#@out table125
+#@end core/mass-edit91
+#@begin core/mass-edit92#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table125
+#@out table126
+#@end core/mass-edit92
+#@begin core/mass-edit93#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table126
+#@out table127
+#@end core/mass-edit93
+#@begin core/mass-edit94#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table127
+#@out table128
+#@end core/mass-edit94
+#@begin core/mass-edit95#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table128
+#@out table129
+#@end core/mass-edit95
+#@begin core/mass-edit96#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table129
+#@out table130
+#@end core/mass-edit96
+#@begin core/mass-edit97#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table130
+#@out table131
+#@end core/mass-edit97
+#@begin core/mass-edit98#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table131
+#@out table132
+#@end core/mass-edit98
+#@begin core/mass-edit99#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table132
+#@out table133
+#@end core/mass-edit99
+#@begin core/mass-edit100#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table133
+#@out table134
+#@end core/mass-edit100
+#@begin core/mass-edit101#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table134
+#@out table135
+#@end core/mass-edit101
+#@begin core/mass-edit102#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table135
+#@out table136
+#@end core/mass-edit102
+#@begin core/mass-edit103#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table136
+#@out table137
+#@end core/mass-edit103
+#@begin core/mass-edit104#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table137
+#@out table138
+#@end core/mass-edit104
+#@begin core/mass-edit105#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table138
+#@out table139
+#@end core/mass-edit105
+#@begin core/mass-edit106#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table139
+#@out table140
+#@end core/mass-edit106
+#@begin core/mass-edit107#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table140
+#@out table141
+#@end core/mass-edit107
+#@begin core/mass-edit108#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table141
+#@out table142
+#@end core/mass-edit108
+#@begin core/mass-edit109#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table142
+#@out table143
+#@end core/mass-edit109
+#@begin core/mass-edit110#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table143
+#@out table144
+#@end core/mass-edit110
+#@begin core/mass-edit111#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table144
+#@out table145
+#@end core/mass-edit111
+#@begin core/mass-edit112#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table145
+#@out table146
+#@end core/mass-edit112
+#@begin core/mass-edit113#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table146
+#@out table147
+#@end core/mass-edit113
+#@begin core/mass-edit114#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table147
+#@out table148
+#@end core/mass-edit114
+#@begin core/mass-edit115#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table148
+#@out table149
+#@end core/mass-edit115
+#@begin core/mass-edit116#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table149
+#@out table150
+#@end core/mass-edit116
+#@begin core/mass-edit117#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table150
+#@out table151
+#@end core/mass-edit117
+#@begin core/mass-edit118#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table151
+#@out table152
+#@end core/mass-edit118
+#@begin core/mass-edit119#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table152
+#@out table153
+#@end core/mass-edit119
+#@begin core/mass-edit120#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table153
+#@out table154
+#@end core/mass-edit120
+#@begin core/mass-edit121#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table154
+#@out table155
+#@end core/mass-edit121
+#@begin core/mass-edit122#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table155
+#@out table156
+#@end core/mass-edit122
+#@begin core/mass-edit123#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table156
+#@out table157
+#@end core/mass-edit123
+#@begin core/mass-edit124#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table157
+#@out table158
+#@end core/mass-edit124
+#@begin core/mass-edit125#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table158
+#@out table159
+#@end core/mass-edit125
+#@begin core/mass-edit126#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table159
+#@out table160
+#@end core/mass-edit126
+#@begin core/mass-edit127#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table160
+#@out table161
+#@end core/mass-edit127
+#@begin core/mass-edit128#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table161
+#@out table162
+#@end core/mass-edit128
+#@begin core/mass-edit129#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table162
+#@out table163
+#@end core/mass-edit129
+#@begin core/mass-edit130#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table163
+#@out table164
+#@end core/mass-edit130
+#@begin core/mass-edit131#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table164
+#@out table165
+#@end core/mass-edit131
+#@begin core/mass-edit132#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table165
+#@out table166
+#@end core/mass-edit132
+#@begin core/mass-edit133#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table166
+#@out table167
+#@end core/mass-edit133
+#@begin core/mass-edit134#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table167
+#@out table168
+#@end core/mass-edit134
+#@begin core/mass-edit135#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table168
+#@out table169
+#@end core/mass-edit135
+#@begin core/mass-edit136#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table169
+#@out table170
+#@end core/mass-edit136
+#@begin core/mass-edit137#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table170
+#@out table171
+#@end core/mass-edit137
+#@begin core/mass-edit138#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table171
+#@out table172
+#@end core/mass-edit138
+#@begin core/mass-edit139#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table172
+#@out table173
+#@end core/mass-edit139
+#@begin core/mass-edit140#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table173
+#@out table174
+#@end core/mass-edit140
+#@begin core/mass-edit141#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table174
+#@out table175
+#@end core/mass-edit141
+#@begin core/mass-edit142#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table175
+#@out table176
+#@end core/mass-edit142
+#@begin core/mass-edit143#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table176
+#@out table177
+#@end core/mass-edit143
+#@begin core/mass-edit144#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table177
+#@out table178
+#@end core/mass-edit144
+#@begin core/mass-edit145#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table178
+#@out table179
+#@end core/mass-edit145
+#@begin core/mass-edit146#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table179
+#@out table180
+#@end core/mass-edit146
+#@begin core/mass-edit147#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table180
+#@out table181
+#@end core/mass-edit147
+#@begin core/mass-edit148#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table181
+#@out table182
+#@end core/mass-edit148
+#@begin core/mass-edit149#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table182
+#@out table183
+#@end core/mass-edit149
+#@begin core/mass-edit150#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table183
+#@out table184
+#@end core/mass-edit150
+#@begin core/mass-edit151#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table184
+#@out table185
+#@end core/mass-edit151
+#@begin core/mass-edit152#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table185
+#@out table186
+#@end core/mass-edit152
+#@begin core/mass-edit153#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table186
+#@out table187
+#@end core/mass-edit153
+#@begin core/mass-edit154#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table187
+#@out table188
+#@end core/mass-edit154
+#@begin core/mass-edit155#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table188
+#@out table189
+#@end core/mass-edit155
+#@begin core/mass-edit156#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table189
+#@out table190
+#@end core/mass-edit156
+#@begin core/mass-edit157#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table190
+#@out table191
+#@end core/mass-edit157
+#@begin core/mass-edit158#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table191
+#@out table192
+#@end core/mass-edit158
+#@begin core/mass-edit159#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table192
+#@out table193
+#@end core/mass-edit159
+#@begin core/mass-edit160#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table193
+#@out table194
+#@end core/mass-edit160
+#@begin core/mass-edit161#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table194
+#@out table195
+#@end core/mass-edit161
+#@begin core/mass-edit162#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table195
+#@out table196
+#@end core/mass-edit162
+#@begin core/mass-edit163#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table196
+#@out table197
+#@end core/mass-edit163
+#@begin core/mass-edit164#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table197
+#@out table198
+#@end core/mass-edit164
+#@begin core/mass-edit165#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table198
+#@out table199
+#@end core/mass-edit165
+#@begin core/mass-edit166#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table199
+#@out table200
+#@end core/mass-edit166
+#@begin core/mass-edit167#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table200
+#@out table201
+#@end core/mass-edit167
+#@begin core/mass-edit168#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table201
+#@out table202
+#@end core/mass-edit168
+#@begin core/mass-edit169#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table202
+#@out table203
+#@end core/mass-edit169
+#@begin core/mass-edit170#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table203
+#@out table204
+#@end core/mass-edit170
+#@begin core/mass-edit171#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table204
+#@out table205
+#@end core/mass-edit171
+#@begin core/mass-edit172#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table205
+#@out table206
+#@end core/mass-edit172
+#@begin core/mass-edit173#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table206
+#@out table207
+#@end core/mass-edit173
+#@begin core/mass-edit174#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table207
+#@out table208
+#@end core/mass-edit174
+#@begin core/mass-edit175#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table208
+#@out table209
+#@end core/mass-edit175
+#@begin core/mass-edit176#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table209
+#@out table210
+#@end core/mass-edit176
+#@begin core/mass-edit177#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table210
+#@out table211
+#@end core/mass-edit177
+#@begin core/mass-edit178#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table211
+#@out table212
+#@end core/mass-edit178
+#@begin core/mass-edit179#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table212
+#@out table213
+#@end core/mass-edit179
+#@begin core/mass-edit180#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table213
+#@out table214
+#@end core/mass-edit180
+#@begin core/mass-edit181#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table214
+#@out table215
+#@end core/mass-edit181
+#@begin core/mass-edit182#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table215
+#@out table216
+#@end core/mass-edit182
+#@begin core/mass-edit183#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table216
+#@out table217
+#@end core/mass-edit183
+#@begin core/mass-edit184#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table217
+#@out table218
+#@end core/mass-edit184
+#@begin core/mass-edit185#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table218
+#@out table219
+#@end core/mass-edit185
+#@begin core/mass-edit186#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table219
+#@out table220
+#@end core/mass-edit186
+#@begin core/mass-edit187#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table220
+#@out table221
+#@end core/mass-edit187
+#@begin core/mass-edit188#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table221
+#@out table222
+#@end core/mass-edit188
+#@begin core/mass-edit189#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table222
+#@out table223
+#@end core/mass-edit189
+#@begin core/mass-edit190#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table223
+#@out table224
+#@end core/mass-edit190
+#@begin core/mass-edit191#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table224
+#@out table225
+#@end core/mass-edit191
+#@begin core/mass-edit192#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table225
+#@out table226
+#@end core/mass-edit192
+#@begin core/mass-edit193#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table226
+#@out table227
+#@end core/mass-edit193
+#@begin core/mass-edit194#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table227
+#@out table228
+#@end core/mass-edit194
+#@begin core/mass-edit195#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table228
+#@out table229
+#@end core/mass-edit195
+#@begin core/mass-edit196#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table229
+#@out table230
+#@end core/mass-edit196
+#@begin core/mass-edit197#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table230
+#@out table231
+#@end core/mass-edit197
+#@begin core/mass-edit198#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table231
+#@out table232
+#@end core/mass-edit198
+#@begin core/mass-edit199#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table232
+#@out table233
+#@end core/mass-edit199
+#@begin core/mass-edit200#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table233
+#@out table234
+#@end core/mass-edit200
+#@begin core/mass-edit201#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table234
+#@out table235
+#@end core/mass-edit201
+#@begin core/mass-edit202#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table235
+#@out table236
+#@end core/mass-edit202
+#@begin core/mass-edit203#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table236
+#@out table237
+#@end core/mass-edit203
+#@begin core/mass-edit204#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table237
+#@out table238
+#@end core/mass-edit204
+#@begin core/column-addition4#@desc Create column MEAL at index 8 based on column occasion using expression grel:if (value.contains('DINNER'), 'DINNER',
+if (value.contains('BREAKFAST'), 'BREAKFAST',
+if (value.contains('LUNCH'), 'LUNCH',
+if (value.contains('AFTERNOON'), 'AFTERNOON',
+if (value.contains('BANQUET'), 'BANQUET',
+if (value.contains('DAILY'), 'DAILY',
+'UNKNOWN'))))))
+#@param col-name:occasion
+#@param newColumnName:"MEAL"
+#@in table238
+#@out table239
+#@end core/column-addition4
+#@begin core/mass-edit205#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table239
+#@out table240
+#@end core/mass-edit205
+#@begin core/mass-edit206#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table240
+#@out table241
+#@end core/mass-edit206
+#@begin core/mass-edit207#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table241
+#@out table242
+#@end core/mass-edit207
+#@begin core/mass-edit208#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table242
+#@out table243
+#@end core/mass-edit208
+#@begin core/mass-edit209#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table243
+#@out table244
+#@end core/mass-edit209
+#@begin core/column-addition5#@desc Create column MEAL at index 8 based on column occasion using expression grel:if (value.contains('BANQUET'), 'BANQUET',
+if (value.contains('BREAKFAST'), 'BREAKFAST',
+if (value.contains('LUNCH'), 'LUNCH',
+if (value.contains('DINNER'), 'DINNER',
+if (value.contains('AFTERNOON'), 'AFTERNOON',
+if (value.contains('DAILY'), 'DAILY',
+'UNKNOWN'))))))
+#@param col-name:occasion
+#@param newColumnName:"MEAL"
+#@in table244
+#@out table245
+#@end core/column-addition5
+#@begin core/mass-edit210#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table245
+#@out table246
+#@end core/mass-edit210
+#@begin core/mass-edit211#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table246
+#@out table247
+#@end core/mass-edit211
+#@begin core/mass-edit212#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table247
+#@out table248
+#@end core/mass-edit212
+#@begin core/mass-edit213#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table248
+#@out table249
+#@end core/mass-edit213
+#@begin core/mass-edit214#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table249
+#@out table250
+#@end core/mass-edit214
+#@begin core/mass-edit215#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table250
+#@out table251
+#@end core/mass-edit215
+#@begin core/mass-edit216#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table251
+#@out table252
+#@end core/mass-edit216
+#@begin core/mass-edit217#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table252
+#@out table253
+#@end core/mass-edit217
+#@begin core/mass-edit218#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table253
+#@out table254
+#@end core/mass-edit218
+#@begin core/mass-edit219#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table254
+#@out table255
+#@end core/mass-edit219
+#@begin core/mass-edit220#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table255
+#@out table256
+#@end core/mass-edit220
+#@begin core/mass-edit221#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table256
+#@out table257
+#@end core/mass-edit221
+#@begin core/text-transform29#@desc Text transform on cells in column occasion using expression grel:\"RITE;ANNIVERSARY;\"
+#@param col-name:occasion
+#@param expression:grel:"RITE;ANNIVERSARY;"
+#@in table257
+#@out table258
+#@end core/text-transform29
+#@begin core/text-transform30#@desc Text transform on cells in column occasion using expression grel:\"EVENT;BANQUET;\"
+#@param col-name:occasion
+#@param expression:grel:"EVENT;BANQUET;"
+#@in table258
+#@out table259
+#@end core/text-transform30
+#@begin core/text-transform31#@desc Text transform on cells in column occasion using expression grel:EVENT;ANNUAL;
+#@param col-name:occasion
+#@param expression:grel:EVENT;ANNUAL;
+#@in table259
+#@out table260
+#@end core/text-transform31
+#@begin core/text-transform32#@desc Text transform on cells in column occasion using expression grel:\"ANNUAL;DINNER;\"
+#@param col-name:occasion
+#@param expression:grel:"ANNUAL;DINNER;"
+#@in table260
+#@out table261
+#@end core/text-transform32
+#@begin core/mass-edit222#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table261
+#@out table262
+#@end core/mass-edit222
+#@begin core/mass-edit223#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table262
+#@out table263
+#@end core/mass-edit223
+#@begin core/mass-edit224#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table263
+#@out table264
+#@end core/mass-edit224
+#@begin core/mass-edit225#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table264
+#@out table265
+#@end core/mass-edit225
+#@begin core/mass-edit226#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table265
+#@out table266
+#@end core/mass-edit226
+#@begin core/mass-edit227#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table266
+#@out table267
+#@end core/mass-edit227
+#@begin core/mass-edit228#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table267
+#@out table268
+#@end core/mass-edit228
+#@begin core/mass-edit229#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table268
+#@out table269
+#@end core/mass-edit229
+#@begin core/mass-edit230#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table269
+#@out table270
+#@end core/mass-edit230
+#@begin core/mass-edit231#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table270
+#@out table271
+#@end core/mass-edit231
+#@begin core/mass-edit232#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table271
+#@out table272
+#@end core/mass-edit232
+#@begin core/mass-edit233#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table272
+#@out table273
+#@end core/mass-edit233
+#@begin core/mass-edit234#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table273
+#@out table274
+#@end core/mass-edit234
+#@begin core/mass-edit235#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table274
+#@out table275
+#@end core/mass-edit235
+#@begin core/mass-edit236#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table275
+#@out table276
+#@end core/mass-edit236
+#@begin core/mass-edit237#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table276
+#@out table277
+#@end core/mass-edit237
+#@begin core/mass-edit238#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table277
+#@out table278
+#@end core/mass-edit238
+#@begin core/mass-edit239#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table278
+#@out table279
+#@end core/mass-edit239
+#@begin core/mass-edit240#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table279
+#@out table280
+#@end core/mass-edit240
+#@begin core/mass-edit241#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table280
+#@out table281
+#@end core/mass-edit241
+#@begin core/mass-edit242#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table281
+#@out table282
+#@end core/mass-edit242
+#@begin core/mass-edit243#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table282
+#@out table283
+#@end core/mass-edit243
+#@begin core/mass-edit244#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table283
+#@out table284
+#@end core/mass-edit244
+#@begin core/mass-edit245#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table284
+#@out table285
+#@end core/mass-edit245
+#@begin core/mass-edit246#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table285
+#@out table286
+#@end core/mass-edit246
+#@begin core/mass-edit247#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table286
+#@out table287
+#@end core/mass-edit247
+#@begin core/mass-edit248#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table287
+#@out table288
+#@end core/mass-edit248
+#@begin core/mass-edit249#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table288
+#@out table289
+#@end core/mass-edit249
+#@begin core/mass-edit250#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table289
+#@out table290
+#@end core/mass-edit250
+#@begin core/mass-edit251#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table290
+#@out table291
+#@end core/mass-edit251
+#@begin core/mass-edit252#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table291
+#@out table292
+#@end core/mass-edit252
+#@begin core/mass-edit253#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table292
+#@out table293
+#@end core/mass-edit253
+#@begin core/mass-edit254#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table293
+#@out table294
+#@end core/mass-edit254
+#@begin core/mass-edit255#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table294
+#@out table295
+#@end core/mass-edit255
+#@begin core/mass-edit256#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table295
+#@out table296
+#@end core/mass-edit256
+#@begin core/mass-edit257#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table296
+#@out table297
+#@end core/mass-edit257
+#@begin core/mass-edit258#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table297
+#@out table298
+#@end core/mass-edit258
+#@begin core/mass-edit259#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table298
+#@out table299
+#@end core/mass-edit259
+#@begin core/mass-edit260#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table299
+#@out table300
+#@end core/mass-edit260
+#@begin core/mass-edit261#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table300
+#@out table301
+#@end core/mass-edit261
+#@begin core/mass-edit262#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table301
+#@out table302
+#@end core/mass-edit262
+#@begin core/mass-edit263#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table302
+#@out table303
+#@end core/mass-edit263
+#@begin core/mass-edit264#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table303
+#@out table304
+#@end core/mass-edit264
+#@begin core/mass-edit265#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table304
+#@out table305
+#@end core/mass-edit265
+#@begin core/mass-edit266#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table305
+#@out table306
+#@end core/mass-edit266
+#@begin core/mass-edit267#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table306
+#@out table307
+#@end core/mass-edit267
+#@begin core/mass-edit268#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table307
+#@out table308
+#@end core/mass-edit268
+#@begin core/mass-edit269#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table308
+#@out table309
+#@end core/mass-edit269
+#@begin core/mass-edit270#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table309
+#@out table310
+#@end core/mass-edit270
+#@begin core/mass-edit271#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table310
+#@out table311
+#@end core/mass-edit271
+#@begin core/mass-edit272#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table311
+#@out table312
+#@end core/mass-edit272
+#@begin core/mass-edit273#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table312
+#@out table313
+#@end core/mass-edit273
+#@begin core/mass-edit274#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table313
+#@out table314
+#@end core/mass-edit274
+#@begin core/mass-edit275#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table314
+#@out table315
+#@end core/mass-edit275
+#@begin core/mass-edit276#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table315
+#@out table316
+#@end core/mass-edit276
+#@begin core/mass-edit277#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table316
+#@out table317
+#@end core/mass-edit277
+#@begin core/mass-edit278#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table317
+#@out table318
+#@end core/mass-edit278
+#@begin core/mass-edit279#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table318
+#@out table319
+#@end core/mass-edit279
+#@begin core/mass-edit280#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table319
+#@out table320
+#@end core/mass-edit280
+#@begin core/mass-edit281#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table320
+#@out table321
+#@end core/mass-edit281
+#@begin core/mass-edit282#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table321
+#@out table322
+#@end core/mass-edit282
+#@begin core/mass-edit283#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table322
+#@out table323
+#@end core/mass-edit283
+#@begin core/mass-edit284#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table323
+#@out table324
+#@end core/mass-edit284
+#@begin core/mass-edit285#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table324
+#@out table325
+#@end core/mass-edit285
+#@begin core/mass-edit286#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table325
+#@out table326
+#@end core/mass-edit286
+#@begin core/mass-edit287#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table326
+#@out table327
+#@end core/mass-edit287
+#@begin core/mass-edit288#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table327
+#@out table328
+#@end core/mass-edit288
+#@begin core/mass-edit289#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table328
+#@out table329
+#@end core/mass-edit289
+#@begin core/mass-edit290#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table329
+#@out table330
+#@end core/mass-edit290
+#@begin core/mass-edit291#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table330
+#@out table331
+#@end core/mass-edit291
+#@begin core/mass-edit292#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table331
+#@out table332
+#@end core/mass-edit292
+#@begin core/mass-edit293#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table332
+#@out table333
+#@end core/mass-edit293
+#@begin core/mass-edit294#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table333
+#@out table334
+#@end core/mass-edit294
+#@begin core/mass-edit295#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table334
+#@out table335
+#@end core/mass-edit295
+#@begin core/mass-edit296#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table335
+#@out table336
+#@end core/mass-edit296
+#@begin core/mass-edit297#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table336
+#@out table337
+#@end core/mass-edit297
+#@begin core/mass-edit298#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table337
+#@out table338
+#@end core/mass-edit298
+#@begin core/mass-edit299#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table338
+#@out table339
+#@end core/mass-edit299
+#@begin core/mass-edit300#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table339
+#@out table340
+#@end core/mass-edit300
+#@begin core/mass-edit301#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table340
+#@out table341
+#@end core/mass-edit301
+#@begin core/mass-edit302#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table341
+#@out table342
+#@end core/mass-edit302
+#@begin core/mass-edit303#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table342
+#@out table343
+#@end core/mass-edit303
+#@begin core/mass-edit304#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table343
+#@out table344
+#@end core/mass-edit304
+#@begin core/mass-edit305#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table344
+#@out table345
+#@end core/mass-edit305
+#@begin core/mass-edit306#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table345
+#@out table346
+#@end core/mass-edit306
+#@begin core/mass-edit307#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table346
+#@out table347
+#@end core/mass-edit307
+#@begin core/mass-edit308#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table347
+#@out table348
+#@end core/mass-edit308
+#@begin core/mass-edit309#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table348
+#@out table349
+#@end core/mass-edit309
+#@begin core/mass-edit310#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table349
+#@out table350
+#@end core/mass-edit310
+#@begin core/mass-edit311#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table350
+#@out table351
+#@end core/mass-edit311
+#@begin core/mass-edit312#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table351
+#@out table352
+#@end core/mass-edit312
+#@begin core/mass-edit313#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table352
+#@out table353
+#@end core/mass-edit313
+#@begin core/mass-edit314#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table353
+#@out table354
+#@end core/mass-edit314
+#@begin core/mass-edit315#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table354
+#@out table355
+#@end core/mass-edit315
+#@begin core/mass-edit316#@desc Mass edit cells in column occasion
+#@param col-name:occasion
+#@in table355
+#@out table356
+#@end core/mass-edit316
+#@begin core/column-addition6#@desc Create column occasion_tagged at index 8 based on column occasion using expression grel:if (value.contains('RELIGIOUS HOLIDAY;'), 'RELIGIOUS HOLIDAY',
+if (value.contains('SECULAR HOLIDAY;'), 'SECULAR HOLIDAY',
+if (value.contains('PATRIOTIC HOLIDAY;'), 'PATRIOTIC HOLIDAY',
+if (value.contains('ETHIC HOLIDAY;'), 'ETHIC HOLIDAY',
+if (value.contains('RITE;'), 'RITE',
+if (value.contains('NATIONAL;'), 'NATIONAL',
+if (value.contains('TRAVEL;'), 'TRAVEL',
+if (value.contains('WEEKEND;'), 'WEEKEND',
+if (value.contains('WEEKDAY;'), 'WEEKDAY',
+if (value.contains('EVENT;'), 'EVENT',
+if (value.contains('OTHER'), 'EVENT', 'UNKNOWN')))))))))))
+#@param col-name:occasion
+#@param newColumnName:"occasion_tagged"
+#@in table356
+#@out table357
+#@end core/column-addition6
+#@begin core/column-addition7#@desc Create column occasion_tagged at index 8 based on column occasion using expression grel:if (value.contains('RELIGIOUS HOLIDAY;'), 'RELIGIOUS HOLIDAY',
+if (value.contains('SECULAR HOLIDAY;'), 'SECULAR HOLIDAY',
+if (value.contains('PATRIOTIC HOLIDAY;'), 'PATRIOTIC HOLIDAY',
+if (value.contains('ETHIC HOLIDAY;'), 'ETHIC HOLIDAY',
+if (value.contains('RITE;'), 'RITE',
+if (value.contains('NATIONAL;'), 'NATIONAL',
+if (value.contains('TRAVEL;'), 'TRAVEL',
+if (value.contains('WEEKEND;'), 'WEEKEND',
+if (value.contains('WEEKDAY;'), 'WEEKDAY',
+if (value.contains('COMPLEMENTARY;'), 'COMPLEMENTARY',
+if (value.contains('EVENT;'), 'EVENT',
+if (value.contains('OTHER'), 'EVENT', 'UNKNOWN'))))))))))))
+#@param col-name:occasion
+#@param newColumnName:"occasion_tagged"
+#@in table357
+#@out table358
+#@end core/column-addition7
+#@begin core/column-addition8#@desc Create column event_pre_tag at index 4 based on column event using expression grel:if (value.contains('ANNIVERSARY'), 'RITE',
+if (value.contains('WEDDING'), 'RITE', 
+if (value.contains('PRIVATE'), 'RITE',
+if (value.contains('BIRTHDAY'), 'RITE',
+if (value.contains('REUNION'), 'EVENT',
+if (value.contains('ANNUAL'), 'EVENT',
+if (value.contains('MEETING'), 'EVENT',
+if (value.contains('CONVENTION'), 'EVENT',
+if (value.contains('COMPLIMENTARY'), 'EVENT',
+if (value.contains('SUNDAY'), 'WEEKEND', 'UNKNOWN'))))))))))
+#@param col-name:event
+#@param newColumnName:"event_pre_tag"
+#@in table358
+#@out table359
+#@end core/column-addition8
+#@begin core/mass-edit317#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table359
+#@out table360
+#@end core/mass-edit317
+#@begin core/mass-edit318#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table360
+#@out table361
+#@end core/mass-edit318
+#@begin core/mass-edit319#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table361
+#@out table362
+#@end core/mass-edit319
+#@begin core/mass-edit320#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table362
+#@out table363
+#@end core/mass-edit320
+#@begin core/mass-edit321#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table363
+#@out table364
+#@end core/mass-edit321
+#@begin core/mass-edit322#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table364
+#@out table365
+#@end core/mass-edit322
+#@begin core/mass-edit323#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table365
+#@out table366
+#@end core/mass-edit323
+#@begin core/mass-edit324#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table366
+#@out table367
+#@end core/mass-edit324
+#@begin core/mass-edit325#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table367
+#@out table368
+#@end core/mass-edit325
+#@begin core/mass-edit326#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table368
+#@out table369
+#@end core/mass-edit326
+#@begin core/mass-edit327#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table369
+#@out table370
+#@end core/mass-edit327
+#@begin core/mass-edit328#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table370
+#@out table371
+#@end core/mass-edit328
+#@begin core/mass-edit329#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table371
+#@out table372
+#@end core/mass-edit329
+#@begin core/mass-edit330#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table372
+#@out table373
+#@end core/mass-edit330
+#@begin core/mass-edit331#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table373
+#@out table374
+#@end core/mass-edit331
+#@begin core/mass-edit332#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table374
+#@out table375
+#@end core/mass-edit332
+#@begin core/mass-edit333#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table375
+#@out table376
+#@end core/mass-edit333
+#@begin core/mass-edit334#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table376
+#@out table377
+#@end core/mass-edit334
+#@begin core/mass-edit335#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table377
+#@out table378
+#@end core/mass-edit335
+#@begin core/mass-edit336#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table378
+#@out table379
+#@end core/mass-edit336
+#@begin core/mass-edit337#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table379
+#@out table380
+#@end core/mass-edit337
+#@begin core/mass-edit338#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table380
+#@out table381
+#@end core/mass-edit338
+#@begin core/mass-edit339#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table381
+#@out table382
+#@end core/mass-edit339
+#@begin core/mass-edit340#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table382
+#@out table383
+#@end core/mass-edit340
+#@begin core/mass-edit341#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table383
+#@out table384
+#@end core/mass-edit341
+#@begin core/mass-edit342#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table384
+#@out table385
+#@end core/mass-edit342
+#@begin core/mass-edit343#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table385
+#@out table386
+#@end core/mass-edit343
+#@begin core/mass-edit344#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table386
+#@out table387
+#@end core/mass-edit344
+#@begin core/mass-edit345#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table387
+#@out table388
+#@end core/mass-edit345
+#@begin core/mass-edit346#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table388
+#@out table389
+#@end core/mass-edit346
+#@begin core/mass-edit347#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table389
+#@out table390
+#@end core/mass-edit347
+#@begin core/mass-edit348#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table390
+#@out table391
+#@end core/mass-edit348
+#@begin core/mass-edit349#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table391
+#@out table392
+#@end core/mass-edit349
+#@begin core/mass-edit350#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table392
+#@out table393
+#@end core/mass-edit350
+#@begin core/mass-edit351#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table393
+#@out table394
+#@end core/mass-edit351
+#@begin core/mass-edit352#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table394
+#@out table395
+#@end core/mass-edit352
+#@begin core/mass-edit353#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table395
+#@out table396
+#@end core/mass-edit353
+#@begin core/mass-edit354#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table396
+#@out table397
+#@end core/mass-edit354
+#@begin core/mass-edit355#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table397
+#@out table398
+#@end core/mass-edit355
+#@begin core/mass-edit356#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table398
+#@out table399
+#@end core/mass-edit356
+#@begin core/mass-edit357#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table399
+#@out table400
+#@end core/mass-edit357
+#@begin core/mass-edit358#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table400
+#@out table401
+#@end core/mass-edit358
+#@begin core/mass-edit359#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table401
+#@out table402
+#@end core/mass-edit359
+#@begin core/mass-edit360#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table402
+#@out table403
+#@end core/mass-edit360
+#@begin core/mass-edit361#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table403
+#@out table404
+#@end core/mass-edit361
+#@begin core/mass-edit362#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table404
+#@out table405
+#@end core/mass-edit362
+#@begin core/mass-edit363#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table405
+#@out table406
+#@end core/mass-edit363
+#@begin core/mass-edit364#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table406
+#@out table407
+#@end core/mass-edit364
+#@begin core/mass-edit365#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table407
+#@out table408
+#@end core/mass-edit365
+#@begin core/mass-edit366#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table408
+#@out table409
+#@end core/mass-edit366
+#@begin core/mass-edit367#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table409
+#@out table410
+#@end core/mass-edit367
+#@begin core/mass-edit368#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table410
+#@out table411
+#@end core/mass-edit368
+#@begin core/mass-edit369#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table411
+#@out table412
+#@end core/mass-edit369
+#@begin core/mass-edit370#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table412
+#@out table413
+#@end core/mass-edit370
+#@begin core/mass-edit371#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table413
+#@out table414
+#@end core/mass-edit371
+#@begin core/mass-edit372#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table414
+#@out table415
+#@end core/mass-edit372
+#@begin core/mass-edit373#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table415
+#@out table416
+#@end core/mass-edit373
+#@begin core/mass-edit374#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table416
+#@out table417
+#@end core/mass-edit374
+#@begin core/mass-edit375#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table417
+#@out table418
+#@end core/mass-edit375
+#@begin core/mass-edit376#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table418
+#@out table419
+#@end core/mass-edit376
+#@begin core/mass-edit377#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table419
+#@out table420
+#@end core/mass-edit377
+#@begin core/mass-edit378#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table420
+#@out table421
+#@end core/mass-edit378
+#@begin core/mass-edit379#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table421
+#@out table422
+#@end core/mass-edit379
+#@begin core/mass-edit380#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table422
+#@out table423
+#@end core/mass-edit380
+#@begin core/mass-edit381#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table423
+#@out table424
+#@end core/mass-edit381
+#@begin core/mass-edit382#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table424
+#@out table425
+#@end core/mass-edit382
+#@begin core/mass-edit383#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table425
+#@out table426
+#@end core/mass-edit383
+#@begin core/mass-edit384#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table426
+#@out table427
+#@end core/mass-edit384
+#@begin core/mass-edit385#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table427
+#@out table428
+#@end core/mass-edit385
+#@begin core/mass-edit386#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table428
+#@out table429
+#@end core/mass-edit386
+#@begin core/mass-edit387#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table429
+#@out table430
+#@end core/mass-edit387
+#@begin core/mass-edit388#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table430
+#@out table431
+#@end core/mass-edit388
+#@begin core/mass-edit389#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table431
+#@out table432
+#@end core/mass-edit389
+#@begin core/mass-edit390#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table432
+#@out table433
+#@end core/mass-edit390
+#@begin core/mass-edit391#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table433
+#@out table434
+#@end core/mass-edit391
+#@begin core/mass-edit392#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table434
+#@out table435
+#@end core/mass-edit392
+#@begin core/mass-edit393#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table435
+#@out table436
+#@end core/mass-edit393
+#@begin core/mass-edit394#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table436
+#@out table437
+#@end core/mass-edit394
+#@begin core/mass-edit395#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table437
+#@out table438
+#@end core/mass-edit395
+#@begin core/mass-edit396#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table438
+#@out table439
+#@end core/mass-edit396
+#@begin core/mass-edit397#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table439
+#@out table440
+#@end core/mass-edit397
+#@begin core/mass-edit398#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table440
+#@out table441
+#@end core/mass-edit398
+#@begin core/mass-edit399#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table441
+#@out table442
+#@end core/mass-edit399
+#@begin core/mass-edit400#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table442
+#@out table443
+#@end core/mass-edit400
+#@begin core/mass-edit401#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table443
+#@out table444
+#@end core/mass-edit401
+#@begin core/mass-edit402#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table444
+#@out table445
+#@end core/mass-edit402
+#@begin core/mass-edit403#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table445
+#@out table446
+#@end core/mass-edit403
+#@begin core/mass-edit404#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table446
+#@out table447
+#@end core/mass-edit404
+#@begin core/mass-edit405#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table447
+#@out table448
+#@end core/mass-edit405
+#@begin core/mass-edit406#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table448
+#@out table449
+#@end core/mass-edit406
+#@begin core/mass-edit407#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table449
+#@out table450
+#@end core/mass-edit407
+#@begin core/mass-edit408#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table450
+#@out table451
+#@end core/mass-edit408
+#@begin core/mass-edit409#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table451
+#@out table452
+#@end core/mass-edit409
+#@begin core/mass-edit410#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table452
+#@out table453
+#@end core/mass-edit410
+#@begin core/mass-edit411#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table453
+#@out table454
+#@end core/mass-edit411
+#@begin core/mass-edit412#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table454
+#@out table455
+#@end core/mass-edit412
+#@begin core/mass-edit413#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table455
+#@out table456
+#@end core/mass-edit413
+#@begin core/mass-edit414#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table456
+#@out table457
+#@end core/mass-edit414
+#@begin core/mass-edit415#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table457
+#@out table458
+#@end core/mass-edit415
+#@begin core/mass-edit416#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table458
+#@out table459
+#@end core/mass-edit416
+#@begin core/mass-edit417#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table459
+#@out table460
+#@end core/mass-edit417
+#@begin core/mass-edit418#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table460
+#@out table461
+#@end core/mass-edit418
+#@begin core/mass-edit419#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table461
+#@out table462
+#@end core/mass-edit419
+#@begin core/mass-edit420#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table462
+#@out table463
+#@end core/mass-edit420
+#@begin core/mass-edit421#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table463
+#@out table464
+#@end core/mass-edit421
+#@begin core/mass-edit422#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table464
+#@out table465
+#@end core/mass-edit422
+#@begin core/mass-edit423#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table465
+#@out table466
+#@end core/mass-edit423
+#@begin core/mass-edit424#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table466
+#@out table467
+#@end core/mass-edit424
+#@begin core/mass-edit425#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table467
+#@out table468
+#@end core/mass-edit425
+#@begin core/mass-edit426#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table468
+#@out table469
+#@end core/mass-edit426
+#@begin core/mass-edit427#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table469
+#@out table470
+#@end core/mass-edit427
+#@begin core/mass-edit428#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table470
+#@out table471
+#@end core/mass-edit428
+#@begin core/mass-edit429#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table471
+#@out table472
+#@end core/mass-edit429
+#@begin core/mass-edit430#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table472
+#@out table473
+#@end core/mass-edit430
+#@begin core/mass-edit431#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table473
+#@out table474
+#@end core/mass-edit431
+#@begin core/mass-edit432#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table474
+#@out table475
+#@end core/mass-edit432
+#@begin core/mass-edit433#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table475
+#@out table476
+#@end core/mass-edit433
+#@begin core/mass-edit434#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table476
+#@out table477
+#@end core/mass-edit434
+#@begin core/mass-edit435#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table477
+#@out table478
+#@end core/mass-edit435
+#@begin core/mass-edit436#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table478
+#@out table479
+#@end core/mass-edit436
+#@begin core/mass-edit437#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table479
+#@out table480
+#@end core/mass-edit437
+#@begin core/mass-edit438#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table480
+#@out table481
+#@end core/mass-edit438
+#@begin core/mass-edit439#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table481
+#@out table482
+#@end core/mass-edit439
+#@begin core/mass-edit440#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table482
+#@out table483
+#@end core/mass-edit440
+#@begin core/mass-edit441#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table483
+#@out table484
+#@end core/mass-edit441
+#@begin core/mass-edit442#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table484
+#@out table485
+#@end core/mass-edit442
+#@begin core/mass-edit443#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table485
+#@out table486
+#@end core/mass-edit443
+#@begin core/mass-edit444#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table486
+#@out table487
+#@end core/mass-edit444
+#@begin core/mass-edit445#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table487
+#@out table488
+#@end core/mass-edit445
+#@begin core/mass-edit446#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table488
+#@out table489
+#@end core/mass-edit446
+#@begin core/mass-edit447#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table489
+#@out table490
+#@end core/mass-edit447
+#@begin core/mass-edit448#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table490
+#@out table491
+#@end core/mass-edit448
+#@begin core/mass-edit449#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table491
+#@out table492
+#@end core/mass-edit449
+#@begin core/mass-edit450#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table492
+#@out table493
+#@end core/mass-edit450
+#@begin core/mass-edit451#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table493
+#@out table494
+#@end core/mass-edit451
+#@begin core/mass-edit452#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table494
+#@out table495
+#@end core/mass-edit452
+#@begin core/mass-edit453#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table495
+#@out table496
+#@end core/mass-edit453
+#@begin core/mass-edit454#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table496
+#@out table497
+#@end core/mass-edit454
+#@begin core/mass-edit455#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table497
+#@out table498
+#@end core/mass-edit455
+#@begin core/mass-edit456#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table498
+#@out table499
+#@end core/mass-edit456
+#@begin core/mass-edit457#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table499
+#@out table500
+#@end core/mass-edit457
+#@begin core/mass-edit458#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table500
+#@out table501
+#@end core/mass-edit458
+#@begin core/mass-edit459#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table501
+#@out table502
+#@end core/mass-edit459
+#@begin core/mass-edit460#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table502
+#@out table503
+#@end core/mass-edit460
+#@begin core/mass-edit461#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table503
+#@out table504
+#@end core/mass-edit461
+#@begin core/mass-edit462#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table504
+#@out table505
+#@end core/mass-edit462
+#@begin core/mass-edit463#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table505
+#@out table506
+#@end core/mass-edit463
+#@begin core/mass-edit464#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table506
+#@out table507
+#@end core/mass-edit464
+#@begin core/mass-edit465#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table507
+#@out table508
+#@end core/mass-edit465
+#@begin core/mass-edit466#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table508
+#@out table509
+#@end core/mass-edit466
+#@begin core/mass-edit467#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table509
+#@out table510
+#@end core/mass-edit467
+#@begin core/mass-edit468#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table510
+#@out table511
+#@end core/mass-edit468
+#@begin core/mass-edit469#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table511
+#@out table512
+#@end core/mass-edit469
+#@begin core/mass-edit470#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table512
+#@out table513
+#@end core/mass-edit470
+#@begin core/mass-edit471#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table513
+#@out table514
+#@end core/mass-edit471
+#@begin core/mass-edit472#@desc Mass edit cells in column event
+#@param col-name:event
+#@in table514
+#@out table515
+#@end core/mass-edit472
+#@begin core/text-transform33#@desc Text transform on cells in column event using expression grel:\"EVENT;\"+value
+#@param col-name:event
+#@param expression:grel:"EVENT;"+value
+#@in table515
+#@out table516
+#@end core/text-transform33
+#@begin core/text-transform34#@desc Text transform on cells in column event using expression grel:\"EVENT;\"+value
+#@param col-name:event
+#@param expression:grel:"EVENT;"+value
+#@in table516
+#@out table517
+#@end core/text-transform34
+#@begin core/text-transform35#@desc Text transform on cells in column event using expression grel:\"EVENT;\"+value
+#@param col-name:event
+#@param expression:grel:"EVENT;"+value
+#@in table517
+#@out table518
+#@end core/text-transform35
+#@begin core/text-transform36#@desc Text transform on cells in column event using expression grel:if (isNotNull(value.match(/.* (BANQUET|BREAKFAST|LUNCH|DINNER)? (TO|FOR|OF|AT)? .*/)), \"EVENT;\"+value, value)
+#@param col-name:event
+#@param expression:grel:if_(isNotNull(value.match(/.*_(BANQUET|BREAKFAST|LUNCH|DINNER)?_(TO|FOR|OF|AT)?_.*/)),_"EVENT;"+value,_value)
+#@in table518
+#@out table519
+#@end core/text-transform36
+#@begin core/column-addition9#@desc Create column event_tagged at index 4 based on column event using expression grel:if (value.contains('RELIGIOUS HOLIDAY;'), 'RELIGIOUS HOLIDAY',
+if (value.contains('SECULAR HOLIDAY;'), 'SECULAR HOLIDAY',
+if (value.contains('PATRIOTIC HOLIDAY;'), 'PATRIOTIC HOLIDAY',
+if (value.contains('ETHIC HOLIDAY;'), 'ETHIC HOLIDAY',
+if (value.contains('RITE;'), 'RITE',
+if (value.contains('NATIONAL;'), 'NATIONAL',
+if (value.contains('TRAVEL;'), 'TRAVEL',
+if (value.contains('WEEKEND;'), 'WEEKEND',
+if (value.contains('WEEKDAY;'), 'WEEKDAY',
+if (value.contains('COMPLEMENTARY;'), 'COMPLEMENTARY',
+if (value.contains('EVENT;'), 'EVENT',
+if (value.contains('OTHER'), 'EVENT', 'UNKNOWN'))))))))))))
+#@param col-name:event
+#@param newColumnName:"event_tagged"
+#@in table519
+#@out table520
+#@end core/column-addition9
+#@end Linear_OR
