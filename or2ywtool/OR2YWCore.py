@@ -279,6 +279,17 @@ class OR2YW:
                 inputdatalist.append(colname)
                 inputdatalist.append(newColumnName)
 
+            elif dicts['op']=='core/row-removal':
+                colname='col-name:'+dicts['engineConfig']['facets'][0]['columnName']
+                expression='expression:"%s"'%(dicts['engineConfig']['facets'][0]['expression'])
+                inputdatalist.append(colname)
+                inputdatalist.append(expression)
+
+
+            elif dicts['op']=='core/row-flag':
+                flagged='flagged:"%s"'%dicts['flagged']
+                inputdatalist.append(flagged)
+
         deinputdatalist = set(inputdatalist)
 
         # for sublist in list(deinputdatalist):
@@ -299,7 +310,9 @@ class OR2YW:
         texttrans_c = 0
         colsplit_c = 0
         coladdit_c = 0
+        rowremov_c=0
         table_c = 0
+        flag_c=0
         for dicts in data:
             dicts['description'] = dicts['description'].replace('"', '\\"')
             if dicts['op'] == 'core/column-rename':
@@ -340,19 +353,6 @@ class OR2YW:
                 f.write('#@out table%d\n' % table_c)
                 f.write('#@end core/column-split%d\n' % colsplit_c)
                 colsplit_c += 1
-                # {
-                #     "op": "core/column-addition",
-                #     "description": "Create column Sponsor1 at index 3 based on column Sponsor using expression grel:value",
-                #     "engineConfig": {
-                #         "mode": "row-based",
-                #         "facets": []
-                #     },
-                #     "newColumnName": "Sponsor1",
-                #     "columnInsertIndex": 3,
-                #     "baseColumnName": "Sponsor",
-                #     "expression": "grel:value",
-                #     "onError": "keep-original"
-                # },
             elif dicts['op'] == 'core/column-addition':
                 f.write('#@begin core/column-addition%d' % coladdit_c + '#@desc ' + dicts['description'] + '\n')
                 f.write('#@param col-name:' + dicts['baseColumnName'] + '\n')
@@ -362,6 +362,23 @@ class OR2YW:
                 f.write('#@out table%d\n' % table_c)
                 f.write('#@end core/column-addition%d\n' % coladdit_c)
                 coladdit_c += 1
+            elif dicts['op']=='core/row-removal':
+                f.write('#@begin core/row-removal%d' % rowremov_c + '#@desc ' + dicts['description'] + '\n')
+                f.write('#@param col-name:' + dicts['engineConfig']['facets'][0]['columnName'] + '\n')
+                f.write('#@param expression:' + '"%s"' % (dicts['engineConfig']['facets'][0]['expression']) + '\n')
+                f.write('#@in table%d\n' % table_c)
+                table_c += 1
+                f.write('#@out table%d\n' % table_c)
+                f.write('#@end core/row-removal%d\n' % rowremov_c)
+                rowremov_c += 1
+            elif dicts['op']=='core/row-flag':
+                f.write('#@begin core/row-flag%d' % flag_c + '#@desc ' + dicts['description'] + '\n')
+                f.write('#@param flagged:' + '"%s"' % dicts['flagged'] + '\n')
+                f.write('#@in table%d\n' % table_c)
+                table_c += 1
+                f.write('#@out table%d\n' % table_c)
+                f.write('#@end core/row-flag%d\n' % flag_c)
+                flag_c += 1
 
         f.write('#@end {}\n'.format(title))
         output_string = f.getvalue()
@@ -528,5 +545,6 @@ if __name__ == '__main__':
     """
     test vg
     """
-    or2ywf = OR2YWFileProcessor()
-    or2ywf.generate_vg(input_file="test.json", output_file="test.vg")
+    or2ywfile=OR2YWFileProcessor().generate_yw_file('menu_operations_history.JSON','test4.yw')
+    # or2ywf = OR2YWFileProcessor()
+    # or2ywf.generate_vg(input_file="test.json", output_file="test.vg")
