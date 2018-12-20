@@ -91,7 +91,7 @@ This tool is aimed to connect OpenRefine Recipe which is written in JSON format 
 
    a. Generate Serial yw file:
       
-       $ or2yw -i or2ywtool/test.json -o test.yw -t 
+       $ or2yw -i or2ywtool/test.json -o test.yw
    
    b. Generate Parallel yw file:
        
