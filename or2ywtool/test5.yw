@@ -1,0 +1,12 @@
+#@begin Linear_OR #@desc Linear OpenRefine Workflow
+#@param col-name:price
+#@param expression:"isBlank(value)"
+#@in table0
+#@out table1
+#@begin core/row-removal0#@desc Remove rows
+#@param col-name:price
+#@param expression:"isBlank(value)"
+#@in table0
+#@out table1
+#@end core/row-removal0
+#@end Linear_OR
