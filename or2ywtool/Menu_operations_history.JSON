@@ -1,0 +1,6640 @@
+[
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column currency",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "currency",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": true,
+        "fromError": false,
+        "from": [],
+        "to": "Dollars"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column currency_symbol",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "currency_symbol",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": true,
+        "fromError": false,
+        "from": [],
+        "to": "$"
+      }
+    ]
+  },
+  {
+    "op": "core/row-removal",
+    "description": "Remove rows",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": [
+        {
+          "omitError": false,
+          "expression": "isBlank(value)",
+          "selectBlank": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectError": false,
+          "invert": false,
+          "name": "place",
+          "omitBlank": false,
+          "type": "list",
+          "columnName": "place"
+        }
+      ]
+    }
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column date using expression grel:value.toDate(\"YYYY-MM-dd\").toString(\"YYYY-MM-dd\")",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "date",
+    "expression": "grel:value.toDate(\"YYYY-MM-dd\").toString(\"YYYY-MM-dd\")",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/row-flag",
+    "description": "Flag rows",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "flagged": true
+  },
+  {
+    "op": "core/row-flag",
+    "description": "Unflag rows",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "flagged": false
+  },
+  {
+    "op": "core/row-removal",
+    "description": "Remove rows",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": [
+        {
+          "omitError": false,
+          "expression": "row.flagged",
+          "selectBlank": false,
+          "selection": [
+            {
+              "v": {
+                "v": true,
+                "l": "true"
+              }
+            }
+          ],
+          "selectError": false,
+          "invert": false,
+          "name": "Flagged Rows",
+          "omitBlank": false,
+          "type": "list",
+          "columnName": ""
+        }
+      ]
+    }
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column place",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "place",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DELMONICO'S NY",
+          "DELMONICO'S [NY]",
+          "DELMONICO'S [NY?]",
+          "DELMONICO'S, NY",
+          "DELMONICO'S  NY",
+          "DELMONICO'S, N.Y.",
+          "DELMONICO'S, NY;",
+          "DELMONICO'S, [NY]",
+          "DELMONICOS NY",
+          "DELMONICOS', NY",
+          "DELMONICOS, (NY)"
+        ],
+        "to": "DELMONICO'S NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DELMONICO'S, NEW YORK, NY",
+          "DELMONICO'S, [NEW YORK, N.Y.]",
+          "DELMONICOS, [NEW YORK, N.Y.]",
+          "DELMONICO'S, (NEW YORK, NY?)",
+          "DELMONICO'S, [NEW YORK, NY]",
+          "DELMONICO'S, [NEW YORK, NY];",
+          "DELMONICO'S. NEW YORK, NY",
+          "DELMONICOS, (NEW YORK, NY?)",
+          "DELMONICOS, NEW YORK, NY",
+          "[DELMONICO'S], NEW YORK, NY"
+        ],
+        "to": "DELMONICO'S, NEW YORK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NEW YORK, NY",
+          "NEW YORK, [NY]",
+          "[NEW YORK, NY]",
+          "[NEW YORK, NY?]",
+          "(NEW YORK, NY?)",
+          "NEW YORK, [NY];",
+          "NEW YORK [NY]",
+          "NEW YORK, NY [?]",
+          "[New York, NY]",
+          "[NEW YORK, NY];"
+        ],
+        "to": "NEW YORK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NEW YORK",
+          "[NEW YORK]",
+          "(NEW YORK?)",
+          "NEW YORK;",
+          "\"NEW YORK\"",
+          "(NEW YORK)",
+          "NEW YORK (?)",
+          "NEW YORK(?)",
+          "NEW YORK?"
+        ],
+        "to": "NEW YORK"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "AUDITORIUM HOTEL [CHICAGO, IL]",
+          "AUDITORIUM HOTEL, CHICAGO, IL",
+          "AUDITORIUM HOTEL , CHICAGO, IL",
+          "AUDITORIUM HOTEL [CHICAGO IL]",
+          "AUDITORIUM HOTEL, (?CHICAGO, IL?)",
+          "AUDITORIUM HOTEL, (CHICAGO, IL?)",
+          "AUDITORIUM HOTEL, CHICAGO [IL]",
+          "AUDITORIUM HOTEL, CHICAGO, [IL]"
+        ],
+        "to": "AUDITORIUM HOTEL [CHICAGO, IL]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE \"FRIEDRICH DER GROSSE\"",
+          "EN ROUTE - \"FRIEDRICH DER GROSSE\"",
+          "EN ROUTE  \"FRIEDRICH DER GROSSE\"",
+          "EN ROUTE \" FRIEDRICH DER GROSSE\"",
+          "EN ROUTE \"FRIEDRICH DER GROSSE \"",
+          "EN ROUTE 'FRIEDRICH DER GROSSE\"",
+          "EN ROUTE - 'FRIEDRICH DER GROSSE \"",
+          "EN ROUTE - :FRIEDRICH DER GROSSE\""
+        ],
+        "to": "EN ROUTE \"FRIEDRICH DER GROSSE\""
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PHILADELPHIA, PA",
+          "PHILADELPHIA [PA]",
+          "[PHILADELPHIA, PA]",
+          "PHILADELPHIA, PA.",
+          "PHILADELPHIA, [PA]",
+          "PHILADELPHIA. PA",
+          "[PHILADELPHIA, PA?]"
+        ],
+        "to": "PHILADELPHIA, PA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CHICAGO, IL",
+          "CHICAGO, [IL]",
+          "[CHICAGO, IL]",
+          "CHICAGO IL",
+          "CHICAGO [IL]",
+          "[CHICAGO IL?]"
+        ],
+        "to": "CHICAGO, IL"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PROVIDENCE, RI",
+          "PROVIDENCE, R.I.",
+          "PROVIDENCE RI",
+          "[PROVIDENCE RI?]",
+          "[PROVIDENCE, R.I.]",
+          "[PROVIDENCE, RI?]"
+        ],
+        "to": "PROVIDENCE, RI"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SHERRY'S [NY]",
+          "SHERRY'S NY",
+          "SHERRY'S, NY",
+          "SHERRY'S (NY?)",
+          "SHERRYS, NY"
+        ],
+        "to": "SHERRY'S [NY]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "OLD POINT COMFORT, VA",
+          "OLD POINT COMFORT VA",
+          "OLD POINT COMFORT, VA.",
+          "OLD POINT, COMFORT, VA",
+          "[OLD POINT COMFORT, VA]"
+        ],
+        "to": "OLD POINT COMFORT, VA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL BRUNSWICK NY",
+          "BRUNSWICK HOTEL [NY?]",
+          "HOTEL BRUNSWICK [NY?]",
+          "HOTEL BRUNSWICK, NY",
+          "HOTEL BRUNSWICK; NY"
+        ],
+        "to": "HOTEL BRUNSWICK NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL MANHATTAN, NY",
+          "HOTEL MANHATTAN [NY]",
+          "MANHATTAN HOTEL NY",
+          "MANHATTAN HOTEL, NY",
+          "HOTEL MANHATTAN, [NY]"
+        ],
+        "to": "HOTEL MANHATTAN, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DELMONICO'S,NY",
+          "DELMONICO'S,[NY]",
+          "DELMONICO'S[NY]",
+          "DELMONICO'S,(NY?)",
+          "DELMONICOS,[NY]"
+        ],
+        "to": "DELMONICO'S,NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SS FRIESLAND",
+          "S.S. FRIESLAND",
+          "SS. FRIESLAND",
+          "S.S. \"FRIESLAND\"",
+          "SS; \"FRIESLAND\""
+        ],
+        "to": "SS FRIESLAND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DELMONICO'S [NEW YORK]",
+          "DELMONICO'S, [NEW YORK]",
+          "DELMONICO'S, NEW YORK",
+          "DELMONICO'S,( NEW YORK)",
+          "DELMONICOS, NEW YORK"
+        ],
+        "to": "DELMONICO'S [NEW YORK]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NY",
+          "[NY]",
+          "(NY)",
+          "(N.Y.)",
+          "(NY?)"
+        ],
+        "to": "NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "THE AUDITORIUM [CHICAGO, IL]",
+          "THE AUDITORIUM, CHICAGO, IL",
+          "AUDITORIUM, THE, CHICAGO, IL",
+          "THE AUDITORIUM CHICAGO IL",
+          "THE AUDITORIUM, [CHICAGO, IL]"
+        ],
+        "to": "THE AUDITORIUM [CHICAGO, IL]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "GRAND HOTEL, CINCINNATI OH",
+          "GRAND HOTEL, CINCINNATI OH;",
+          "GRAND HOTEL, CINCINNATI [OH]",
+          "GRAND HOTEL, CINCINNATI, OH",
+          "GRAND HOTEL, [CINCINNATI, OH]"
+        ],
+        "to": "GRAND HOTEL, CINCINNATI OH"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "[SAN FRANCISCO,CA]",
+          "SAN FRANCISCO,CA;",
+          "SAN FRANCISCO,[CA?]",
+          "SAN FRANCISCO,CA",
+          "SAN FRANCISCO,CA."
+        ],
+        "to": "[SAN FRANCISCO,CA]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "THE NEW WILLARD, WASHINGTON, DC",
+          "NEW WILLARD, THE, WASHINGTON, DC",
+          "THE NEW WILLARD [WASHINGTON, DC",
+          "THE NEW WILLARD, WASHINGTON DC",
+          "THE NEW WILLARD, WASHINGTON, D.C."
+        ],
+        "to": "THE NEW WILLARD, WASHINGTON, DC"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE - SS \"LAHN\"",
+          "EN ROUTE - \"SS LAHN\"",
+          "EN ROUTE  \"SS LAHN\"",
+          "EN ROUTE -SS \"LAHN\"",
+          "EN ROUTE _ SS \"LAHN\""
+        ],
+        "to": "EN ROUTE - SS \"LAHN\""
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BUFFALO, NY",
+          "(BUFFALO, NY?)",
+          "BUFFALO NY(?)",
+          "[BUFFALO, NY",
+          "[BUFFALO, NY]"
+        ],
+        "to": "BUFFALO, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PARIS, FRANCE",
+          "PARIS, FRANCE(?)",
+          "PARIS, [FRANCE]",
+          "[PARIS, FRANCE?]",
+          "[PARIS, FRANCE]"
+        ],
+        "to": "PARIS, FRANCE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL SAVOY [NEW YORK]",
+          "HOTEL SAVOY, NEW YORK",
+          "HOTEL SAVOY, [NEW YORK]",
+          "HOTEL SAVOY; NEW YORK"
+        ],
+        "to": "HOTEL SAVOY [NEW YORK]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NEW YORK,NY",
+          "(NEW YORK,NY)",
+          "[NEW YORK,NY]",
+          "NEW YORK,[NY]"
+        ],
+        "to": "NEW YORK,NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE S.S.\"BARBAROSSA\"",
+          "EN ROUTE - S.S.BARBAROSSA",
+          "EN ROUTE; S.S.BARBAROSSA",
+          "EN ROUTE; S.S.BARBAROSSA\""
+        ],
+        "to": "EN ROUTE S.S.\"BARBAROSSA\""
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BROOKLYN,NY",
+          "BROOKLYN,NY(?)",
+          "BROOKLYN[NY]",
+          "[BROOKLYN,NY]"
+        ],
+        "to": "BROOKLYN,NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "QUEBEC, CANADA",
+          "QUEBEC [CANADA]",
+          "QUEBEC,[ CANADA]",
+          "QUEBEC, [CANADA]"
+        ],
+        "to": "QUEBEC, CANADA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "QUEEN CITY CLUB, [CINCINNATI, OH]",
+          "QUEEN CITY CLUB (CINCINNATI OH?)",
+          "QUEEN CITY CLUB CINCINNATI OH",
+          "QUEEN CITY CLUB, CINCINNATI, OH"
+        ],
+        "to": "QUEEN CITY CLUB, [CINCINNATI, OH]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SS CITY OF RIO DE JANEIRO",
+          "S.S. \"CITY OF RIO DE JANEIRO\"",
+          "[SS CITY OF RIO DE JANEIRO?]",
+          "[SS CITY OF RIO DE JANEIRO]"
+        ],
+        "to": "SS CITY OF RIO DE JANEIRO"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "AT SEA",
+          "[AT SEA ?]",
+          "(AT SEA)",
+          "[AT SEA?]"
+        ],
+        "to": "AT SEA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DETROIT, MI",
+          "(DETROIT, MI?)",
+          "DETROIT, [MI]",
+          "[DETROIT, MI]"
+        ],
+        "to": "DETROIT, MI"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WASHINGTON,D.C.",
+          "WASHINGTON,DC",
+          "WASHINGTON,[D.C.]",
+          "[WASHINGTON,DC]"
+        ],
+        "to": "WASHINGTON,D.C."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MARLBOROUGH HOTEL, (?)",
+          "HOTEL MARLBOROUGH",
+          "HOTEL MARLBOROUGH, (?)",
+          "MARLBOROUGH HOTEL, [?]"
+        ],
+        "to": "MARLBOROUGH HOTEL, (?)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CHICAGO,ILL.",
+          "CHICAGO,ILL;",
+          "CHICAGO,ILL",
+          "[CHICAGO,ILL]"
+        ],
+        "to": "CHICAGO,ILL."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PHILADELPHIA,PA.",
+          "PHILADELPHIA,PA",
+          "PHILADELPHIA,[PA]",
+          "[PHILADELPHIA,PA.]"
+        ],
+        "to": "PHILADELPHIA,PA."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BELLEVUE-STRATFORD HOTEL, PHILADELPHIA, PA",
+          "HOTEL BELLEVUE-STRATFORD [PHILADELPHIA, PA]",
+          "HOTEL BELLEVUE-STRATFORD, PHILADELPHIA, PA",
+          "HOTEL BELLEVUE-STRATFORD, [PHILADELPHIA, PA]"
+        ],
+        "to": "BELLEVUE-STRATFORD HOTEL, PHILADELPHIA, PA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "RMS CAMPANIA",
+          "R.M.S. CAMPANIA",
+          "R.M.S. \"CAMPANIA\"",
+          "R.M.S. \" CAMPANIA\""
+        ],
+        "to": "RMS CAMPANIA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SAN FRANCISCO, CA",
+          "(SAN FRANCISCO, CA?)",
+          "SAN FRANCISCO, CA;",
+          "[SAN FRANCISCO, CA]"
+        ],
+        "to": "SAN FRANCISCO, CA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ATLANTIC CITY, NJ",
+          "ATLANTIC CITY, N.J.",
+          "ATLANTIC CITY, NJ;",
+          "[ATLANTIC CITY, NJ]"
+        ],
+        "to": "ATLANTIC CITY, NJ"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ROME, ITALY",
+          "ROME [ITALY]",
+          "ROME ITALY",
+          "[ROME, ITALY]"
+        ],
+        "to": "ROME, ITALY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL VENDOME, BOSTON, MA",
+          "HOTEL VENDOME, [BOSTON, MA];",
+          "HOTEL VENDOME; BOSTON, MA",
+          "VENDOME HOTEL, BOSTON, MA"
+        ],
+        "to": "HOTEL VENDOME, BOSTON, MA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NASSAU,N.P.BAHAMAS",
+          "NASSAU,NP,BAHAMAS",
+          "NASSAU,NP;BAHAMAS",
+          "[NASSAU,N.P.,BAHAMAS]"
+        ],
+        "to": "NASSAU,N.P.BAHAMAS"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "[LONDON,ENGLAND]",
+          "LONDON,[ENGLAND]",
+          "LONDON,ENGLAND",
+          "[LONDON,ENGLAND ?]"
+        ],
+        "to": "[LONDON,ENGLAND]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NEW ALGONQUIN CLUB, BOSTON, MA",
+          "NEW ALGONQUIN CLUB [BOSTON, MA]",
+          "NEW ALGONQUIN CLUB, (BOSTON, MA?)"
+        ],
+        "to": "NEW ALGONQUIN CLUB, BOSTON, MA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "KONIGIN LUISE",
+          "\"KONIGIN LUISE\"",
+          "KONIGIN LUISE;"
+        ],
+        "to": "KONIGIN LUISE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL PFISTER, MILWAUKEE, WI",
+          "HOTEL PFISTER, MILWAUKEE WI",
+          "PFISTER HOTEL, MILWAUKEE, WI"
+        ],
+        "to": "HOTEL PFISTER, MILWAUKEE, WI"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SS: KAMAKURA MARU",
+          "SS: \"KAMAKURA MARU\"",
+          "SS; KAMAKURA MARU"
+        ],
+        "to": "SS: KAMAKURA MARU"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "66 ST. & B'WAY NY",
+          "66 ST. & B'WAY. NY",
+          "66 ST. & BWAY. NY"
+        ],
+        "to": "66 ST. & B'WAY NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NEW YORK CITY",
+          "[NEW YORK CITY]",
+          "[?NEW YORK CITY?]"
+        ],
+        "to": "NEW YORK CITY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "R.M.S. \"EMPRESS OF CHINA\"",
+          "RMS EMPRESS OF CHINA",
+          "R.M.S. EMPRESS OF CHINA"
+        ],
+        "to": "R.M.S. \"EMPRESS OF CHINA\""
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LOS ANGELES,CA",
+          "LOS ANGELES,CA;",
+          "LOS ANGELES,[CA?]"
+        ],
+        "to": "LOS ANGELES,CA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SS WESTERNLAND",
+          "S.S. WESTERNLAND",
+          "S.S. \"WESTERNLAND\""
+        ],
+        "to": "SS WESTERNLAND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WASHINGTON, DC",
+          "WASHINGTON, D.C.",
+          "WASHINGTON DC"
+        ],
+        "to": "WASHINGTON, DC"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LONG BEACH,L.I.,NY;",
+          "LONG BEACH,L.I.,[NY&]",
+          "LONG BEACH,LI,[NY?]"
+        ],
+        "to": "LONG BEACH,L.I.,NY;"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "(CHICAGO, ILL)",
+          "CHICAGO ,ILL",
+          "CHICAGO, ILL"
+        ],
+        "to": "(CHICAGO, ILL)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "(CHICAGO,IL)",
+          "CHICAGO,IL.",
+          "CHICAGO,[IL]"
+        ],
+        "to": "(CHICAGO,IL)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL SAVOY, NY",
+          "HOTEL SAVOY NY",
+          "HOTEL SAVOY, [NY]"
+        ],
+        "to": "HOTEL SAVOY, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DETROIT,MI",
+          "(DETROIT,MI?)",
+          "DETROIT,[MI?]"
+        ],
+        "to": "DETROIT,MI"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "THE WALDORF, NEW YORK, NY",
+          "THE WALDORF, [?NEW YORK, NY]",
+          "THE WALDORF, [NEW YORK, NY?]"
+        ],
+        "to": "THE WALDORF, NEW YORK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MONTREAL [CANADA?]",
+          "MONTREAL, CANADA",
+          "MONTREAL, [CANADA]"
+        ],
+        "to": "MONTREAL [CANADA?]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NASSAU, N.P. BAHAMAS",
+          "NASSAU, N.P., BAHAMAS",
+          "[NASSAU, N.P., BAHAMAS]"
+        ],
+        "to": "NASSAU, N.P. BAHAMAS"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MANHATTAN HOTEL, NEW YORK, NY",
+          "HOTEL MANHATTAN, NEW YORK, [NY];",
+          "HOTEL MANHATTAN, [NEW YORK, NY]"
+        ],
+        "to": "MANHATTAN HOTEL, NEW YORK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "COMMERCIAL CLUB, PORTLAND, OR",
+          "COMMERCIAL CLUB, [PORTLAND, OR]",
+          "PORTLAND COMMERCIAL CLUB, PORTLAND, OR"
+        ],
+        "to": "COMMERCIAL CLUB, PORTLAND, OR"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BOSTON, MA",
+          "BOSTON MA",
+          "BOSTON; MA"
+        ],
+        "to": "BOSTON, MA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DELMONICO'S, NEW YORK CITY",
+          "NEW YORK CITY, DELMONICO'S",
+          "NEW YORK CITY; DELMONICO'S"
+        ],
+        "to": "DELMONICO'S, NEW YORK CITY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LAKEWOOD, NJ",
+          "LAKEWOOD NJ",
+          "LAKEWOOD, N.J."
+        ],
+        "to": "LAKEWOOD, NJ"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MERCANTILE CLUB (ST LOUIS, MO)",
+          "MERCANTILE CLUB, ST LOUIS [MO]",
+          "MERCANTILE CLUB, ST. LOUIS, MO"
+        ],
+        "to": "MERCANTILE CLUB (ST LOUIS, MO)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BOSTON,MASS",
+          "BOSTON,MASS;",
+          "(BOSTON,MASS)"
+        ],
+        "to": "BOSTON,MASS"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "COPENHAGEN, DENMARK",
+          "[COPENHAGEN DENMARK?]",
+          "[COPENHAGEN, DENMARK]"
+        ],
+        "to": "COPENHAGEN, DENMARK"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SS RIO DE JANEIRO",
+          "SS: RIO DE JANEIRO",
+          "SS; RIO DE JANEIRO"
+        ],
+        "to": "SS RIO DE JANEIRO"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LONG BEACH, L.I, NY",
+          "LONG BEACH, LI, [NY];",
+          "LONG BEACH, L.I., NY"
+        ],
+        "to": "LONG BEACH, L.I, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL SOMERSET, BOSTON, MA",
+          "HOTEL SOMERSET, BOSTON, [MA]",
+          "HOTEL SOMERSET, [BOSTON, MA]"
+        ],
+        "to": "HOTEL SOMERSET, BOSTON, MA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NEW TONTINE HOTEL, NEW HAVEN [CT]",
+          "TONTINE HOTEL, NEW HAVEN, CT",
+          "TONTINE HOTEL, [NEW HAVEN, CT]"
+        ],
+        "to": "NEW TONTINE HOTEL, NEW HAVEN [CT]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DELMONICO'S",
+          "Delmonicos",
+          "DELMONICO'S "
+        ],
+        "to": "DELMONICO'S"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL SAVOY",
+          "SAVOY HOTEL",
+          "SAVOY HOTEL, (?)"
+        ],
+        "to": "HOTEL SAVOY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SS COPTIC",
+          "S.S. \"COPTIC\"",
+          "S.S. COPTIC"
+        ],
+        "to": "SS COPTIC"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ADELAIDE [AUSTRALIA?]",
+          "ADELAIDE, AUSTRALIA",
+          "[ADELAIDE, AUSTRALIA]"
+        ],
+        "to": "ADELAIDE [AUSTRALIA?]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ST. LOUIS, MO",
+          "ST. LOUIS, [MO];",
+          "ST. LOUIS [MO]"
+        ],
+        "to": "ST. LOUIS, MO"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ZERMATT, [SWITZERLAND]",
+          "(ZERMATT, SWITZERLAND?)",
+          "ZERMATT [SWITZERLAND]"
+        ],
+        "to": "ZERMATT, [SWITZERLAND]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BELLEVUE-STRATFORD, (PHILADELPHIA, PA?)",
+          "BELLEVUE-STRATFORD, PHILADELPHIA, PA",
+          "BELLEVUE-STRATFORD, [PHILADELPHIA, PA]"
+        ],
+        "to": "BELLEVUE-STRATFORD, (PHILADELPHIA, PA?)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SARATOGA SPRINGS, NY",
+          "SARATOGA SPRINGS, NY.",
+          "SARATOGA SPRINGS, [NY]"
+        ],
+        "to": "SARATOGA SPRINGS, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WALDORF-ASTORIA, NEW YORK",
+          "WALDORF-ASTORIA [NEW YORK]",
+          "WALDORF-ASTORIA, [NEW YORK]"
+        ],
+        "to": "WALDORF-ASTORIA, NEW YORK"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "R.M.S. \"ETRURIA\"",
+          "R.M.S. ETRURIA",
+          "RMS ETRURIA"
+        ],
+        "to": "R.M.S. \"ETRURIA\""
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ST. DENIS HOTEL",
+          "HOTEL ST. DENIS",
+          "ST. DENIS HOTEL, (?)"
+        ],
+        "to": "ST. DENIS HOTEL"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "THE HOLLENDEN [CLEVELAND OH?]",
+          "THE HOLLENDEN, CLEVELAND, OH",
+          "THE HOLLENDEN, CLEVELAND; OH"
+        ],
+        "to": "THE HOLLENDEN [CLEVELAND OH?]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SS CITY OF PARA",
+          "S.S. \"CITY OF PARA\"",
+          "S.S. \"CITY OF PARA'"
+        ],
+        "to": "SS CITY OF PARA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "YOUNG'S HOTEL, BOSTON, MA",
+          "YOUNG\"S HOTEL, BOSTON, MA",
+          "YOUNG'S HOTEL, [BOSTON MA?]"
+        ],
+        "to": "YOUNG'S HOTEL, BOSTON, MA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SS DORIC",
+          "SS DORIC;",
+          "S.S. \"DORIC\""
+        ],
+        "to": "SS DORIC"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL MAJESTIC [PHILADELPHIA, PA]",
+          "HOTEL MAJESTIC, PHILADELPHIA, PA",
+          "MAJESTIC HOTEL, PHILADELPHIA. PA"
+        ],
+        "to": "HOTEL MAJESTIC [PHILADELPHIA, PA]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DELMONICO'S,[NEW YORK]",
+          "DELMONICOS,[NEW YORK]",
+          "(DELMONICO'S.NEW YORK)"
+        ],
+        "to": "DELMONICO'S,[NEW YORK]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BERGEN, NORWAY",
+          "(BERGEN, NORWAY)",
+          "[BERGEN, NORWAY]"
+        ],
+        "to": "BERGEN, NORWAY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BROOKLYN, NY",
+          "[BROOKLYN, NY]",
+          "BROOKLYN NY"
+        ],
+        "to": "BROOKLYN, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BRUNSWICK HOTEL, BOSTON, MA",
+          "HOTEL BRUNSWICK, BOSTON, MA",
+          "HOTEL BRUNSWICK, BOSTON [MA]"
+        ],
+        "to": "BRUNSWICK HOTEL, BOSTON, MA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DINING CAR",
+          "Dining Car",
+          "DINING CAR;"
+        ],
+        "to": "DINING CAR"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "R.M.S. \"LUCANIA\"",
+          "RMS LUCANIA",
+          "R.M.S. LUCANIA"
+        ],
+        "to": "R.M.S. \"LUCANIA\""
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL MARLBOROUGH, NEW YORK, NY",
+          "HOTEL MARLBOROUGH, [NEW YORK, NY]",
+          "MARLBOROUGH HOTEL, NEW YORK, NY"
+        ],
+        "to": "HOTEL MARLBOROUGH, NEW YORK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "66TH ST AND BROADWAY,NEW YORK,NY",
+          "66TH ST. AND BROADWAY;NEW YORK,NY",
+          "[66TH ST AND BROADWAY,NEW YORK,NY]"
+        ],
+        "to": "66TH ST AND BROADWAY,NEW YORK,NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CLINTON COUNTY, NY",
+          "CLINTON COUNTY NY",
+          "CLINTON COUNTY, NY."
+        ],
+        "to": "CLINTON COUNTY, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SS KASUGA",
+          "S.S. KASUGA",
+          "SS: KASUGA"
+        ],
+        "to": "SS KASUGA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CLEVELAND, OH",
+          "[CLEVELAND, OH]",
+          "CLEVELAND [OH]"
+        ],
+        "to": "CLEVELAND, OH"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "THE ARLINGTON, WASHINGTON, D.C.",
+          "THE ARLINGTON (WASHINGTON DC?)",
+          "THE ARLINGTON, WASHINGTON, DC"
+        ],
+        "to": "THE ARLINGTON, WASHINGTON, D.C."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "?",
+          "[?]"
+        ],
+        "to": "?"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "JACKSONVILLE, FL",
+          "JACKSONVILLE, FL;"
+        ],
+        "to": "JACKSONVILLE, FL"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ASTOR HOTEL, NEW YORK, NY",
+          "HOTEL ASTOR, NEW YORK, NY"
+        ],
+        "to": "ASTOR HOTEL, NEW YORK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ABOARD SS KAMAKURA MARU",
+          "ABOARD SS KAMAKURA MARU;"
+        ],
+        "to": "ABOARD SS KAMAKURA MARU"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PARKER HOUSE [BOSTON,MASS ?]",
+          "PARKER HOUSE, BOSTON,MASS"
+        ],
+        "to": "PARKER HOUSE [BOSTON,MASS ?]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ST. CHARLES HOTEL,NEW ORLEANS,LA",
+          "ST. CHARLES HOTEL,NEW ORLEANS,[LA]"
+        ],
+        "to": "ST. CHARLES HOTEL,NEW ORLEANS,LA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "FANEUIL HALL, BOSTON, MA",
+          "FANEUIL HALL, [BOSTON, MA]"
+        ],
+        "to": "FANEUIL HALL, BOSTON, MA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE \"H.H.MEIER\"",
+          "EN ROUTE \" H.H.MEIER\""
+        ],
+        "to": "EN ROUTE \"H.H.MEIER\""
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BERLIN, GERMANY",
+          "BERLIN [GERMANY]"
+        ],
+        "to": "BERLIN, GERMANY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WALDORF-ASTORIA,NY",
+          "WALDORF-ASTORIA,[NY]"
+        ],
+        "to": "WALDORF-ASTORIA,NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PITTSBURGH, PA",
+          "[PITTSBURGH, PA]"
+        ],
+        "to": "PITTSBURGH, PA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PARIS,FRANCE",
+          "(PARIS,FRANCE)"
+        ],
+        "to": "PARIS,FRANCE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SAVOY HOTEL, NEW YORK, NY",
+          "HOTEL SAVOY, NEW YORK, NY"
+        ],
+        "to": "SAVOY HOTEL, NEW YORK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ABOARD R.M.S. \"ETRURIA\"",
+          "ABOARD R.M.S. ETRURIA"
+        ],
+        "to": "ABOARD R.M.S. \"ETRURIA\""
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HAMBURG, GERMANY",
+          "HAMBURG, [GERMANY]"
+        ],
+        "to": "HAMBURG, GERMANY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LINCOLN CLUB - NY",
+          "LINCOLN CLUB [NY]"
+        ],
+        "to": "LINCOLN CLUB - NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BANGKOK, THAILAND",
+          "BANGKOK, [THAILAND]"
+        ],
+        "to": "BANGKOK, THAILAND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "66TH STREET AND BROADWAY,NEW YORK,NY",
+          "[66TH STREET AND BROADWAY,NEW YORK,NY]"
+        ],
+        "to": "66TH STREET AND BROADWAY,NEW YORK,NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ST. AUGUSTINE, FLA",
+          "ST. AUGUSTINE, FLA."
+        ],
+        "to": "ST. AUGUSTINE, FLA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NEW HAVEN CT",
+          "NEW HAVEN [CT]"
+        ],
+        "to": "NEW HAVEN CT"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MELBOURNE,AUSTRALIA",
+          "[MELBOURNE,AUSTRALIA?]"
+        ],
+        "to": "MELBOURNE,AUSTRALIA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Gramercy Park Hotel",
+          "Hotel Gramercy Park"
+        ],
+        "to": "Gramercy Park Hotel"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SHERRY'S, NEW YORK, NY",
+          "SHERRY'S, [NEW YORK, NY]"
+        ],
+        "to": "SHERRY'S, NEW YORK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NASSAU, NP",
+          "[NASSAU, N.P.]"
+        ],
+        "to": "NASSAU, NP"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Unknown",
+          "unknown"
+        ],
+        "to": "Unknown"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOFFMAN HOUSE NEW YORK, NY",
+          "HOFFMAN HOUSE, NEW YORK, NY"
+        ],
+        "to": "HOFFMAN HOUSE NEW YORK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Hotel St. Francis",
+          "HOTEL ST. FRANCIS"
+        ],
+        "to": "Hotel St. Francis"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL JEFFERSON, ST. LOUIS, MO",
+          "JEFFERSON HOTEL, ST.  LOUIS [MO]"
+        ],
+        "to": "HOTEL JEFFERSON, ST. LOUIS, MO"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE",
+          "[EN ROUTE]"
+        ],
+        "to": "EN ROUTE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ABOARD PAQUEBOT LA PROVENCE",
+          "ABOARD PAQUEBOT \"LA PROVENCE\""
+        ],
+        "to": "ABOARD PAQUEBOT LA PROVENCE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL STENTON [PHILADELPHIA PA]",
+          "HOTEL STENTON, PHILADELPHIA, PA"
+        ],
+        "to": "HOTEL STENTON [PHILADELPHIA PA]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "(ROME,ITALY)",
+          "ROME,ITALY"
+        ],
+        "to": "(ROME,ITALY)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SS TRINIDAD",
+          "S.S. \"TRINIDAD\""
+        ],
+        "to": "SS TRINIDAD"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WHITE MOUNTAINS, NH",
+          "WHITE MOUNTAINS, NH;"
+        ],
+        "to": "WHITE MOUNTAINS, NH"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LIVERPOOL [ENGLAND?}",
+          "LIVERPOOL, [ENGLAND]"
+        ],
+        "to": "LIVERPOOL [ENGLAND?}"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Fairmont Hotel",
+          "FAIRMONT HOTEL"
+        ],
+        "to": "Fairmont Hotel"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "FRANKFURT, GERMANY",
+          "[FRANKFURT, GERMANY?]"
+        ],
+        "to": "FRANKFURT, GERMANY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PORTLAND, ME",
+          "PORTLAND ME"
+        ],
+        "to": "PORTLAND, ME"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ABOARD PAQUEBOT \"LA SAVOIE\"",
+          "ABOARD PAQUEBOT LA SAVOIE"
+        ],
+        "to": "ABOARD PAQUEBOT \"LA SAVOIE\""
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "THE BELLEVUE-STRATFORD, PHILADELPHIA, PA",
+          "THE BELLEVUE-STRATFORD, [PHILADELPHIA, PA?]"
+        ],
+        "to": "THE BELLEVUE-STRATFORD, PHILADELPHIA, PA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "YOUNG'S HOTEL",
+          "YOUNG'S HOTEL [?]"
+        ],
+        "to": "YOUNG'S HOTEL"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CLEVELAND,OH",
+          "CLEVELAND,[OH?]"
+        ],
+        "to": "CLEVELAND,OH"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MECHANICS HALL, [BOSTON, MA];",
+          "MECHANICS' HALL, BOSTON, MA"
+        ],
+        "to": "MECHANICS HALL, [BOSTON, MA];"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "130 BROADWAY, NEW YORK",
+          "130 BROADWAY, [NEW YORK]"
+        ],
+        "to": "130 BROADWAY, NEW YORK"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EAGLE HOTEL (GETTYSBURG, PA?)",
+          "EAGLE HOTEL, GETTYSBURG, PA"
+        ],
+        "to": "EAGLE HOTEL (GETTYSBURG, PA?)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL DEL CAMPIDOGLIO, NEW YORK, NY",
+          "HOTEL DEL CAMPIDOGLIO, [NEW YORK, N.Y.]"
+        ],
+        "to": "HOTEL DEL CAMPIDOGLIO, NEW YORK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ABOARD SS KASUGA;",
+          "ABOARD SS KASUGA"
+        ],
+        "to": "ABOARD SS KASUGA;"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "(CALIFORNIA?)",
+          "CALIFORNIA"
+        ],
+        "to": "(CALIFORNIA?)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SOUTHERN HOTEL, ST. LOUIS, MO",
+          "SOUTHERN HOTEL, [ST. LOUIS, MO]"
+        ],
+        "to": "SOUTHERN HOTEL, ST. LOUIS, MO"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CLINTON COUNTY,NY",
+          "CLINTON COUNTY.NY"
+        ],
+        "to": "CLINTON COUNTY,NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Hotel Gramercy Park; 52 Gramercy Park North",
+          "Gramercy Park Hotel; Hotel Gramercy Park; 52 Gramercy Park North"
+        ],
+        "to": "Hotel Gramercy Park; 52 Gramercy Park North"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "TACOMA, [WA?}",
+          "TACOMA; WA"
+        ],
+        "to": "TACOMA, [WA?}"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "THE AUDITORIUM,CHICAGO,ILL;",
+          "THE AUDITORIUM,[CHICAGO,ILL.]"
+        ],
+        "to": "THE AUDITORIUM,CHICAGO,ILL;"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DELMONICO'S,[NEW YORK,NY?]",
+          "DELMONICO'S,NEW YORK,NY"
+        ],
+        "to": "DELMONICO'S,[NEW YORK,NY?]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ROUND TABLE CLUB",
+          "[ROUND TABLE CLUB]"
+        ],
+        "to": "ROUND TABLE CLUB"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Park Lane",
+          "Park lane"
+        ],
+        "to": "Park Lane"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "R.M.S. EMPRESS OF INDIA",
+          "R.M.S. \"EMPRESS  OF INDIA\""
+        ],
+        "to": "R.M.S. EMPRESS OF INDIA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BALTIMORE,MD",
+          "BALTIMORE,MD."
+        ],
+        "to": "BALTIMORE,MD"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WALDORF-ASTORIA",
+          "Waldorf-Astoria"
+        ],
+        "to": "WALDORF-ASTORIA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE ABOARD SS KASUGA MARU",
+          "EN ROUTE ABOARD SS. KASUGA MARU"
+        ],
+        "to": "EN ROUTE ABOARD SS KASUGA MARU"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MAXWELL HOUSE, NASHVILLE, [TN];",
+          "MAXWELL HOUSE, NASHVILLE, TN"
+        ],
+        "to": "MAXWELL HOUSE, NASHVILLE, [TN];"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL ZINZENDORF, WINSTON-SALEM, NC",
+          "ZINZENDORF HOTEL, WINSTON-SALEM, NC"
+        ],
+        "to": "HOTEL ZINZENDORF, WINSTON-SALEM, NC"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ORMOND, FL",
+          "ORMOND, FL;"
+        ],
+        "to": "ORMOND, FL"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NASHVILLE, [TN?]",
+          "NASHVILLE, TN"
+        ],
+        "to": "NASHVILLE, [TN?]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CLEVELAND, OHIO",
+          "CLEVELAND. OHIO"
+        ],
+        "to": "CLEVELAND, OHIO"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "THE TEN EYCK, ALBANY, NY",
+          "TEN EYCK, THE, ALBANY, NY"
+        ],
+        "to": "THE TEN EYCK, ALBANY, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BUTLER, PA",
+          "BUTLER, PA."
+        ],
+        "to": "BUTLER, PA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL MAJESTIC",
+          "MAJESTIC HOTEL"
+        ],
+        "to": "HOTEL MAJESTIC"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL ASTOR",
+          "ASTOR HOTEL"
+        ],
+        "to": "HOTEL ASTOR"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "VIRGINIA BEACH, VA",
+          "VIRGINIA BEACH VA"
+        ],
+        "to": "VIRGINIA BEACH, VA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MANILA, P.I.",
+          "MANILA, PI"
+        ],
+        "to": "MANILA, P.I."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BELLEVUE HOTEL, PHILADELPHIA, PA",
+          "HOTEL BELLEVUE, PHILADELPHIA [PA]"
+        ],
+        "to": "BELLEVUE HOTEL, PHILADELPHIA, PA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ST. AUGUSTINE, FL",
+          "ST. AUGUSTINE,  FL"
+        ],
+        "to": "ST. AUGUSTINE, FL"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE - SONOMA",
+          "EN  ROUTE - SONOMA"
+        ],
+        "to": "EN ROUTE - SONOMA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ST. PETERSBURG,[RUSSIA]",
+          "ST. PETERSBURG.RUSSIA"
+        ],
+        "to": "ST. PETERSBURG,[RUSSIA]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ROANOKE, VA",
+          "ROANOKE, VA;"
+        ],
+        "to": "ROANOKE, VA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HAMBURG,GERMANY",
+          "HAMBURG,[GERMANY]"
+        ],
+        "to": "HAMBURG,GERMANY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "GRAND PACIFIC HOTEL, CHICAGO, IL",
+          "GRAND PACIFIC HOTEL [CHICAGO, IL];"
+        ],
+        "to": "GRAND PACIFIC HOTEL, CHICAGO, IL"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DELMONICO'S NEW YORK,NY",
+          "DELMONICO'S, [NEW YORK,N.Y.]"
+        ],
+        "to": "DELMONICO'S NEW YORK,NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CINCINNATI,OH",
+          "[CINCINNATI,OH?]"
+        ],
+        "to": "CINCINNATI,OH"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CORONADO BEACH, CA",
+          "CORONADO BEACH, CA;"
+        ],
+        "to": "CORONADO BEACH, CA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "TAMPA, FL",
+          "TAMPA FL?"
+        ],
+        "to": "TAMPA, FL"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "UNION LEAGUE PHILADELPHIA [PA?]",
+          "UNION LEAGUE, [PHILADELPHIA, PA]"
+        ],
+        "to": "UNION LEAGUE PHILADELPHIA [PA?]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NARRAGANSETT HOTEL, PROVIDENCE RI",
+          "NARRAGANSETT HOTEL, PROVIDENCE, RI"
+        ],
+        "to": "NARRAGANSETT HOTEL, PROVIDENCE RI"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NYC",
+          "[NYC]"
+        ],
+        "to": "NYC"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "THE RALEIGH, WASHINGTON, DC",
+          "THE RALEIGH, WASHINGTON DC"
+        ],
+        "to": "THE RALEIGH, WASHINGTON, DC"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HORTICULTURAL HALL, PHILADELPHIA, PA",
+          "HORTICULTURAL HALL, PHILADELPHIA [PA]"
+        ],
+        "to": "HORTICULTURAL HALL, PHILADELPHIA, PA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "AZ",
+          "[AZ]"
+        ],
+        "to": "AZ"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "THE WELLINGTON, PROVIDENCE RI",
+          "WELLINGTON, THE, PROVIDENCE, RI"
+        ],
+        "to": "THE WELLINGTON, PROVIDENCE RI"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "(?FLA?)",
+          "[FLA.]"
+        ],
+        "to": "(?FLA?)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NEW YORK ATHLETIC CLUB",
+          "NEW YORK ATHLETIC CLUB, [NEW YORK]"
+        ],
+        "to": "NEW YORK ATHLETIC CLUB"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "TAMPA,FLA.",
+          "TAMPA.FLA."
+        ],
+        "to": "TAMPA,FLA."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BOSTON, MASS.",
+          "BOSTON, MASS;"
+        ],
+        "to": "BOSTON, MASS."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL ST. GEORGE, NYACK, NY",
+          "ST. GEORGE HOTEL, NYACK, NY"
+        ],
+        "to": "HOTEL ST. GEORGE, NYACK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE ABOARD SS KOBE MARU",
+          "EN ROUTE ABOARD SS. KOBE MARU"
+        ],
+        "to": "EN ROUTE ABOARD SS KOBE MARU"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PARKER HOUSE,BOSTON,MASS;",
+          "PARKER HOUSE,[BOSTON,MASS]"
+        ],
+        "to": "PARKER HOUSE,BOSTON,MASS;"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MELBOURNE, AUSTRALIA",
+          "MELBOURNE [AUSTRALIA?]"
+        ],
+        "to": "MELBOURNE, AUSTRALIA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LUCERNE,SWITZERLAND",
+          "[LUCERNE,SWITZERLAND?]"
+        ],
+        "to": "LUCERNE,SWITZERLAND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NOS. 667 TO 677 [BROADWAY], OPPOSITE BOND STREET, MIDWAY BETWEEN BATTERY AND CENTRAL PARK, NEW YORK [NY];",
+          "NOS. 667 TO 677 [BROADWAY], OPPOSITE BOND STREET, MIDWAY BETWEEN BATTERY AND CENTRAL PARK, NEW YORK, [NY];"
+        ],
+        "to": "NOS. 667 TO 677 [BROADWAY], OPPOSITE BOND STREET, MIDWAY BETWEEN BATTERY AND CENTRAL PARK, NEW YORK [NY];"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "U.S.M.S. NEW YORK",
+          "USMS NEW YORK"
+        ],
+        "to": "U.S.M.S. NEW YORK"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DENVER, COLO.",
+          "DENVER, COLO;"
+        ],
+        "to": "DENVER, COLO."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL WALTON,PHILADELPHIA,PA;",
+          "HOTEL WALTON,[PHILADELPHIA,PA]"
+        ],
+        "to": "HOTEL WALTON,PHILADELPHIA,PA;"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "S.S. NACOOCHEE",
+          "SS NACOOCHEE"
+        ],
+        "to": "S.S. NACOOCHEE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "RMS OCEANIC",
+          "R.M.S. OCEANIC"
+        ],
+        "to": "RMS OCEANIC"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ARGYLE, THE, BROOKLYN, NY",
+          "THE ARGYLE, BROOKLYN, NY"
+        ],
+        "to": "ARGYLE, THE, BROOKLYN, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CHAMBERLIN'S, (WASHINGTON,D.C.)",
+          "CHAMBERLIN'S; [WASHINGTON,DC?]"
+        ],
+        "to": "CHAMBERLIN'S, (WASHINGTON,D.C.)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "117 WEST 34TH STREET,NEW YORK,NY",
+          "117 WEST 34TH STREET,[NEW YORK,NY]"
+        ],
+        "to": "117 WEST 34TH STREET,NEW YORK,NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "UNION LEAGUE CLUB NY;",
+          "UNION LEAGUE CLUB, NY"
+        ],
+        "to": "UNION LEAGUE CLUB NY;"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "METROPOLITAN CLUB, NEW YORK, NY",
+          "METROPOLITAN CLUB, [?NEW YORK, NY]"
+        ],
+        "to": "METROPOLITAN CLUB, NEW YORK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PUT-IN-BAY-ISLAND, LAKE ERIE, OH;",
+          "PUT-IN-BAY-ISLAND, LAKE ERIE, OH"
+        ],
+        "to": "PUT-IN-BAY-ISLAND, LAKE ERIE, OH;"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL  ST. DENIS, NY",
+          "ST. DENIS HOTEL; NY"
+        ],
+        "to": "HOTEL  ST. DENIS, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "\"THE ARGYLE\"",
+          "THE ARGYLE [?]"
+        ],
+        "to": "\"THE ARGYLE\""
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MANHATTAN BEACH, LONG ISLAND [NY]",
+          "MANHATTAN BEACH, LONG ISLAND, [NY]"
+        ],
+        "to": "MANHATTAN BEACH, LONG ISLAND [NY]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE ABOARD S.S. \"KOBE WARU\"",
+          "EN ROUTE ABOARD S.S. KOBE WARU"
+        ],
+        "to": "EN ROUTE ABOARD S.S. \"KOBE WARU\""
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "RESIDENCE-PALAIS, COPENHAGEN, DENMARK",
+          "[RESIDENCE-PALAIS, COPENHAGEN, DENMARK]"
+        ],
+        "to": "RESIDENCE-PALAIS, COPENHAGEN, DENMARK"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "GERMANTOWN (PA?)",
+          "[GERMANTOWN, PA?]"
+        ],
+        "to": "GERMANTOWN (PA?)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DAMPFER; H.H. MEIER",
+          "DAMPFER \"H.H. MEIER\""
+        ],
+        "to": "DAMPFER; H.H. MEIER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BATTLE CREEK, MI",
+          "BATTLE CREEK, MI;"
+        ],
+        "to": "BATTLE CREEK, MI"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "OMAHA NEBRASKA",
+          "OMAHA, NEBRASKA"
+        ],
+        "to": "OMAHA NEBRASKA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "114 WEST FOURTEENTH STREET, NEW YORK",
+          "114 WEST FOURTEENTH STREET, [NEW YORK]"
+        ],
+        "to": "114 WEST FOURTEENTH STREET, NEW YORK"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "GERMANY(?)",
+          "[GERMANY]"
+        ],
+        "to": "GERMANY(?)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NEW WILLARD [WASHINGTON, [DC]",
+          "NEW WILLARD, WASHINGTON, DC"
+        ],
+        "to": "NEW WILLARD [WASHINGTON, [DC]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CINCINNATI , OHIO",
+          "CINCINNATI, OHIO"
+        ],
+        "to": "CINCINNATI , OHIO"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DAMPFER KAISER WILHELM DER GROSSE;",
+          "DAMPFER \"KAISER WILHELM DER GROSSE\""
+        ],
+        "to": "DAMPFER KAISER WILHELM DER GROSSE;"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ELLICOTT SQUARE, BUFFALO, NY",
+          "ELLICOTT SQUARE, BUFFALO, [NY];"
+        ],
+        "to": "ELLICOTT SQUARE, BUFFALO, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BRUNSWICK,THE,BOSTON,[MASS]",
+          "BRUNSWICK,THE,BOSTON[MASS]"
+        ],
+        "to": "BRUNSWICK,THE,BOSTON,[MASS]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CONVENTION HALL, (BUFFALO, NY?)",
+          "CONVENTION HALL, BUFFALO, NY"
+        ],
+        "to": "CONVENTION HALL, (BUFFALO, NY?)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WALDORF-ASTORIA [NY?]",
+          "WALDORF-ASTORIA, NY"
+        ],
+        "to": "WALDORF-ASTORIA [NY?]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ASCOT [ENGLAND]",
+          "ASCOT, ENGLAND"
+        ],
+        "to": "ASCOT [ENGLAND]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LOGAN HOUSE, ALTOONA, PA",
+          "LOGAN HOUSE; ALTOONA, PA;"
+        ],
+        "to": "LOGAN HOUSE, ALTOONA, PA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PENN.",
+          "PENN;"
+        ],
+        "to": "PENN."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NARRAGANSETT PIER R.I.",
+          "NARRAGANSETT PIER, RI"
+        ],
+        "to": "NARRAGANSETT PIER R.I."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WORCESTER, MASS",
+          "WORCESTER, MASS;"
+        ],
+        "to": "WORCESTER, MASS"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "UNION LEAGUE,(PHILADELPHIA,PA)",
+          "UNION LEAGUE,[PHILADELPHIA,PA]"
+        ],
+        "to": "UNION LEAGUE,(PHILADELPHIA,PA)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "UNION CLUB",
+          "UNION CLUB, (?)"
+        ],
+        "to": "UNION CLUB"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PULLMAN DINING CAR SERVICE EN ROUTE",
+          "PULLMAN DINING CAR SERVICE (EN ROUTE?)"
+        ],
+        "to": "PULLMAN DINING CAR SERVICE EN ROUTE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DELMONICO'S,[NEW YORK, N.Y.]",
+          "[DELMONICO'S,NEW YORK NY]"
+        ],
+        "to": "DELMONICO'S,[NEW YORK, N.Y.]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE S.S VADERLAND",
+          "EN ROUTE S.S. VADERLAND"
+        ],
+        "to": "EN ROUTE S.S VADERLAND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ACADEMY OF MUSIC BROOKLYN, NY",
+          "ACADEMY OF MUSIC, [BROOKLYN, NY]"
+        ],
+        "to": "ACADEMY OF MUSIC BROOKLYN, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "FAIRMONT HOTEL [SAN FRANCISCO, CA]",
+          "FAIRMONT HOTEL, SAN FRANCISCO, CA"
+        ],
+        "to": "FAIRMONT HOTEL [SAN FRANCISCO, CA]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PARK ROW BLDG. [NY]",
+          "PARK ROW BLDG., [NY, NY]"
+        ],
+        "to": "PARK ROW BLDG. [NY]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ST.DENIS HOTEL,NY",
+          "ST.DENIS HOTEL[NY]"
+        ],
+        "to": "ST.DENIS HOTEL,NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "The Plaza",
+          "PLAZA, THE"
+        ],
+        "to": "The Plaza"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "COLORADO SPRINGS, CO",
+          "[COLORADO SPRINGS, CO]"
+        ],
+        "to": "COLORADO SPRINGS, CO"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE ABOARD S.S. WESTERNLAND",
+          "EN ROUTE ABOARD S.S. WESTERNLAND;"
+        ],
+        "to": "EN ROUTE ABOARD S.S. WESTERNLAND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ARGYLE,THE,BROOKLYN,NY",
+          "ARGYLE,THE,[BROOKLYN,NY]"
+        ],
+        "to": "ARGYLE,THE,BROOKLYN,NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PUT-IN-BAY, OH",
+          "PUT-IN-BAY, OH;"
+        ],
+        "to": "PUT-IN-BAY, OH"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ABOARD PAQUEBOT LA TOURAINE",
+          "ABOARD PAQUEBOT \"LA TOURAINE\""
+        ],
+        "to": "ABOARD PAQUEBOT LA TOURAINE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "AUDITORIUM",
+          "AUDITORIUM, (?)"
+        ],
+        "to": "AUDITORIUM"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL IROQUOIS,(BUFFALO,N.Y.)",
+          "HOTEL IROQUOIS,BUFFALO,NY"
+        ],
+        "to": "HOTEL IROQUOIS,(BUFFALO,N.Y.)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL CONTINENTAL (PARIS, FRANCE?)",
+          "HOTEL CONTINENTAL, [PARIS, FRANCE]"
+        ],
+        "to": "HOTEL CONTINENTAL (PARIS, FRANCE?)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "GLENWOOD SPRINGS, CO",
+          "[GLENWOOD SPRINGS, CO]"
+        ],
+        "to": "GLENWOOD SPRINGS, CO"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PAWLING, NY",
+          "PAWLING NY(?)"
+        ],
+        "to": "PAWLING, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "R.M.S.ROTTERDAM",
+          "RMS-ROTTERDAM"
+        ],
+        "to": "R.M.S.ROTTERDAM"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SS KAISER WILHELM DER GROSSE",
+          "S.S. \"KAISER WILHELM DER GROSSE\""
+        ],
+        "to": "SS KAISER WILHELM DER GROSSE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ABOARD  PRINZ FRIEDRICH WILHELM''",
+          "ABOARD 'PRINZ FRIEDRICH WILHELM'"
+        ],
+        "to": "ABOARD  PRINZ FRIEDRICH WILHELM''"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE ABOARD ABOVE",
+          "EN ROUTE ABOARD ABOVE (?)"
+        ],
+        "to": "EN ROUTE ABOARD ABOVE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PUT-IN-BAY ISLAND, LAKE ERIE, OH",
+          "PUT-IN-BAY ISLAND, LAKE ERIE, OH;"
+        ],
+        "to": "PUT-IN-BAY ISLAND, LAKE ERIE, OH"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "RUSSELL HOUSE, DETROIT, MI",
+          "RUSSELL HOUSE; DETROIT, MI"
+        ],
+        "to": "RUSSELL HOUSE, DETROIT, MI"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NEW ORLEANS, LA",
+          "NEW ORLEANS, [LA]"
+        ],
+        "to": "NEW ORLEANS, LA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BAR HARBOR [ME]",
+          "BAR HARBOR, ME"
+        ],
+        "to": "BAR HARBOR [ME]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SCHNELLDAMPFER \"AUGUSTE VICTORIA\"",
+          "SCHNELLDAMPFER: \"AUGUSTE VICTORIA\""
+        ],
+        "to": "SCHNELLDAMPFER \"AUGUSTE VICTORIA\""
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "S.S. ZEALANDIA",
+          "SS ZEALANDIA"
+        ],
+        "to": "S.S. ZEALANDIA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE S.S. ZEELAND",
+          "EN ROUTE S.S ZEELAND"
+        ],
+        "to": "EN ROUTE S.S. ZEELAND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "THE ARLINGTON,WASH.DC",
+          "THE ARLINGTON,WASH.DC."
+        ],
+        "to": "THE ARLINGTON,WASH.DC"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "UNION LEAGUE",
+          "(UNION LEAGUE?)"
+        ],
+        "to": "UNION LEAGUE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MIRAMAR (?)",
+          "[MIRAMAR?]"
+        ],
+        "to": "MIRAMAR (?)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ABOARD PAQUEBOT LA LORRAINE",
+          "ABOARD PAQUEBOT \"LA LORRAINE\""
+        ],
+        "to": "ABOARD PAQUEBOT LA LORRAINE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "57 BROAD STREET, NY",
+          "57 BROAD STREET - NY"
+        ],
+        "to": "57 BROAD STREET, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CINCINNATI, OH",
+          "CINCINNATI [OH]"
+        ],
+        "to": "CINCINNATI, OH"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE ABOARD SS. KASUGA",
+          "EN ROUTE ABOARD SS KASUGA"
+        ],
+        "to": "EN ROUTE ABOARD SS. KASUGA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ABOARD PAQUEBOT \"LA BRETAGNE\"",
+          "ABOARD PAQUEBOT LA BRETAGNE"
+        ],
+        "to": "ABOARD PAQUEBOT \"LA BRETAGNE\""
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ROANOKE,VA",
+          "ROANOKE,VA;"
+        ],
+        "to": "ROANOKE,VA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL MANHATTAN,NY",
+          "HOTEL MANHATTAN,[NY]"
+        ],
+        "to": "HOTEL MANHATTAN,NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MINNEAPOLIS CLUB, MINNEAPOLIS, MN",
+          "MINNEAPOLIS CLUB; MINNEAPOLIS, MN"
+        ],
+        "to": "MINNEAPOLIS CLUB, MINNEAPOLIS, MN"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE ABOARD S.S. FRIESLAND",
+          "EN ROUTE ABOARD SS FRIESLAND"
+        ],
+        "to": "EN ROUTE ABOARD S.S. FRIESLAND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ATLANTIC CITY,NJ",
+          "ATLANTIC CITY,[NJ]"
+        ],
+        "to": "ATLANTIC CITY,NJ"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE S.S.ZEELAND",
+          "EN ROUTE  S.S.ZEELAND"
+        ],
+        "to": "EN ROUTE S.S.ZEELAND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BWAY & 63RD ST. NY",
+          "B'WAY & 63RD ST. NY"
+        ],
+        "to": "BWAY & 63RD ST. NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SYRACUSE NY",
+          "SYRACUSE, NY"
+        ],
+        "to": "SYRACUSE NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ADIRONDACKS, NY",
+          "ADIRONDACKS [NY]"
+        ],
+        "to": "ADIRONDACKS, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "FRANCONIA NOTCH NH",
+          "FRANCONIA NOTCH NH,"
+        ],
+        "to": "FRANCONIA NOTCH NH"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ALTOONA, PA",
+          "ALTOONA, PA;"
+        ],
+        "to": "ALTOONA, PA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "139 EIGHTH STREET BET. BROADWAY AND 4TH AVE., NEW YORK [NY];",
+          "139 EIGHTH STREET, BET. BROADWAY AND 4TH AVE., NEW YORK, [NY];"
+        ],
+        "to": "139 EIGHTH STREET BET. BROADWAY AND 4TH AVE., NEW YORK [NY];"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LOS ANGELES, CA;",
+          "LOS ANGELES, CA"
+        ],
+        "to": "LOS ANGELES, CA;"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL MANHATTAN, NEW YORK",
+          "HOTEL MANHATTAN, [NEW YORK]"
+        ],
+        "to": "HOTEL MANHATTAN, NEW YORK"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MILWAUKEE, WI",
+          "MILWAUKEE, [WI];"
+        ],
+        "to": "MILWAUKEE, WI"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WINDSOR HOTEL,(NY)",
+          "WINDSOR HOTEL[NY]"
+        ],
+        "to": "WINDSOR HOTEL,(NY)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NAPLES [ITALY]",
+          "NAPLES, ITALY"
+        ],
+        "to": "NAPLES [ITALY]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "KRUEGER AUDITORIUM (NEWARK NJ?)",
+          "KRUEGER AUDITORIUM, NEWARK, NJ"
+        ],
+        "to": "KRUEGER AUDITORIUM (NEWARK NJ?)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "UNION LEAGUE CLUB, NEW YORK, NY",
+          "UNION LEAGUE CLUB, [NEW YORK, NY?]"
+        ],
+        "to": "UNION LEAGUE CLUB, NEW YORK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SS \"FRIEDRICH DER GROSSE\"",
+          "SS FRIEDRICH DER GROSSE"
+        ],
+        "to": "SS \"FRIEDRICH DER GROSSE\""
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL ASTOR, NEW YORK",
+          "HOTEL ASTOR, [NEW YORK]"
+        ],
+        "to": "HOTEL ASTOR, NEW YORK"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CHICAGO ATHLETIC ASSOCIATION",
+          "CHICAGO ATHLETIC ASSOCIATION;"
+        ],
+        "to": "CHICAGO ATHLETIC ASSOCIATION"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ST. DENIS HOTEL (NEW YORK?)",
+          "ST. DENIS HOTEL, NEW YORK"
+        ],
+        "to": "ST. DENIS HOTEL (NEW YORK?)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "TERRACE GARDEN",
+          "TERRACE GARDEN,?"
+        ],
+        "to": "TERRACE GARDEN"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "66TH ST. & BWAY NY",
+          "66TH ST & B'WAY, NY"
+        ],
+        "to": "66TH ST. & BWAY NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ST. CHARLES HOTEL, NEW ORLEANS LA",
+          "ST. CHARLES HOTEL, NEW ORLEANS, LA"
+        ],
+        "to": "ST. CHARLES HOTEL, NEW ORLEANS LA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ELLICOTT CLUB, BUFFALO, NY",
+          "ELLICOTT CLUB (BUFFALO NY?)"
+        ],
+        "to": "ELLICOTT CLUB, BUFFALO, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "57 BROAD STREET, NEW YORK, [NY]",
+          "57 BROAD STREET, NEW YORK, NY"
+        ],
+        "to": "57 BROAD STREET, NEW YORK, [NY]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CAMPOBELLO  ISLAND,",
+          "CAMPOBELLO ISLAND"
+        ],
+        "to": "CAMPOBELLO  ISLAND,"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL BELLEVUE",
+          "BELLEVUE HOTEL"
+        ],
+        "to": "HOTEL BELLEVUE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HAVANA,CUBA",
+          "[HAVANA,CUBA]"
+        ],
+        "to": "HAVANA,CUBA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CECIL HOTEL, LONDON, ENGLAND",
+          "HOTEL CECIL, LONDON, ENGLAND"
+        ],
+        "to": "CECIL HOTEL, LONDON, ENGLAND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SARATOGA SPRINGS,NY",
+          "SARATOGA SPRINGS,[NY]"
+        ],
+        "to": "SARATOGA SPRINGS,NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WINDSOR CASTLE, ENGLAND",
+          "WINDSOR CASTLE, [ENGLAND]"
+        ],
+        "to": "WINDSOR CASTLE, ENGLAND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NASHVILLE, TENN.",
+          "NASHVILLE, TENN;"
+        ],
+        "to": "NASHVILLE, TENN."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL WILLARD, WASHINGTON, DC",
+          "WILLARD HOTEL, [WASHINGTON, DC]"
+        ],
+        "to": "HOTEL WILLARD, WASHINGTON, DC"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "THE WALDORF ASTORIA",
+          "WALDORF ASTORIA, THE"
+        ],
+        "to": "THE WALDORF ASTORIA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SS WESTERNLAND, EN ROUTE",
+          "SS WESTERNLAND - EN ROUTE"
+        ],
+        "to": "SS WESTERNLAND, EN ROUTE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NARRAGANSETT PIER,R.I.",
+          "NARRAGANSETT PIER,RI"
+        ],
+        "to": "NARRAGANSETT PIER,R.I."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BUDAPEST, HUNGARY",
+          "BUDAPEST, (HUNGARY)"
+        ],
+        "to": "BUDAPEST, HUNGARY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SARATOGA, NY",
+          "SARATOGA, [NY]"
+        ],
+        "to": "SARATOGA, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "156 SECOND AVENUE (NY?)",
+          "156 SECOND AVENUE, [NY]"
+        ],
+        "to": "156 SECOND AVENUE (NY?)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "TAYLOR'S HOTEL, JERSEY CITY [NJ]",
+          "TAYLOR'S HOTEL, JERSEY CITY, N.J."
+        ],
+        "to": "TAYLOR'S HOTEL, JERSEY CITY [NJ]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WHITEHALL ROOMS, THE HOTEL METROPOLE, LONDON [ENGLAND]",
+          "WHITEHALL ROOMS, THE HOTEL METROPOLE, LONDON, [ENGLAND]"
+        ],
+        "to": "WHITEHALL ROOMS, THE HOTEL METROPOLE, LONDON [ENGLAND]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CHICAGO BEACH HOTEL [CHICAGO, IL]",
+          "CHICAGO BEACH HOTEL, CHICAGO, [IL];"
+        ],
+        "to": "CHICAGO BEACH HOTEL [CHICAGO, IL]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "[TOKYO, JAPAN]",
+          "TOKYO, JAPAN"
+        ],
+        "to": "[TOKYO, JAPAN]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PARK ROW BUILDING [NY]",
+          "PARK ROW BUILDING, [NY]"
+        ],
+        "to": "PARK ROW BUILDING [NY]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "GRAND PACIFIC HOTEL",
+          "GRAND PACIFIC HOTEL,"
+        ],
+        "to": "GRAND PACIFIC HOTEL"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column place",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "place",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ST. LOUIS, MO",
+          "[ST.LOUIS,MO?]",
+          "ST LOUIS,MO",
+          "[ST.LOUIS, MO]"
+        ],
+        "to": "ST. LOUIS, MO"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PLANTERS HOTEL, (ST.LOUIS, MO?)",
+          "PLANTERS HOTEL, ST. LOUIS, [MO]",
+          "PLANTERS HOTEL, ST. LOUIS,[MO]",
+          "PLANTERS HOTEL, ST.LOUIS,MO"
+        ],
+        "to": "PLANTERS HOTEL, (ST.LOUIS, MO?)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DELMONICO'S, NEW YORK, NY",
+          "DELMONICO'S,[NEW YORK,NY?]",
+          "DELMONICO'S NEW YORK,NY",
+          "DELMONICO'S,[NEW YORK, N.Y.]"
+        ],
+        "to": "DELMONICO'S, NEW YORK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL IROQUOIS, BUFFALO, NY",
+          "HOTEL IROQUOIS, BUFFALO,NY",
+          "HOTEL IROQUOIS,(BUFFALO,N.Y.)"
+        ],
+        "to": "HOTEL IROQUOIS, BUFFALO, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WALDORF-ASTORIA, NEW YORK, NY",
+          "WALDORF ASTORIA, NEW YORK, NY",
+          "WALDORF ASTORIA,NEW YORK,NY"
+        ],
+        "to": "WALDORF-ASTORIA, NEW YORK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NASSAU, NP",
+          "NASSAU,N.P.",
+          "NASSAU, N. P.,"
+        ],
+        "to": "NASSAU, NP"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MIAMI BISCAYNE BAY,FLA.",
+          "MIAMI BISCAYNE BAY, FLA.",
+          "MIAMI,BISCAYNE BAY,FLA."
+        ],
+        "to": "MIAMI BISCAYNE BAY,FLA."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WALDORF-ASTORIA, THE, NEW YORK, NY",
+          "WALDORF ASTORIA,THE, NEW YORK, NY",
+          "WALDORF-ASTORIA,THE,[NEW YORK,NY?]"
+        ],
+        "to": "WALDORF-ASTORIA, THE, NEW YORK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PUT-IN-BAY ISLAND, OH",
+          "PUT IN BAY ISLAND, OH",
+          "PUT-IN-BAY-ISLAND, OH;"
+        ],
+        "to": "PUT-IN-BAY ISLAND, OH"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE, EXPRESS-STEAMER FURST BISMARCK",
+          "EN-ROUTE EXPRESS-STEAMER FURST BISMARCK",
+          "ENROUTE EXPRESS STEAMER \"FURST BISMARCK\""
+        ],
+        "to": "EN ROUTE, EXPRESS-STEAMER FURST BISMARCK"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ST.AUGUSTINE,FLA.",
+          "ST. AUGUSTINE, FLA",
+          "ST.AUGUSTINE, FLA."
+        ],
+        "to": "ST.AUGUSTINE,FLA."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SOUTHERN HOTEL, ST. LOUIS, MO",
+          "SOUTHERN HOTEL,ST. LOUIS,MO.",
+          "SOUTHERN HOTEL,[ST.LOUIS,MO]"
+        ],
+        "to": "SOUTHERN HOTEL, ST. LOUIS, MO"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NARRAGANSETT PIER R.I.",
+          "NARRAGANSETT PIER,R.I.",
+          "NARAGANSETT PIER, RI"
+        ],
+        "to": "NARRAGANSETT PIER R.I."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "FANEUIL HALL, BOSTON, [MASS]",
+          "FANEUIL HALL, [BOSTON,MASS]",
+          "FANEUIL HALL,BOSTON,MASS."
+        ],
+        "to": "FANEUIL HALL, BOSTON, [MASS]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WALDORF-ASTORIA,NY",
+          "WALDORF ASTORIA, NY",
+          "WALDORF-ASTORIA [NY?]"
+        ],
+        "to": "WALDORF-ASTORIA,NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CHICAGO,ILL.",
+          "(CHICAGO, ILL)"
+        ],
+        "to": "CHICAGO,ILL."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOBOKEN, NJ",
+          "HOBOKEN,NJ"
+        ],
+        "to": "HOBOKEN, NJ"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "57 BROAD STREET, NEW YORK, [NY]",
+          "57 BROAD STREET,NEW YORK,NY"
+        ],
+        "to": "57 BROAD STREET, NEW YORK, [NY]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "COPENHAGEN, DENMARK",
+          "COPENHAGEN,DENMARK"
+        ],
+        "to": "COPENHAGEN, DENMARK"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE - S.S.\"H.H.MEIER\"",
+          "EN ROUTE -S.S. \"H.H.MEIER\""
+        ],
+        "to": "EN ROUTE - S.S.\"H.H.MEIER\""
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CHICAGO BEACH HOTEL [CHICAGO, IL]",
+          "CHICAGO BEACH HOTEL, [CHICAGO.IL?]"
+        ],
+        "to": "CHICAGO BEACH HOTEL [CHICAGO, IL]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BUCKINGHAM PALACE, LONDON, ENGLAND",
+          "BUCKINGHAM PALACE, [ LONDON,ENGLAND]"
+        ],
+        "to": "BUCKINGHAM PALACE, LONDON, ENGLAND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE ABOARD S.S.ZEELAND",
+          "EN ROUTE ABOARD S.S. ZEELAND"
+        ],
+        "to": "EN ROUTE ABOARD S.S.ZEELAND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ST. NICHOLAS HOTEL, ST.LOUIS, MO",
+          "ST.NICHOLAS HOTEL,ST. LOUIS,MO;"
+        ],
+        "to": "ST. NICHOLAS HOTEL, ST.LOUIS, MO"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE ABOARD SCHNELLDAMPFER (EXPRESS STEAMER) AUGUSTE VICTORIA",
+          "EN ROUTE ABOARD SCHNELLDAMPFER (EXPRESS STEAMER) AUGUSTE-VICTORIA"
+        ],
+        "to": "EN ROUTE ABOARD SCHNELLDAMPFER (EXPRESS STEAMER) AUGUSTE VICTORIA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WHITE MOUNTAINS, NH",
+          "WHITE MOUNTAINS,N.H."
+        ],
+        "to": "WHITE MOUNTAINS, NH"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PARKER HOUSE [BOSTON,MASS ?]",
+          "PARKER HOUSE,BOSTON,MASS;"
+        ],
+        "to": "PARKER HOUSE [BOSTON,MASS ?]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CINCINNATI , OHIO",
+          "CINCINNATI,OHIO"
+        ],
+        "to": "CINCINNATI , OHIO"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "The Waldorf-Astoria",
+          "THE WALDORF ASTORIA"
+        ],
+        "to": "The Waldorf-Astoria"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NEW ORLEANS, LA",
+          "NEW ORLEANS,[LA?]"
+        ],
+        "to": "NEW ORLEANS, LA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ST. GEORGE HOTEL",
+          "ST.GEORGE HOTEL"
+        ],
+        "to": "ST. GEORGE HOTEL"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE ABOARD S.S. ZEALANDIA",
+          "EN ROUTE ABOARD S.S.ZEALANDIA"
+        ],
+        "to": "EN ROUTE ABOARD S.S. ZEALANDIA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "GRAND HOTEL, LONDON, ENGLAND",
+          "GRAND HOTEL,LONDON, ENGLAND"
+        ],
+        "to": "GRAND HOTEL, LONDON, ENGLAND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE ABOARD DAMPFER FRIEDRICH DER GROSSE",
+          "EN ROUTE ABOARD DAMPFER FRIEDRICH DER GROSSER"
+        ],
+        "to": "EN ROUTE ABOARD DAMPFER FRIEDRICH DER GROSSE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CLEVELAND,OHIO",
+          "CLEVELAND, OHIO"
+        ],
+        "to": "CLEVELAND,OHIO"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "RMS CAMPANIA",
+          "R.M.S.\"CAMPANIA\""
+        ],
+        "to": "RMS CAMPANIA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ROANOKE, VA",
+          "ROANOKE,VA"
+        ],
+        "to": "ROANOKE, VA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CORONADA BEACH, CA.",
+          "CORONADA BEACH,CA."
+        ],
+        "to": "CORONADA BEACH, CA."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL  ST. DENIS, NY",
+          "HOTEL ST. DENIS,NY"
+        ],
+        "to": "HOTEL  ST. DENIS, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "OCEAN HOUSE, NEWPORT, RI",
+          "OCEAN HOUSE,NEWPORT,R.I."
+        ],
+        "to": "OCEAN HOUSE, NEWPORT, RI"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MERCANTILE CLUB (ST LOUIS, MO)",
+          "MERCANTILE CLUB, ST.LOUIS MO"
+        ],
+        "to": "MERCANTILE CLUB (ST LOUIS, MO)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL ST GEORGE,NYACK-ON-HUDSON,NY",
+          "HOTEL ST.GEORGE,NYACK-ON-HUDSON,[NY]"
+        ],
+        "to": "HOTEL ST GEORGE,NYACK-ON-HUDSON,NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MORELLO'S, NEW YORK, NY",
+          "MORELLO'S,NEW YORK, N.Y."
+        ],
+        "to": "MORELLO'S, NEW YORK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "OLD POINT COMFORT, VA",
+          "OLD POINT COMFORT,VA"
+        ],
+        "to": "OLD POINT COMFORT, VA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PALACE HOTEL, SAN FRANCISCO, CA",
+          "PALACE HOTEL, SAN FRANCISCO, CAL"
+        ],
+        "to": "PALACE HOTEL, SAN FRANCISCO, CA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SYRACUSE NY",
+          "SYRACUSE,NY"
+        ],
+        "to": "SYRACUSE NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "THE ARLINGTON, WASHINGTON, D.C.",
+          "THE ARLINGTON, WASHINGTON,DC"
+        ],
+        "to": "THE ARLINGTON, WASHINGTON, D.C."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LONDON, ENGLAND",
+          "[LONDON,ENGLAND]"
+        ],
+        "to": "LONDON, ENGLAND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LUZERN, SWITZERLAND",
+          "LUZERN,SWITZERLAND"
+        ],
+        "to": "LUZERN, SWITZERLAND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PORTLAND, OR",
+          "PORTLAND,OR."
+        ],
+        "to": "PORTLAND, OR"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL COCHRAN, WASHINGTON DC",
+          "HOTEL COCHRAN, [WASHINGTON,D.C.]"
+        ],
+        "to": "HOTEL COCHRAN, WASHINGTON DC"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SOUTH POLAND, ME",
+          "SOUTH POLAND,ME."
+        ],
+        "to": "SOUTH POLAND, ME"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "QUEBEC, CANADA",
+          "QUEBEC,CANADA"
+        ],
+        "to": "QUEBEC, CANADA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NASSAU, N.P. BAHAMAS",
+          "NASSAU,N.P.BAHAMAS"
+        ],
+        "to": "NASSAU, N.P. BAHAMAS"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE ABOARD SS KOBE MARU",
+          "EN ROUTE ABOARD SS.KOBE MARU"
+        ],
+        "to": "EN ROUTE ABOARD SS KOBE MARU"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SAN FRANCISCO, CA",
+          "[SAN FRANCISCO,CA]"
+        ],
+        "to": "SAN FRANCISCO, CA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL BRUNSWICK NY",
+          "HOTEL BRUNSWICK,NY"
+        ],
+        "to": "HOTEL BRUNSWICK NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PARK ROW BLDG. [NY]",
+          "PARK ROW BLDG.NY"
+        ],
+        "to": "PARK ROW BLDG. [NY]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOFFMAN HOUSE NEW YORK, NY",
+          "HOFFMAN HOUSE,NEW YORK,NY"
+        ],
+        "to": "HOFFMAN HOUSE NEW YORK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CHATTANOOGA, TN",
+          "CHATTANOOGA,TN"
+        ],
+        "to": "CHATTANOOGA, TN"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE STEAMER FURST BISMARCK",
+          "ENROUTE STEAMER \"FURST BISMARCK\""
+        ],
+        "to": "EN ROUTE STEAMER FURST BISMARCK"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ABOARD U.S.M.S. ST. LOUIS",
+          "ABOARD U.S.M.S.ST. LOUIS"
+        ],
+        "to": "ABOARD U.S.M.S. ST. LOUIS"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WACO, TX",
+          "WACO,TX"
+        ],
+        "to": "WACO, TX"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CLINTON COUNTY, NY",
+          "CLINTON COUNTY,NY"
+        ],
+        "to": "CLINTON COUNTY, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DELMONICO'S [NEW YORK]",
+          "DELMONICO'S,[NEW YORK]"
+        ],
+        "to": "DELMONICO'S [NEW YORK]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "TORONTO, CANADA",
+          "TORONTO,CANADA"
+        ],
+        "to": "TORONTO, CANADA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "R.M.S. \"ETRURIA\"",
+          "R. M. S. ETRURIA"
+        ],
+        "to": "R.M.S. \"ETRURIA\""
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LOS ANGELES,CA",
+          "LOS ANGELES, CA;"
+        ],
+        "to": "LOS ANGELES,CA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WALDORF-ASTORIA, NEW YORK",
+          "WALDORF- ASTORIA, NEW YORK"
+        ],
+        "to": "WALDORF-ASTORIA, NEW YORK"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "AMSTERDAM,HOLLAND",
+          "[AMSTERDAM, HOLLAND ?]"
+        ],
+        "to": "AMSTERDAM,HOLLAND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ARGYLE, THE, BROOKLYN, NY",
+          "ARGYLE,THE,BROOKLYN,NY"
+        ],
+        "to": "ARGYLE, THE, BROOKLYN, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BALTIMORE, MD",
+          "BALTIMORE,MD"
+        ],
+        "to": "BALTIMORE, MD"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HELENA, MT",
+          "HELENA,MT"
+        ],
+        "to": "HELENA, MT"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ST. AUGUSTINE, FL",
+          "ST.AUGUSTINE,FL"
+        ],
+        "to": "ST. AUGUSTINE, FL"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "UNION SQUARE, NY",
+          "UNION SQUARE,NY;"
+        ],
+        "to": "UNION SQUARE, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PHILADELPHIA, PA",
+          "PHILADELPHIA,PA."
+        ],
+        "to": "PHILADELPHIA, PA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE STEAMER AUGUSTE VICTORIA",
+          "ENROUTE STEAMER \"AUGUSTE VICTORIA\""
+        ],
+        "to": "EN ROUTE STEAMER AUGUSTE VICTORIA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WALDORF-ASTORIA HOTEL, NEW YORK, NY",
+          "WALDORF ASTORIA HOTEL, NEW YORK, NY"
+        ],
+        "to": "WALDORF-ASTORIA HOTEL, NEW YORK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE ABOARD S.S. SOUTHWARK",
+          "ENROUTE ABOARD S.S. SOUTHWARK"
+        ],
+        "to": "EN ROUTE ABOARD S.S. SOUTHWARK"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NEW YORK, NY",
+          "NEW YORK,NY"
+        ],
+        "to": "NEW YORK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "137 E. MADISON ST. CHICAGO, ILL.",
+          "137 E. MADISON ST.,CHICAGO,ILL."
+        ],
+        "to": "137 E. MADISON ST. CHICAGO, ILL."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BROADWAY, NY",
+          "BROADWAY,NY"
+        ],
+        "to": "BROADWAY, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ST.LOUIS CLUB, ST.LOUIS,MO.",
+          "ST. LOUIS CLUB, [?ST. LOUIS, MO?]"
+        ],
+        "to": "ST.LOUIS CLUB, ST.LOUIS,MO."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "57 BROAD ST. NY",
+          "57 BROAD ST.NY"
+        ],
+        "to": "57 BROAD ST. NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CHATTANOOGA,TENN.",
+          "CHATTANOOGA, TENN."
+        ],
+        "to": "CHATTANOOGA,TENN."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BOSTON, MA",
+          "BOSTON,MA."
+        ],
+        "to": "BOSTON, MA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "STEAMSHIP KAISER WILHELM DER GROSSE",
+          "STEAMSHIP KAISER WILHELM DER GROSSER"
+        ],
+        "to": "STEAMSHIP KAISER WILHELM DER GROSSE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WINDSOR HOTEL,(NY)",
+          "WINDSOR HOTEL, [NY]"
+        ],
+        "to": "WINDSOR HOTEL,(NY)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MURRAY HILL HOTEL,NY",
+          "MURRAY HILL HOTEL [NY]"
+        ],
+        "to": "MURRAY HILL HOTEL,NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CECIL HOTEL, LONDON, ENGLAND",
+          "CECIL HOTEL,LONDON,ENGLAND"
+        ],
+        "to": "CECIL HOTEL, LONDON, ENGLAND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SPRINGFIELD,MASS.",
+          "SPRINGFIELD, MASS."
+        ],
+        "to": "SPRINGFIELD,MASS."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ALBANY, NY",
+          "ALBANY,NY"
+        ],
+        "to": "ALBANY, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DENVER, COLO.",
+          "DENVER,COLO."
+        ],
+        "to": "DENVER, COLO."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "AUDITORIUM, CHICAGO, IL",
+          "AUDITORIUM,[CHICAGO, IL]"
+        ],
+        "to": "AUDITORIUM, CHICAGO, IL"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "VIRGINIA BEACH, VA",
+          "VIRGINIA BEACH,VA"
+        ],
+        "to": "VIRGINIA BEACH, VA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DELMONICO'S NY",
+          "DELMONICO'S,NY"
+        ],
+        "to": "DELMONICO'S NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PALACE HOTEL, DENVER, [COL]",
+          "PALACE HOTEL;DENVER, [COL]"
+        ],
+        "to": "PALACE HOTEL, DENVER, [COL]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ST. PETERSBURG,[RUSSIA]",
+          "ST. PETERSBURG (RUSSIA?)"
+        ],
+        "to": "ST. PETERSBURG,[RUSSIA]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "COLUMBUS, OHIO",
+          "COLUMBUS,OHIO"
+        ],
+        "to": "COLUMBUS, OHIO"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DELMONICO, [NEW YORK, NY?]",
+          "DELMONICO,NEW YORK NY;"
+        ],
+        "to": "DELMONICO, [NEW YORK, NY?]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NAPLES [ITALY]",
+          "NAPLES,[ITALY]"
+        ],
+        "to": "NAPLES [ITALY]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "UNION LEAGUE PHILADELPHIA [PA?]",
+          "UNION LEAGUE,(PHILADELPHIA,PA)"
+        ],
+        "to": "UNION LEAGUE PHILADELPHIA [PA?]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOFFMAN HOUSE, MADISON SQUARE, NY",
+          "[HOFFMAN HOUSE,MADISON SQUARE,NY]"
+        ],
+        "to": "HOFFMAN HOUSE, MADISON SQUARE, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "TREMONT TEMPLE, BOSTON, MASS.",
+          "TREMONT TEMPLE,BOSTON MASS"
+        ],
+        "to": "TREMONT TEMPLE, BOSTON, MASS."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DEEMING HALL, ITHACA, NY",
+          "DEEMING HALL,ITHACA,NY"
+        ],
+        "to": "DEEMING HALL, ITHACA, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LINCOLN CLUB {bROOKLYN, NY}",
+          "LINCOLN CLUB,BROOKLYN,NY"
+        ],
+        "to": "LINCOLN CLUB {bROOKLYN, NY}"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WASHINGTON, DC",
+          "WASHINGTON,D.C."
+        ],
+        "to": "WASHINGTON, DC"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "[TOKYO, JAPAN]",
+          "[TOKYO,JAPAN]?"
+        ],
+        "to": "[TOKYO, JAPAN]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE ABOARD SS.KOHE MARU",
+          "EN ROUTE ABOARD SS. KOHE MARU"
+        ],
+        "to": "EN ROUTE ABOARD SS.KOHE MARU"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BROOKLYN, NY",
+          "BROOKLYN,NY"
+        ],
+        "to": "BROOKLYN, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "FARGO, NORTH DAKOTA",
+          "FARGO,NORTH DAKOTA"
+        ],
+        "to": "FARGO, NORTH DAKOTA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "STEAMSHIP NORTH WEST",
+          "STEAMSHIP NORTHWEST"
+        ],
+        "to": "STEAMSHIP NORTH WEST"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "374 FIFTH AVENUE, [NY,NY]",
+          "[374 FIFTH AVENUE, NY, NY]"
+        ],
+        "to": "374 FIFTH AVENUE, [NY,NY]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PORTLAND, ME",
+          "PORTLAND,ME"
+        ],
+        "to": "PORTLAND, ME"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BOHEMIAN CLUB, SAN FRANCISCO, CA",
+          "BOHEMIAN CLUB, SAN FRANCISCO,[CA]"
+        ],
+        "to": "BOHEMIAN CLUB, SAN FRANCISCO, CA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ST. NICHOLAS HOTEL, [CINCINNATI, OH?]",
+          "ST.NICHOLAS HOTEL, CINCINNATI, OH"
+        ],
+        "to": "ST. NICHOLAS HOTEL, [CINCINNATI, OH?]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BERGEN, NORWAY",
+          "BERGEN,NORWAY"
+        ],
+        "to": "BERGEN, NORWAY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "THE COCHRAN, WASHINGTON, DC",
+          "THE COCHRAN, WASHINGTON,D.C."
+        ],
+        "to": "THE COCHRAN, WASHINGTON, DC"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ARCANUM HALL,ELIZABETH NJ",
+          "ARCANUM HALL,ELIZABETH,NJ"
+        ],
+        "to": "ARCANUM HALL,ELIZABETH NJ"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE ABOARD DAMPFER H.H. MEIER",
+          "EN ROUTE ABOARD DAMPFER H.H.MEIER"
+        ],
+        "to": "EN ROUTE ABOARD DAMPFER H.H. MEIER"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "YOUNG'S HOTEL, BOSTON, MA",
+          "YOUNGS HOTEL,BOSTON,MA"
+        ],
+        "to": "YOUNG'S HOTEL, BOSTON, MA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ATLANTIC CITY, NJ",
+          "ATLANTIC CITY,NJ"
+        ],
+        "to": "ATLANTIC CITY, NJ"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BERLIN, GERMANY",
+          "BERLIN,GERMANY"
+        ],
+        "to": "BERLIN, GERMANY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "THE WALNUT ROOMS, THE GRAND HOTEL, TRAFALGAR SQUARE, LONDON, ENGLAND",
+          "THE WALNUT ROOMS; THE GRAND HOTEL, TRAFALGAR SQUARE, [LONDON,ENGLAND]"
+        ],
+        "to": "THE WALNUT ROOMS, THE GRAND HOTEL, TRAFALGAR SQUARE, LONDON, ENGLAND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "TAMPA, FL",
+          "TAMPA,FL"
+        ],
+        "to": "TAMPA, FL"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE ABOARD SS. KINSHIN MARU",
+          "EN ROUTE ABOARD SS.KINSHIN MARU"
+        ],
+        "to": "EN ROUTE ABOARD SS. KINSHIN MARU"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ALTOONA, PA",
+          "ALTOONA,PA"
+        ],
+        "to": "ALTOONA, PA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "GRAND HOTEL, MELBOURNE;",
+          "GRAND HOTEL,MELBOURNE"
+        ],
+        "to": "GRAND HOTEL, MELBOURNE;"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SARATOGA SPRINGS, NY",
+          "SARATOGA SPRINGS,NY"
+        ],
+        "to": "SARATOGA SPRINGS, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ABOARD S S VADERLAND",
+          "ABOARD S.S. VADERLAND"
+        ],
+        "to": "ABOARD S S VADERLAND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MIAMI BISCAYNE BAY, FL",
+          "MIAMI BISCAYNE BAY,FL"
+        ],
+        "to": "MIAMI BISCAYNE BAY, FL"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DWLMONICO'S NY",
+          "DWLMONICO'S,NY"
+        ],
+        "to": "DWLMONICO'S NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WEST END HOTEL, NEW ORLEANS, LA",
+          "WEST END HOTEL, NEW ORLEANS,LA."
+        ],
+        "to": "WEST END HOTEL, NEW ORLEANS, LA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SHANLEY'S, NY",
+          "SHANLEY'S,NY"
+        ],
+        "to": "SHANLEY'S, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PALAIS ROYAL - CHRISTIANIA,NORWAY",
+          "[PALAIS ROYAL, CHRISTIANIA, NORWAY]"
+        ],
+        "to": "PALAIS ROYAL - CHRISTIANIA,NORWAY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MANILA, P.I.",
+          "MANILA,P.I."
+        ],
+        "to": "MANILA, P.I."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ALBANY CLUB (ALBANY,NY)",
+          "ALBANY CLUB, ALBANY, NY"
+        ],
+        "to": "ALBANY CLUB (ALBANY,NY)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PINEHURST,N.C.",
+          "PINEHURST, NC"
+        ],
+        "to": "PINEHURST,N.C."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL ST. GEORGE, NYACK, NY",
+          "HOTEL ST. GEORGE,NYACK,NY"
+        ],
+        "to": "HOTEL ST. GEORGE, NYACK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BUFFALO, NY",
+          "BUFFALO,NY"
+        ],
+        "to": "BUFFALO, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ROME, ITALY",
+          "(ROME,ITALY)"
+        ],
+        "to": "ROME, ITALY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "383 6TH AVE.,1212 BWAY.,& 1476 BWAY. NY",
+          "383 6TH AVE.,1476 BWAY.,1212 BWAY., NY"
+        ],
+        "to": "383 6TH AVE.,1212 BWAY.,& 1476 BWAY. NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CINCINNATI, OH",
+          "CINCINNATI,OH"
+        ],
+        "to": "CINCINNATI, OH"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CATARACT HOUSE, NIAGARA FALLS, NY",
+          "CATARACT HOUSE,NIAGARA FALLS,NY"
+        ],
+        "to": "CATARACT HOUSE, NIAGARA FALLS, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PROVIDENCE, RI",
+          "PROVIDENCE,RI;"
+        ],
+        "to": "PROVIDENCE, RI"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE S.S.VADERLAND",
+          "EN ROUTE S.S VADERLAND"
+        ],
+        "to": "EN ROUTE S.S.VADERLAND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "TAMPA, FLORIDA",
+          "TAMPA,FLORIDA"
+        ],
+        "to": "TAMPA, FLORIDA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE S.S.\"BARBAROSSA\"",
+          "EN ROUTE S.S \"BARBAROSSA\""
+        ],
+        "to": "EN ROUTE S.S.\"BARBAROSSA\""
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MELBOURNE, AUSTRALIA",
+          "MELBOURNE,AUSTRALIA"
+        ],
+        "to": "MELBOURNE, AUSTRALIA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MONTREAL [CANADA?]",
+          "MONTREAL,CANADA"
+        ],
+        "to": "MONTREAL [CANADA?]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SIXTY-SIXTH STREET & BROADWAY, NEW YORK, [NY]",
+          "SIXTY SIXTH STREET & BROADWAY, NEW YORK,[NY]"
+        ],
+        "to": "SIXTY-SIXTH STREET & BROADWAY, NEW YORK, [NY]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "RECTOR'S ,NY",
+          "RECTOR'S,NY"
+        ],
+        "to": "RECTOR'S ,NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LONG BEACH, L.I, NY",
+          "LONG BEACH,L.I.,NY;"
+        ],
+        "to": "LONG BEACH, L.I, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BELMAR,NJ",
+          "BELMAR, NJ"
+        ],
+        "to": "BELMAR,NJ"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE S.S. ZEELAND",
+          "EN ROUTE S.S.ZEELAND"
+        ],
+        "to": "EN ROUTE S.S. ZEELAND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HAMBURG, GERMANY",
+          "HAMBURG,GERMANY"
+        ],
+        "to": "HAMBURG, GERMANY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BAKER CITY, OREGON;",
+          "BAKER CITY,OREGON"
+        ],
+        "to": "BAKER CITY, OREGON;"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PARIS,FRANCE",
+          "PARIS, FRANCE"
+        ],
+        "to": "PARIS,FRANCE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "\"ST. LOUIS\"",
+          "\"ST.LOUIS\""
+        ],
+        "to": "\"ST. LOUIS\""
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NIAGARA FALLS, NY",
+          "NIAGARA FALLS,NY"
+        ],
+        "to": "NIAGARA FALLS, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL VICTORY, PUT-IN-BAY-ISLAND, LAKE ERIE, OH.",
+          "HOTEL VICTORY,PUT-IN-BAY ISLAND,LAKE ERIE,OH"
+        ],
+        "to": "HOTEL VICTORY, PUT-IN-BAY-ISLAND, LAKE ERIE, OH."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PARK ROW BUILDING [NEW YORK,NY?]",
+          "PARK ROW BUILDING, NEW YORK, NY"
+        ],
+        "to": "PARK ROW BUILDING [NEW YORK,NY?]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "R.M.S. ROTTERDAM",
+          "R.M.S.ROTTERDAM"
+        ],
+        "to": "R.M.S. ROTTERDAM"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DELMONICO,[NY]",
+          "DELMONICO [NY]"
+        ],
+        "to": "DELMONICO,[NY]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NEW YORK CITY, NY",
+          "NEW YORK CITY,NY"
+        ],
+        "to": "NEW YORK CITY, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "UNION SQUARE, NEW YORK, NY",
+          "UNION SQUARE,NEW YORK,NY"
+        ],
+        "to": "UNION SQUARE, NEW YORK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "THE BOURSE, PHILADELPHIA [PA]",
+          "THE BOURSE,(PHILADELPHIA,PA)"
+        ],
+        "to": "THE BOURSE, PHILADELPHIA [PA]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PARKER HOUSE, BOSTON, MA",
+          "PARKER HOUSE,BOSTON,MA"
+        ],
+        "to": "PARKER HOUSE, BOSTON, MA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "117 WEST 34TH STREET,NEW YORK,NY",
+          "117WEST 34TH STREET,NEW YORK,NY"
+        ],
+        "to": "117 WEST 34TH STREET,NEW YORK,NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PALM BEACH, FL",
+          "PALM BEACH,FL"
+        ],
+        "to": "PALM BEACH, FL"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL SAVOY, NY",
+          "HOTEL SAVOY,[NY]"
+        ],
+        "to": "HOTEL SAVOY, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "KRUEGER AUDITORIUM (NEWARK NJ?)",
+          "KRUEGER AUDITORIUM,NEWARK[NJ]"
+        ],
+        "to": "KRUEGER AUDITORIUM (NEWARK NJ?)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SS WESTERNLAND",
+          "S.S.WESTERNLAND"
+        ],
+        "to": "SS WESTERNLAND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CLEVELAND, OH",
+          "CLEVELAND,OH"
+        ],
+        "to": "CLEVELAND, OH"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE ABOARD S.S. WESTERNLAND",
+          "ENROUTE ABOARD S.S. WESTERNLAND"
+        ],
+        "to": "EN ROUTE ABOARD S.S. WESTERNLAND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PUT-IN-BAY-ISLAND, LAKE ERIE, OH;",
+          "PUT-IN-BAY ISLAND, LAKE ERIE, OH"
+        ],
+        "to": "PUT-IN-BAY-ISLAND, LAKE ERIE, OH;"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MUNICH, GERMANY",
+          "MUNICH,GERMANY"
+        ],
+        "to": "MUNICH, GERMANY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BOSTON,MASS",
+          "BOSTON, MASS."
+        ],
+        "to": "BOSTON,MASS"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WALDORF [NY]",
+          "WALDORF[NY]"
+        ],
+        "to": "WALDORF [NY]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "REVERE HOUSE, [BOSTON,MASS]",
+          "REVERE HOUSE,BOSTON,MASS."
+        ],
+        "to": "REVERE HOUSE, [BOSTON,MASS]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MILWAUKEE, WI",
+          "MILWAUKEE,WI"
+        ],
+        "to": "MILWAUKEE, WI"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "AUDITORIUM HOTEL [CHICAGO, IL]",
+          "AUDITORIUM HOTEL,[CHICAGO, IL]"
+        ],
+        "to": "AUDITORIUM HOTEL [CHICAGO, IL]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NASSAU,BAHAMAS",
+          "NASSAU, BAHAMAS"
+        ],
+        "to": "NASSAU,BAHAMAS"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HAVANA, CUBA",
+          "HAVANA,CUBA"
+        ],
+        "to": "HAVANA, CUBA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ELLICOTT SQUARE, BUFFALO, NY",
+          "ELLICOTT SQUARE,BUFFALO,[NY?]"
+        ],
+        "to": "ELLICOTT SQUARE, BUFFALO, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE ABOARD EXPRESS STEAMER AUGUSTE VICTORIA",
+          "ENROUTE ABOARD EXPRESS-STEAMER AUGUSTE VICTORIA"
+        ],
+        "to": "EN ROUTE ABOARD EXPRESS STEAMER AUGUSTE VICTORIA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ELLICOTT CLUB, BUFFALO, NY",
+          "ELLICOTT CLUB,BUFFALO,NY"
+        ],
+        "to": "ELLICOTT CLUB, BUFFALO, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CHICAGO, IL",
+          "(CHICAGO,IL)"
+        ],
+        "to": "CHICAGO, IL"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL MANHATTAN, NY",
+          "HOTEL MANHATTAN,NY"
+        ],
+        "to": "HOTEL MANHATTAN, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "QUEEN CITY CLUB, (CINCINNATI,OHIO)",
+          "QUEEN CITY CLUB, CINCINNATI ,OHIO"
+        ],
+        "to": "QUEEN CITY CLUB, (CINCINNATI,OHIO)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL VENDOME, BOSTON, MA",
+          "HOTEL VENDOME,BOSTON.MA"
+        ],
+        "to": "HOTEL VENDOME, BOSTON, MA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ASHEVILLE,NC",
+          "ASHEVILLE, NC"
+        ],
+        "to": "ASHEVILLE,NC"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LOGAN HOUSE, ALTOONA, PA",
+          "LOGAN HOUSE,ALTOONA,PA"
+        ],
+        "to": "LOGAN HOUSE, ALTOONA, PA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MALONE, NY",
+          "MALONE,NY"
+        ],
+        "to": "MALONE, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL VENDOME, BOSTON,MASS",
+          "HOTEL VENDOME; [BOSTON, MASS]"
+        ],
+        "to": "HOTEL VENDOME, BOSTON,MASS"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "FARGO, ND",
+          "FARGO,ND"
+        ],
+        "to": "FARGO, ND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MAGDEBURG, [GERMANY?]",
+          "MAGDEBURG,[GERMANY]"
+        ],
+        "to": "MAGDEBURG, [GERMANY?]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL WALTON,PHILADELPHIA,PA;",
+          "HOTEL WALTON, PHILADELPHIA [PA]"
+        ],
+        "to": "HOTEL WALTON,PHILADELPHIA,PA;"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WATSON HOUSE, BABLON, L.I., N.Y.",
+          "WATSON HOUSE,BABLON, L.I. N.Y."
+        ],
+        "to": "WATSON HOUSE, BABLON, L.I., N.Y."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MOBILE,AL.",
+          "MOBILE; AL"
+        ],
+        "to": "MOBILE,AL."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "TAMPA,FLA.",
+          "TAMPA, FLA."
+        ],
+        "to": "TAMPA,FLA."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "AMERICAN INN, PORTLAND OR",
+          "AMERICAN INN, PORTLAND,OR"
+        ],
+        "to": "AMERICAN INN, PORTLAND OR"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LAKE GEORGE,NY",
+          "[LAKE GEORGE, NY]"
+        ],
+        "to": "LAKE GEORGE,NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE",
+          "ENROUTE"
+        ],
+        "to": "EN ROUTE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WHITEHALL ROOMS, THE HOTEL METROPOLE, LONDON [ENGLAND]",
+          "WHITEHALL ROOMS,THE HOTEL METROPOLE, LONDON,ENGLAND"
+        ],
+        "to": "WHITEHALL ROOMS, THE HOTEL METROPOLE, LONDON [ENGLAND]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ST. CHARLES HOTEL, NEW ORLEANS LA",
+          "ST. CHARLES HOTEL,NEW ORLEANS,LA"
+        ],
+        "to": "ST. CHARLES HOTEL, NEW ORLEANS LA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PARKER HOUSE, MASS;",
+          "PARKER HOUSE,[MASS]"
+        ],
+        "to": "PARKER HOUSE, MASS;"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BRUNSWICK ME?",
+          "BRUNSWICK,ME."
+        ],
+        "to": "BRUNSWICK ME?"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "COLORADO SPRINGS, CO",
+          "COLORADO SPRINGS,COLO."
+        ],
+        "to": "COLORADO SPRINGS, CO"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "FANEUIL HALL, BOSTON, MA",
+          "FANEUIL HALL,BOSTON,MA."
+        ],
+        "to": "FANEUIL HALL, BOSTON, MA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DETROIT, MI",
+          "DETROIT,MI"
+        ],
+        "to": "DETROIT, MI"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column place",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "place",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WALDORF-ASTORIA, NEW YORK",
+          "WALDORF-ASTORIA",
+          "WALDORF-ASTORIA,NY",
+          "WALDORF-ASTORIA HOTEL, NEW YORK, NY",
+          "WALDORF-ASTORIA, NEW YORK CITY",
+          "WALDORF-ASTORIA, NEW YORK, NY",
+          "WALDORF-ASTORIA, THE, NEW YORK, NY",
+          "WALDORF-ASTORIA HOTEL",
+          "WALDORF ASTORIA, THE, [NY,NY]",
+          "WALDORF-ASTORIA HOTEL, THE, NEW YORK, NY"
+        ],
+        "to": "WALDORF-ASTORIA, NEW YORK"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ABOARD PAQUEBOT LA LORRAINE",
+          "ABOARD PAQUEBOT LA PROVENCE",
+          "ABOARD PAQUEBOT LA TOURAINE",
+          "ABOARD PAQUEBOT \"LA SAVOIE\"",
+          "ABOARD PAQUEBOT LA CHAMPAGNE",
+          "ABOARD PAQUEBOT \"LA BRETAGNE\"",
+          "ABOARD PAQUEBOT LA GASCOGNE",
+          "ABOARD PAQUEBOT LA LORAINE"
+        ],
+        "to": "ABOARD PAQUEBOT LA LORRAINE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BLEECKER, THOMPSON AND SULLIVAN STREETS, ENTRANCE ON BLEECKER STREET, [NEW YORK, NY];",
+          "BLEECKER, THOMPSON AND SULLIVAN STREETS",
+          "BLEECKER, THOMPSON AND SULLIVAN STREETS, [NEW YORK]",
+          "BLEECKER, THOMPSON AND SULLIVAN STREETS; ENTRANCE ON BLEECKER STREET;",
+          "BLEECKER,THOMPSON & SULLIVAN STREETS,NY",
+          "BLEECKER,THOMPSON,AND SULLIVAN STREETS,[NY]"
+        ],
+        "to": "BLEECKER, THOMPSON AND SULLIVAN STREETS, ENTRANCE ON BLEECKER STREET, [NEW YORK, NY];"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL MARLBOROUGH, NEW YORK, NY",
+          "HOTEL MARLBOROUGH [HOBOKEN NY?]",
+          "HOTEL MARLBOROUGH, NEW YORK",
+          "HOTEL MARLBOROUGH, NEW YORK CITY",
+          "HOTEL MARLBOROUGH,NY"
+        ],
+        "to": "HOTEL MARLBOROUGH, NEW YORK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PULLMAN DINING CAR SERVICE EN ROUTE",
+          "PULLMAN DINING CAR ENROUTE MEXICO-CALIFORNIA",
+          "PULLMAN DINING CAR",
+          "PULLMAN DINING CAR CASA MONICA",
+          "PULLMAN DINING CAR SERVICE"
+        ],
+        "to": "PULLMAN DINING CAR SERVICE EN ROUTE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MERCANTILE CLUB (ST LOUIS, MO)",
+          "MERCANTILE CLUB",
+          "MERCANTILE CLUB (ST. LOUIS)",
+          "MERCANTILE CLUB HOUSE, ST. LOUIS MO",
+          "MERCANTILE CLUB,ST.LOUIS, [MISSOURI]"
+        ],
+        "to": "MERCANTILE CLUB (ST LOUIS, MO)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ST. AUGUSTINE, FL",
+          "ST.AUGUSTINE,FLA.",
+          "ST.AAUGUSTINE,FLA.",
+          "ST.AUGUSTINE,FLORIDA"
+        ],
+        "to": "ST. AUGUSTINE, FL"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL BRUNSWICK NY",
+          "HOTEL BRUNSWICK",
+          "HOTEL BRUNSWICK, NEW YORK",
+          "HOTEL BRUNSWICK, NEW YORK, NY"
+        ],
+        "to": "HOTEL BRUNSWICK NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "\"KONIGEN LUISE\" AT SEA",
+          "\"KONIGEN LOUISE\" AT SEA",
+          "\"KONIGIN LUISE\" AT SEA",
+          "\"KONIGIN LUSE\" AT SEA"
+        ],
+        "to": "\"KONIGEN LUISE\" AT SEA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ST. DENIS HOTEL (NEW YORK?)",
+          "ST.DENIS HOTEL,NY",
+          "ST. DENIS HOTEL, [NEW YORK CITY?]",
+          "ST. DENIS HOTEL, [NEW YORK, NY?]"
+        ],
+        "to": "ST. DENIS HOTEL (NEW YORK?)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Gramercy Park Hotel",
+          "Gramercy Park Hotel; 2 Lexington Avenue at 21st Street",
+          "Gramercy Park Hotel Room Serive",
+          "Gramercy Park Hotel; 21st Street and Lexington"
+        ],
+        "to": "Gramercy Park Hotel"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DELMONICO'S, NEW YORK, NY",
+          "DELMONICO'S [NEW YORK]",
+          "DELMONICO'S, NEW YORK CITY",
+          "DELMONIC0'S, [NEW YORK]"
+        ],
+        "to": "DELMONICO'S, NEW YORK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MADISON SQUARE, NEW YORK",
+          "MADISON SQUARE, NY",
+          "MADISON SQUARE NEW YORK CITY NY",
+          "MADISON SQUARE, NEW YORK, [NY]"
+        ],
+        "to": "MADISON SQUARE, NEW YORK"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SUMMERVILLE, S.C.",
+          "SOMMERVILLE, S.C.",
+          "SUMERVILLE,S.C."
+        ],
+        "to": "SUMMERVILLE, S.C."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NEW YORK PRESS CLUB [NYC?}",
+          "NEW YORK PRESS CLUB, 34 WEST 23RD ST. NY",
+          "NEW YORK PRESS CLUB;MORTON BUILDING;NY"
+        ],
+        "to": "NEW YORK PRESS CLUB [NYC?}"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MERCHANT'S CLUB, NEW YROK",
+          "MERCHANTS CLUB,NY",
+          "MERCHANTS' CLUB"
+        ],
+        "to": "MERCHANT'S CLUB, NEW YROK"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "THE AUDITORIUM [CHICAGO, IL]",
+          "THE AUDITORIUM,CHICAGO,ILL;",
+          "THE AUDITORIAUM, CHICAGO [IL]"
+        ],
+        "to": "THE AUDITORIUM [CHICAGO, IL]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PORTLAND COMMERCIAL CLUB, [?PORTLND, OR?]",
+          "PORTLAND COMMERICAL CLUB",
+          "PORTLAND COMMERICAL CLUB, PORTLAND, OR"
+        ],
+        "to": "PORTLAND COMMERCIAL CLUB, [?PORTLND, OR?]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "THE BELLEVUE, (PHILDELPHIA PA?)",
+          "THE BELLEVUE, PHILADELPHIA, PA",
+          "THE BELLEVUE, PHLADELPHIA [PA]"
+        ],
+        "to": "THE BELLEVUE, (PHILDELPHIA PA?)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CHICAGO, IL",
+          "CHICAGO,ILL.",
+          "CHCAGO, IL"
+        ],
+        "to": "CHICAGO, IL"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL MANHATTAN, MADISON AVE. & 42ND ST., NEW YORK, [NY];",
+          "HOTEL MANHATTAN, MADISON AVENUE AND 42ND ST. NYC, NY",
+          "HOTEL MANHATTAN; MADISON AVE. AND 42ND ST., NY"
+        ],
+        "to": "HOTEL MANHATTAN, MADISON AVE. & 42ND ST., NEW YORK, [NY];"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL MANHATTAN, NY",
+          "HOTEL MANHATTAN, NEW YORK",
+          "HOTEL MANHATTAN,NEW YORK [NY]"
+        ],
+        "to": "HOTEL MANHATTAN, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL ST. GEORGE, NYACK, NY",
+          "HOTEL ST GEORGE,NYACK-ON-HUDSON,NY",
+          "HOTEL ST. GEORGE,NYACK-ON-HUDSON"
+        ],
+        "to": "HOTEL ST. GEORGE, NYACK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PAN-AMERICAN EXPOSITION, BUFFALO, NY",
+          "PAN MERICAN EXPOSITION",
+          "PAN-AMERICAN EXPOSITION"
+        ],
+        "to": "PAN-AMERICAN EXPOSITION, BUFFALO, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL WASHINGTON, JERSEY CITY, NJ",
+          "HOTEL WASHINGTON",
+          "HOTEL WASHINGTON, JERSEY CITY"
+        ],
+        "to": "HOTEL WASHINGTON, JERSEY CITY, NJ"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL SOMERSET, BOSTON, MA",
+          "HOTEL SOMERSET",
+          "HOTEL SOMERSET, COMMONWEALTH AVENUE, BOSTON, MA"
+        ],
+        "to": "HOTEL SOMERSET, BOSTON, MA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "METROPOLITAN OPERA HOUSE",
+          "METROPOLITAN OPERA HOUSE ASSEMBLY ROOM; NY?",
+          "METROPOLITAN OPERA HOUSE,NY"
+        ],
+        "to": "METROPOLITAN OPERA HOUSE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "METROPOLITAN CLUB, NEW YORK, NY",
+          "METROPOLITAN CLUB",
+          "METROPOLITAN CLUB [NY]"
+        ],
+        "to": "METROPOLITAN CLUB, NEW YORK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "THE ARLINGTON, WASHINGTON, D.C.",
+          "THE ARLINGTON,WASH.DC",
+          "THE ARLINGTON; WASHINGTON"
+        ],
+        "to": "THE ARLINGTON, WASHINGTON, D.C."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DEMOCRATIC CLUB",
+          "DEMOCRATIC CLUB, NEW YORK, NY",
+          "DEMOCRATIC CLUB,NEW YORK"
+        ],
+        "to": "DEMOCRATIC CLUB"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ARKWRIGHT CLUB, NEW YORK CITY",
+          "ARKWRIGHT CLUB, NEW YORK, NY",
+          "ARKWRIGHT CLUB. 320 BROADWAY, [NEW YORK]"
+        ],
+        "to": "ARKWRIGHT CLUB, NEW YORK CITY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ALGONQUIN CLUB",
+          "ALGONQUIN CLUB [NEW YORK, NY?]",
+          "ALGONQUIN CLUB, BOSTON, MASS;"
+        ],
+        "to": "ALGONQUIN CLUB"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "FIFTH AVENUE HOTEL [NY]",
+          "FIFTH AVENUE HOTEL, NEW YORK CITY",
+          "FIFTH AVENUE HOTEL, [NEW YORK]"
+        ],
+        "to": "FIFTH AVENUE HOTEL [NY]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PUT-IN-BAY-ISLAND, LAKE ERIE, OH;",
+          "PUT-IN-BAY ISLAND, OH",
+          "PUT IN BAY ISLAND, OHIO"
+        ],
+        "to": "PUT-IN-BAY-ISLAND, LAKE ERIE, OH;"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "TEUOTINIA ASSEMBLY ROOMS, (?NEW YORK, NY?)",
+          "TEUTONIA ASSEMBLY ROOMS",
+          "TEUTONIA ASSEMBLY ROOMS, [NEW YORK, N.Y.]"
+        ],
+        "to": "TEUOTINIA ASSEMBLY ROOMS, (?NEW YORK, NY?)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Hotel Gramercy Park; 52 Gramercy Park North",
+          "Hotel Gramercy Park; 52 Gamercy Park North",
+          "Hotel Gramercy Park; 52 Gramercy Park North, Lexington Avenue at 21st Street"
+        ],
+        "to": "Hotel Gramercy Park; 52 Gramercy Park North"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN BORD PAQUEBOT \"LA TOURAINE\"",
+          "ON BOARD PAQUEBOT \"LA LORRAINE\"",
+          "ON BOARD PAQUEBOT \"LA SAVOIE\""
+        ],
+        "to": "EN BORD PAQUEBOT \"LA TOURAINE\""
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MANHATTAN BEACH HOTEL, CONEY ISLAND, NY",
+          "MANHATTAN BEACH HOTEL,[BROOKLYN, N.Y.]",
+          "MANHATTAN BEACH HOTEL,[NY]"
+        ],
+        "to": "MANHATTAN BEACH HOTEL, CONEY ISLAND, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "YOUNG'S HOTEL, BOSTON, MA",
+          "YOUNG'S HOTEL, BOSTON,MASS",
+          "YOUNG'S HOTEL,BOSTON"
+        ],
+        "to": "YOUNG'S HOTEL, BOSTON, MA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MIAMI BISCAYNE BAY, FL",
+          "MIAMI BISCAYNE BAY,FLA.",
+          "MIAAMI BISCAYNE BAY,FLA."
+        ],
+        "to": "MIAMI BISCAYNE BAY, FL"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PLANKINTON HOUSE",
+          "PLANKINTON HOUSE, MILWAUKEE COUNTY, WI",
+          "PLANKINTON HOUSE, MILWAUKEE, WI"
+        ],
+        "to": "PLANKINTON HOUSE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "GRAND PACIFIC HOTEL, CHICAGO, IL",
+          "GRAND PACIFIC HOTEL",
+          "GRAND PACIFIC HOTEL,CHICAGO,ILL;"
+        ],
+        "to": "GRAND PACIFIC HOTEL, CHICAGO, IL"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PARK ROW BUILDING [NEW YORK,NY?]",
+          "PARK ROW BUILDING [NY]",
+          "PARK ROW BUILDING, OPPOSITE POST OFFICE [NEW YORK, NY];"
+        ],
+        "to": "PARK ROW BUILDING [NEW YORK,NY?]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "REPUBLICAN CLUB, NEW YORK",
+          "REPUBLICAN CLUB, NEW YORK CITY",
+          "REPUBLICAN CLUB, NEW YORK, NY"
+        ],
+        "to": "REPUBLICAN CLUB, NEW YORK"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "AUDITORIUM ANNEX",
+          "AUDITORIUM ANNEX HOTEL, [CHICAGO, IL]",
+          "AUDITORIUM ANNEX [CHICAGO, IL]"
+        ],
+        "to": "AUDITORIUM ANNEX"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LOTOS CLUB, NEW YORK CITY",
+          "LOTOS CLUB, NEW YORK, NY"
+        ],
+        "to": "LOTOS CLUB, NEW YORK CITY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Atlantic Hotel",
+          "ATLANTIC HOTEL, OCEAN CITY, MD"
+        ],
+        "to": "Atlantic Hotel"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL FLANDERS",
+          "HOTEL FLANDERS,[PHILADELPHIA,PA?]"
+        ],
+        "to": "HOTEL FLANDERS"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MARTINELLI'S, NEW YORK CITY",
+          "MARTINELLI'S, NEW YORK, NY."
+        ],
+        "to": "MARTINELLI'S, NEW YORK CITY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SS WESTERNLAND",
+          "SS WESTERNLAND, EN ROUTE"
+        ],
+        "to": "SS WESTERNLAND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CORONADO BEACH, CA",
+          "CORONADA BEACH, CA."
+        ],
+        "to": "CORONADO BEACH, CA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CINCINNATI, OH",
+          "CINCINNATI, 0H"
+        ],
+        "to": "CINCINNATI, OH"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ROME, ITALY",
+          "[ROME, ITALLY]"
+        ],
+        "to": "ROME, ITALY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "FRANKFURT A.M.[GERMANY?]",
+          "FRANKFURT AM MAIN, GERMANY"
+        ],
+        "to": "FRANKFURT A.M.[GERMANY?]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "FRANKFURT, GERMANY",
+          "FRANKFORT, GERMANY"
+        ],
+        "to": "FRANKFURT, GERMANY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SS FURST BISMARCK",
+          "SS FURST BISMARK"
+        ],
+        "to": "SS FURST BISMARCK"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "FORT ORANGE CLUB",
+          "FORT ORANGE CLUB, ALBANY, NY"
+        ],
+        "to": "FORT ORANGE CLUB"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL PFISTER, MILWAUKEE, WI",
+          "HOTEL PFISTER"
+        ],
+        "to": "HOTEL PFISTER, MILWAUKEE, WI"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SPRINGFIELD,MASS.",
+          "SPRINGFIELD, MA"
+        ],
+        "to": "SPRINGFIELD,MASS."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "[WILLIS'S ROOMS ALMACK'S, LONDON ENGLAND ?]",
+          "[WILLIS'S ROOMS; ALMANAK'S; LONDON, ENGLAND ?]"
+        ],
+        "to": "[WILLIS'S ROOMS ALMACK'S, LONDON ENGLAND ?]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "RAUSCHER'S, WASHINGTON, DC",
+          "RAUSCHER'S, [WASHINGON, D.C.]"
+        ],
+        "to": "RAUSCHER'S, WASHINGTON, DC"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PARKER HOUSE [BOSTON,MASS ?]",
+          "PARKER HOUSE, BOSTON, MA"
+        ],
+        "to": "PARKER HOUSE [BOSTON,MASS ?]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "GOVERNMENT  HOUSE, MALABAR POINT, BOMBAY, INDIA",
+          "GOVERNMENT HOUSE CALCUTTA, INDIA"
+        ],
+        "to": "GOVERNMENT  HOUSE, MALABAR POINT, BOMBAY, INDIA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL ASTOR, NEW YORK",
+          "HOTEL ASTOR, NEW YORK CITY"
+        ],
+        "to": "HOTEL ASTOR, NEW YORK"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "FIFTH AVENUE AND 59TH STREET, NEW YORK, NY",
+          "FIFTH AVENUE AND 59TH ST., NY"
+        ],
+        "to": "FIFTH AVENUE AND 59TH STREET, NEW YORK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "RIVERSIDE DRIVE, NEW YORK CITY, [NY]",
+          "RIVERSIDE DRIVE, NY"
+        ],
+        "to": "RIVERSIDE DRIVE, NEW YORK CITY, [NY]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NASHVILLE, [TN?]",
+          "NASHVILLE, TENN."
+        ],
+        "to": "NASHVILLE, [TN?]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL RYAN, ST. PAUL, MN",
+          "HOTEL RYAN, ST.PAUL,MINN."
+        ],
+        "to": "HOTEL RYAN, ST. PAUL, MN"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ST.LOUIS CLUB, ST.LOUIS,MO.",
+          "ST.LOUIS CLUB,(ST.LOUIS,MISSOURI)"
+        ],
+        "to": "ST.LOUIS CLUB, ST.LOUIS,MO."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL STENTON [PHILADELPHIA PA]",
+          "HOTEL STENTON"
+        ],
+        "to": "HOTEL STENTON [PHILADELPHIA PA]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WATSON HOUSE, BABLON, L.I., N.Y.",
+          "WATSON HOUSE, BABYLON, L.I., N.Y."
+        ],
+        "to": "WATSON HOUSE, BABLON, L.I., N.Y."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "GRAND ORIENT RESTAURANT",
+          "GRAND ORIENT RESTAURANT,  (TAMPA, FL?)"
+        ],
+        "to": "GRAND ORIENT RESTAURANT"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MARKEL CAFE, OMAHA, NEBRASKA",
+          "MARKEL CAFE, OMAHA,[NE]"
+        ],
+        "to": "MARKEL CAFE, OMAHA, NEBRASKA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "METROPOLITAN HOTEL, NEW YORK, NY",
+          "METROPOLITAN HOTEL"
+        ],
+        "to": "METROPOLITAN HOTEL, NEW YORK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL SAVOY [NEW YORK]",
+          "HOTEL SAVOY,NEW YORK,NY"
+        ],
+        "to": "HOTEL SAVOY [NEW YORK]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SPECIAL PULLMAN VESTIBULED TRAIN EN ROUTE TO BOSTON AND RETURN",
+          "SPECIAL PULLMAN VESTIBULED TRAIN"
+        ],
+        "to": "SPECIAL PULLMAN VESTIBULED TRAIN EN ROUTE TO BOSTON AND RETURN"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SUNSET OGDEN & SHASTA ROUTES",
+          "SUNSET OGDEN & SHASTA ROUTE"
+        ],
+        "to": "SUNSET OGDEN & SHASTA ROUTES"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LINCOLN CLUB - NY",
+          "LINCOLN CLUB (NEW YORK?)"
+        ],
+        "to": "LINCOLN CLUB - NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL IROQUOIS, BUFFALO, NY",
+          "HOTEL IROGUOIS,(BUFFALO,NY)"
+        ],
+        "to": "HOTEL IROQUOIS, BUFFALO, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL METROPOLE, MANILA, P.I.",
+          "HOTEL METROPOLE, PHILADELPHIA, PA"
+        ],
+        "to": "HOTEL METROPOLE, MANILA, P.I."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "STEAMER AUGUSTE VICTORIA",
+          "STEAMER\"AUGUSTE VICTORIA\" EN ROUTE"
+        ],
+        "to": "STEAMER AUGUSTE VICTORIA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "COMMERCIAL CLUB, PORTLAND, OR",
+          "COMMERCIAL CLUB"
+        ],
+        "to": "COMMERCIAL CLUB, PORTLAND, OR"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "GRAND HOTEL, MELBOURNE;",
+          "GRAND HOTEL, MELBOURNE, (AUSTRALIA?)"
+        ],
+        "to": "GRAND HOTEL, MELBOURNE;"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CAFE BOULEVARD (NEW YORK?);",
+          "CAFE BOULEVARD,[NEW YORK,NY]"
+        ],
+        "to": "CAFE BOULEVARD (NEW YORK?);"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MACKINAC ISLAND, MI",
+          "MACKINAC ISLAND, MICH."
+        ],
+        "to": "MACKINAC ISLAND, MI"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "FANEUIL HALL, BOSTON, MA",
+          "FANEUIL HALL, BOSTON, [MASS]"
+        ],
+        "to": "FANEUIL HALL, BOSTON, MA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LAWYER'S CLUB, NEW YORK CITY",
+          "LAWYERS CLUB, NEW YORK"
+        ],
+        "to": "LAWYER'S CLUB, NEW YORK CITY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CHAMBERLIN'S, (WASHINGTON,D.C.)",
+          "CHAMBERLIN'S [WASH.D.C.]"
+        ],
+        "to": "CHAMBERLIN'S, (WASHINGTON,D.C.)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PALM BEACH, FL",
+          "PALM BEACH,FLA."
+        ],
+        "to": "PALM BEACH, FL"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DELMONICO'S NEW YOK CITY",
+          "DELMONICO'S [NYC]"
+        ],
+        "to": "DELMONICO'S NEW YOK CITY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SS: KAMAKURA MARU",
+          "SS: KAMKURA MARU"
+        ],
+        "to": "SS: KAMAKURA MARU"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MANCHESTER, ENG.",
+          "MANCHESTER,ENGLAND"
+        ],
+        "to": "MANCHESTER, ENG."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "LUCERNE,SWITZERLAND",
+          "LUZERN, SWITZERLAND"
+        ],
+        "to": "LUCERNE,SWITZERLAND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "REVERE HOUSE, [BOSTON,MASS]",
+          "REVERE HOUSE,BOSTON,MA"
+        ],
+        "to": "REVERE HOUSE, [BOSTON,MASS]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SS CITY OF RIO DE JANEIRO",
+          "SS CITY OF RIO DE JANERIO"
+        ],
+        "to": "SS CITY OF RIO DE JANEIRO"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MILAN, ITALY",
+          "MILANO, ITALY"
+        ],
+        "to": "MILAN, ITALY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "THE RICHELIEU, CHICAGO, IL",
+          "THE RICHELIEU,CHICAGO,ILL."
+        ],
+        "to": "THE RICHELIEU, CHICAGO, IL"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "[PALAIS DU QUIRINAL,ITALY?]",
+          "[PALAIS DU QUIRINAL,ROME,ITALY]"
+        ],
+        "to": "[PALAIS DU QUIRINAL,ITALY?]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NYC",
+          "NEW YOK"
+        ],
+        "to": "NYC"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Charley Brown's",
+          "Charlie Brown's"
+        ],
+        "to": "Charley Brown's"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MANHATTAN CLUB, NEW YORK CITY",
+          "MANHATTAN CLUB, NEW YORK, NY"
+        ],
+        "to": "MANHATTAN CLUB, NEW YORK CITY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "JACKSONVILLE, FL",
+          "JACKSONVILLE, FLA."
+        ],
+        "to": "JACKSONVILLE, FL"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NEW STATE HOUSE, WACO, TX",
+          "NEW STATE HOUSE, WACO,TEXAS"
+        ],
+        "to": "NEW STATE HOUSE, WACO, TX"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "137 E. MADISON ST. CHICAGO, ILL.",
+          "137 E. MADISON ST. CHICAGO, IL"
+        ],
+        "to": "137 E. MADISON ST. CHICAGO, ILL."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ROYAL BLUE LINE,WALDORF",
+          "ROYAL BLUE LINE-WALDORF CAR"
+        ],
+        "to": "ROYAL BLUE LINE,WALDORF"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL BELLEVUE, [PHILADEPHIA, PA]",
+          "HOTEL BELLVUE,PHILADELPHIA,PA"
+        ],
+        "to": "HOTEL BELLEVUE, [PHILADEPHIA, PA]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "OLD POINT COMFORT, VA",
+          "OLD POINT COMFORT,VIRGINIA"
+        ],
+        "to": "OLD POINT COMFORT, VA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Hotel Vier Jahreszeiten",
+          "Hotel Vier Jahreszeiten, Jahreszeiten Suite"
+        ],
+        "to": "Hotel Vier Jahreszeiten"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DELMONICO'S NY",
+          "DWLMONICO'S NY"
+        ],
+        "to": "DELMONICO'S NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MADISON AVE & 42ND ST,NY",
+          "MADISON AVE & 42ND ST., NEW YORK, [NY];"
+        ],
+        "to": "MADISON AVE & 42ND ST,NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "RED ROOM, BOHEMIAN CLUB, SAN FRANCISCO,CA.",
+          "RED ROOM,BOHEMIAN CLUB"
+        ],
+        "to": "RED ROOM, BOHEMIAN CLUB, SAN FRANCISCO,CA."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MARLBOROUGH-BLENHEIM HOTEL, ATLANTIC CITY, NJ",
+          "MARLBOROUGH-BLENHEIM, ATLANTIC CITY, NJ"
+        ],
+        "to": "MARLBOROUGH-BLENHEIM HOTEL, ATLANTIC CITY, NJ"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE",
+          "ON ROUTE"
+        ],
+        "to": "EN ROUTE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MANHATTAN BEACH, LONG ISLAND [NY]",
+          "MANHATTAN BEACH, L.I. NY"
+        ],
+        "to": "MANHATTAN BEACH, LONG ISLAND [NY]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "QUEEN CITY CLUB, [CINCINNATI, OH]",
+          "QUEEN CITY CLUB, (CINCINNATI,OHIO)"
+        ],
+        "to": "QUEEN CITY CLUB, [CINCINNATI, OH]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "(SWITZERLAND?)",
+          "SWIITZERLAND"
+        ],
+        "to": "(SWITZERLAND?)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MURRAY HILL HOTEL, NEW YORK CITY",
+          "MURRAY HILL HOTEL, NEW YORK, NY"
+        ],
+        "to": "MURRAY HILL HOTEL, NEW YORK CITY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ORIENTAL HOTEL, DALLAS, TX",
+          "ORIENTAL HOTEL,DALLAS,TEXAS"
+        ],
+        "to": "ORIENTAL HOTEL, DALLAS, TX"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SS KONIGIN LUISE",
+          "SS \"KONIGEN LUISE\""
+        ],
+        "to": "SS KONIGIN LUISE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "57 BROAD STREET, NY",
+          "57 BROAD STREET, NEW YORK, [NY]"
+        ],
+        "to": "57 BROAD STREET, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "PHILADELPHIA BOURSE",
+          "PHILADELPHIA BOURSE,[PHILADELPHIA,PA]"
+        ],
+        "to": "PHILADELPHIA BOURSE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CINCINNATI , OHIO",
+          "CINCINATI, OHIO"
+        ],
+        "to": "CINCINNATI , OHIO"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "WESTMINSTER HOTEL",
+          "WESTMINSTER HOTEL, [NEW YORK, NY?]"
+        ],
+        "to": "WESTMINSTER HOTEL"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EXPRESS-STEAMER \"AUGUSTE VICTORIA\" EN ROUTE",
+          "EXPRESS-STEAMER AUGUSTE VICTORIA"
+        ],
+        "to": "EXPRESS-STEAMER \"AUGUSTE VICTORIA\" EN ROUTE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ST. DENIS HOTEL",
+          "ST. DENNIS HOTEL"
+        ],
+        "to": "ST. DENIS HOTEL"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NEW YORK ATHLETIC CLUB",
+          "NEW YORK ATHLETIC CLUB, NEW YORK, NY"
+        ],
+        "to": "NEW YORK ATHLETIC CLUB"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ST. CHARLES HOTEL, NEW ORLEANS LA",
+          "ST. CHARLES HOTEL"
+        ],
+        "to": "ST. CHARLES HOTEL, NEW ORLEANS LA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CLEVELAND, OH",
+          "CLEVELYAND [OH]"
+        ],
+        "to": "CLEVELAND, OH"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NATIONAL ARTS CLUB, (NEW YORK?)",
+          "NATIONAL ARTS CLUB, NEW YORK, NY"
+        ],
+        "to": "NATIONAL ARTS CLUB, (NEW YORK?)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "TRANSPORTATION CLUB [NY]",
+          "TRANSPORTATION CLUB, NEW YORK, NY"
+        ],
+        "to": "TRANSPORTATION CLUB [NY]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ASHEVILLE,NC",
+          "ASHVILLE, NC"
+        ],
+        "to": "ASHEVILLE,NC"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "SS KASUGA",
+          "SS: CASUGA"
+        ],
+        "to": "SS KASUGA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "BOHEMIAN CLUB, SAN FRANCISCO, CA",
+          "BOHEMIAN CLUB,SAN FRANSISCO,CA"
+        ],
+        "to": "BOHEMIAN CLUB, SAN FRANCISCO, CA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "FRAUNCES TAVERN, NY(?)",
+          "FRAUNCES'TAVERN, NEW YORK"
+        ],
+        "to": "FRAUNCES TAVERN, NY(?)"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HOTEL VENDOME, BOSTON, MA",
+          "HOTEL VENDOME, BOSTON,MASS"
+        ],
+        "to": "HOTEL VENDOME, BOSTON, MA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CHATTANOOGA,TENN.",
+          "CHATTANOOGA, TN"
+        ],
+        "to": "CHATTANOOGA,TENN."
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "114 WEST FOURTEENTH STREET, NEW YORK",
+          "114 WEST FOURTEENTH STREET, NEW YORK, NY"
+        ],
+        "to": "114 WEST FOURTEENTH STREET, NEW YORK"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "TILLEY'S RESTAURANT, ENGLAND",
+          "TILLEYS' RESTAURANT, NEWCASTLE-ON-TYNE, ENGLAND"
+        ],
+        "to": "TILLEY'S RESTAURANT, ENGLAND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "TAMPA, FL",
+          "TAMPA,FLA."
+        ],
+        "to": "TAMPA, FL"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "ABOARD KRONPRINZESSIN CECILIE",
+          "ABOARD KRONPRINSESSIN CECILIE"
+        ],
+        "to": "ABOARD KRONPRINZESSIN CECILIE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MOUNT WASHINGTON, NH",
+          "MOUNT WASHINGTON,NEW HAMPSHIRE"
+        ],
+        "to": "MOUNT WASHINGTON, NH"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "MADISON SQUARE WEST, NYC [NY]",
+          "MADISON SQUARE, WEST, NEW YORK, NY"
+        ],
+        "to": "MADISON SQUARE WEST, NYC [NY]"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "DAMPFER \"KONIGEN LUISE\"",
+          "DAMPFER \"KONIGIN LUISE\""
+        ],
+        "to": "DAMPFER \"KONIGEN LUISE\""
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "CHICAGO ATHLETIC ASSOCIATION",
+          "CHICAGO ATHLETIC ASSOCIATION, CHICAGO, IL"
+        ],
+        "to": "CHICAGO ATHLETIC ASSOCIATION"
+      }
+    ]
+  },
+  {
+    "op": "core/mass-edit",
+    "description": "Mass edit cells in column place",
+    "engineConfig": {
+      "mode": "row-based",
+      "facets": []
+    },
+    "columnName": "place",
+    "expression": "value",
+    "edits": [
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "The Waldorf-Astoria",
+          "The Waldorf-Astora"
+        ],
+        "to": "The Waldorf-Astoria"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "EN ROUTE STEAMER AUGUST VICTORIA",
+          "EN ROUTE STEAMER AUGUSTE VICTORIA"
+        ],
+        "to": "EN ROUTE STEAMER AUGUST VICTORIA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "NEW YORK, NY",
+          "NEW YOK, NY"
+        ],
+        "to": "NEW YORK, NY"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "Jareszeiten Eck",
+          "Jahreszeiten Eck"
+        ],
+        "to": "Jareszeiten Eck"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "HAVANA, CUBA",
+          "HABANA, CUBA"
+        ],
+        "to": "HAVANA, CUBA"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "FARGO, ND",
+          "FARGO, NK"
+        ],
+        "to": "FARGO, ND"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "POSTDAMFER GRAF WALDERSEE",
+          "POSTDAMPFER GRAF WALDERSEE"
+        ],
+        "to": "POSTDAMFER GRAF WALDERSEE"
+      },
+      {
+        "fromBlank": false,
+        "fromError": false,
+        "from": [
+          "GIBRALTAR, SPAIN",
+          "GIBRALTER, SPAIN"
+        ],
+        "to": "GIBRALTAR, SPAIN"
+      }
+    ]
+  }
+]

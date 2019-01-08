@@ -1,0 +1,72 @@
+#@begin Linear_OR #@desc Linear OpenRefine Workflow
+#@param flagged:"True"
+#@param col-name:place
+#@param col-name:currency
+#@param flagged:"False"
+#@param col-name:currency_symbol
+#@param expression:"isBlank(value)"
+#@param expression:grel:value.toDate("YYYY-MM-dd").toString("YYYY-MM-dd")
+#@param expression:"row.flagged"
+#@param col-name:date
+#@param col-name:
+#@in table0
+#@out table11
+#@begin core/mass-edit0#@desc Mass edit cells in column currency
+#@param col-name:currency
+#@in table0
+#@out table1
+#@end core/mass-edit0
+#@begin core/mass-edit1#@desc Mass edit cells in column currency_symbol
+#@param col-name:currency_symbol
+#@in table1
+#@out table2
+#@end core/mass-edit1
+#@begin core/row-removal0#@desc Remove rows
+#@param col-name:place
+#@param expression:"isBlank(value)"
+#@in table2
+#@out table3
+#@end core/row-removal0
+#@begin core/text-transform0#@desc Text transform on cells in column date using expression grel:value.toDate(\"YYYY-MM-dd\").toString(\"YYYY-MM-dd\")
+#@param col-name:date
+#@param expression:grel:value.toDate("YYYY-MM-dd").toString("YYYY-MM-dd")
+#@in table3
+#@out table4
+#@end core/text-transform0
+#@begin core/row-flag0#@desc Flag rows
+#@param flagged:"True"
+#@in table4
+#@out table5
+#@end core/row-flag0
+#@begin core/row-flag1#@desc Unflag rows
+#@param flagged:"False"
+#@in table5
+#@out table6
+#@end core/row-flag1
+#@begin core/row-removal1#@desc Remove rows
+#@param col-name:
+#@param expression:"row.flagged"
+#@in table6
+#@out table7
+#@end core/row-removal1
+#@begin core/mass-edit2#@desc Mass edit cells in column place
+#@param col-name:place
+#@in table7
+#@out table8
+#@end core/mass-edit2
+#@begin core/mass-edit3#@desc Mass edit cells in column place
+#@param col-name:place
+#@in table8
+#@out table9
+#@end core/mass-edit3
+#@begin core/mass-edit4#@desc Mass edit cells in column place
+#@param col-name:place
+#@in table9
+#@out table10
+#@end core/mass-edit4
+#@begin core/mass-edit5#@desc Mass edit cells in column place
+#@param col-name:place
+#@in table10
+#@out table11
+#@end core/mass-edit5
+#@end Linear_OR
