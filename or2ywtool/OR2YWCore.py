@@ -371,6 +371,7 @@ class OR2YW:
         output_list = output_string.split("\n")
         for i,x in enumerate(output_list):
             if x.startswith("#@param"):
+                print(x)
                 output_list[i] = "#@param " + x[8:].replace(" ","_")
             elif x.startswith("#@in"):
                 output_list[i] = "#@in " + x[5:].replace(" ", "_")
