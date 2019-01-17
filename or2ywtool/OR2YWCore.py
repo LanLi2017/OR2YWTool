@@ -10,6 +10,7 @@ import argparse
 import os
 import uuid
 import subprocess
+import networkx as nx
 
 
 class FileHelper:
@@ -82,6 +83,10 @@ def may_be_split_by(new_column_name, base_column_name):
 def translate_operator_json_to_yes_workflow(json_data):
     yes_workflow_data = []
 
+    # variable for storing process graph
+    process_graph = {}
+    column_all = []
+
     nodes_num_about_column = Counter()
 
     def get_column_current_node(column_name):
@@ -112,13 +117,22 @@ def translate_operator_json_to_yes_workflow(json_data):
         nodes_num_about_column[column_name] += 1
         return get_column_current_node(column_name)
 
+    refine_output = []
+    refine_subs = []
+
     for operator in json_data:
         node = YesWorkflowNode(
             name=operator['op'],
             # if no description, 'no description'
-            desc=operator.get('description', 'no description').replace('"','\\"'),
+            desc=operator.get('description', 'no description').replace('"', '\\"'),
         )
         node.raw_operator = operator
+
+        # initialize column_name with empty string
+        column_name = ""
+        process_name = ""
+        input_columns = []
+        output_columns = []
 
         if operator['op'] == 'core/column-addition':  # merge operation
             #     basecol=(self.params['baseColumnName']).replace(" ", "_")
@@ -149,6 +163,9 @@ def translate_operator_json_to_yes_workflow(json_data):
                 create_new_node_of_column(operator['newColumnName'].replace(" ", "_")),
             ]
 
+            # assign column_name
+            column_name = operator['baseColumnName']
+            output_columns.append(operator["newColumnName"])
         elif operator['op'] == 'core/column-split':  # split operation
             node.params += [
                 "columnName:{}".format(operator['columnName'].replace(" ", "_")),
@@ -158,6 +175,8 @@ def translate_operator_json_to_yes_workflow(json_data):
             node.in_node_names += [
                 get_column_current_node(operator['columnName']),
             ]
+            # assign column_name
+            column_name = operator['columnName']
         elif operator['op'] == 'core/column-rename':  # split operation
             node.params += [
                 "oldColumnName:{}".format(operator['oldColumnName']),
@@ -169,10 +188,15 @@ def translate_operator_json_to_yes_workflow(json_data):
             node.out_node_names += [
                 create_new_node_of_column(operator['newColumnName']),
             ]
+            # assign column_name
+            column_name = operator['oldColumnName']
+            output_columns.append(operator["newColumnName"])
         elif operator['op'] == 'core/column-removal':
             continue
         else:  # normal unary operation
-            #print("op: ",operator.items())
+            # print("op: ",operator.items())
+            # if operator["op"].startswith("group"):
+            #    print(operator["op"])
             node.params += [
                 "columnName:{}".format(operator['columnName']),
                 "expression:{}".format(operator['expression']),
@@ -183,14 +207,107 @@ def translate_operator_json_to_yes_workflow(json_data):
             node.out_node_names += [
                 create_new_node_of_column(operator['columnName']),
             ]
+            # assign column_name
+            column_name = operator['columnName']
 
         # rewrite the params, replace space with _ to avoid unexpected cut values
-        for i,x in enumerate(node.params):
-            node.params[i] = x.replace(" ","_")
+        for i, x in enumerate(node.params):
+            node.params[i] = x.replace(" ", "_")
+        # check column_name and retrace the graph
+        if column_name != "":
+            # check if it's already recorded previouly
+            if column_name not in column_all:
+                column_all.append(column_name)
+                # check if it's result from the split column operation
+                temp_col_arr = column_name.split(" ")
+                # print(temp_col_arr)
+                if len(temp_col_arr) > 1:
+                    # check if the last index is a numeric
+                    # is_num = False
+                    try:
+                        # assert convert to int
+                        assert int(temp_col_arr[-1]) > 0
+                        # is_num=True
+                        source_column = " ".join(temp_col_arr[0:-1])
+                        # print(source_column)
+                        # print(column_all)
+                        if source_column in column_all:
+                            # trace process in the source column
+                            # to get split operation
+                            # print("in all")
+                            for p_temp in process_graph[source_column]:
+                                # print(p_temp)
+                                if p_temp["op"] == "core/column-split":
+                                    # input_columns.append("{}-p{}".format(source_column,p_temp["index"]))
+                                    input_columns.append("{}-p{}".format(source_column, p_temp["index"]))
+                            # print(input_columns)
+                    except:
+                        pass
+
+            # check if the colunn_name in the node
+            if column_name not in process_graph.keys():
+                # add new _node
+                process_graph[column_name] = []
+            process_graph[column_name].append(
+                {"index": len(process_graph[column_name]) + 1, "op": operator["op"], "all_op": operator,
+                 "input": input_columns, "output": output_columns})
 
         yes_workflow_data.append(node)
 
-    return yes_workflow_data
+        # recreate graph
+    p_graph = nx.DiGraph()
+    temp_output_edges = []
+    for col_key, col_item in process_graph.items():
+        p_graph.add_node(col_key, attr={"op": "input_column", "index": 0})
+        source_node = col_key
+        temp_process = None
+
+        # create a subgraph to store repetitive process
+        sub_graph = []
+        for i, process in enumerate(col_item):
+            # merge repetitive operations
+            if len(process["output"]) == 0 and len(process["input"]) == 0:
+                if temp_process == process["op"]:
+                    sub_graph.append(process["all_op"])
+                    continue
+                else:
+                    temp_process = process["op"]
+                    # create a simplify output
+                    sub_graph.append(process["all_op"].copy())
+                    refine_output.append(process["all_op"].copy())
+
+            process_node = "{}-p{}".format(col_key, i + 1)
+            p_graph.add_node(process_node, attr=process, op=process["op"])
+            p_graph.add_edge(source_node, process_node)
+
+            for output in process["output"]:
+                temp_output_edges.append((process_node, output))
+            for t_input in process["input"]:
+                # temp_input_edges.append(t_input,process_node)
+                # print(t_input)
+                temp_output_edges.append((t_input, process_node))
+            source_node = process_node
+        if len(sub_graph) > 1:
+            # print("sub_graph_{}".format(len(refine_subs)))
+            # print(refine_output[len(refine_output)-1]["op"])
+            refine_output[len(refine_output) - 1][
+                "description"] = "group of {} with {} operations, details in sub_ops_{}.json".format(
+                refine_output[len(refine_output) - 1]["op"], len(sub_graph), len(refine_subs) + 1)
+            refine_output[len(refine_output) - 1]["op"] = "group_{1}_{0}".format(
+                refine_output[len(refine_output) - 1]["op"], len(refine_subs) + 1)
+            refine_output[len(refine_output) - 1]["expression"] = "sub_ops_{}".format(len(refine_subs) + 1)
+            # print(refine_output[len(refine_output)-1]["all_op"]["op"])
+            refine_subs.append(sub_graph)
+
+    # recreate output connection
+    for output_edge in temp_output_edges:
+        # print(output_edge)
+        p_graph.add_edge(output_edge[0], output_edge[1])
+
+    # merge repetitive operations
+    # for col_key
+
+    return yes_workflow_data, p_graph, refine_output, refine_subs
 
 
 def getparams_from_ywdata(yes_workflow_data):
@@ -401,7 +518,7 @@ class OR2YW:
         return output_string
 
     @staticmethod
-    def generate_yw_parallel(operations, title="Parallel_OR", description="Parallel OpenRefine Workflow"):
+    def generate_yw_parallel(operations, title="Parallel_OR", description="Parallel OpenRefine Workflow", merge=False):
         """
         given a list of operations in dictionary format, return yes workflow script in text
         id: list of operations dictionary / json format
@@ -412,7 +529,15 @@ class OR2YW:
             title = "Parallel_OR"
         if description == None:
             description = "Parallel OpenRefine Workflow"
-        yes_workflow_data = translate_operator_json_to_yes_workflow(operations)
+        #yes_workflow_data = translate_operator_json_to_yes_workflow(operations)
+        yes_workflow_data, p_graph, refine_output, refine_subs = translate_operator_json_to_yes_workflow(operations)
+
+        if merge:
+            yes_workflow_data, _, _, _ = translate_operator_json_to_yes_workflow(refine_output)
+            for i, sub in enumerate(refine_subs):
+                with open("sub_ops_{}.json".format(i + 1), "w") as file:
+                    json.dump(sub, file)
+
         f = StringIO()
         # with open('yes_workflow_script.txt', 'wt', encoding='utf-8') as f:
         print('#@begin {}'.format(title), '#@desc {}'.format(description), file=f)
@@ -520,8 +645,10 @@ class OR2YWFileProcessor():
             return OR2YW.generate_yw_serial(json_dict, **kwargs)
         elif type == "parallel":
             return OR2YW.generate_yw_parallel(json_dict, **kwargs)
+        elif type == "merge":
+            return OR2YW.generate_yw_parallel(json_dict, merge=True, **kwargs)
         else:
-            raise BaseException("Workflow type Only Serial or Parallel ")
+            raise BaseException("Workflow type Only Serial, Parallel or Merge")
 
     def generate_vg_file(self, input_file, output_file, type="serial", java_path=None, **kwargs):
         yw_string = self.generate_yw(input_file=input_file, type=type, **kwargs)

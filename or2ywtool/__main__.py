@@ -12,7 +12,7 @@ def run():
     parser.add_argument('-o', '--output',
                         help='yesworkflow output file')
     parser.add_argument('-t','--type', default="serial",
-            help='Workflow Type, Produce [serial,parallel] workflow, Default: serial')
+            help='Workflow Type, Produce [serial,parallel,merge] workflow, Default: serial')
     parser.add_argument('-ot','--outputtype', default="yw",
             help='Output Type, Produce output [yw,gv,png,svg,pdf], Default: yw')
     parser.add_argument('-java','--java',default=None,help="Java Path, if not initialized will use the java installation environment path")
