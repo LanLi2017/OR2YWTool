@@ -257,25 +257,33 @@ def translate_operator_json_to_yes_workflow(json_data):
         # recreate graph
     p_graph = nx.DiGraph()
     temp_output_edges = []
+
+    # create a subgraph to store repetitive process
+    sub_graph = []
+
     for col_key, col_item in process_graph.items():
         p_graph.add_node(col_key, attr={"op": "input_column", "index": 0})
         source_node = col_key
         temp_process = None
 
-        # create a subgraph to store repetitive process
         sub_graph = []
+        duplicates = False
         for i, process in enumerate(col_item):
             # merge repetitive operations
             if len(process["output"]) == 0 and len(process["input"]) == 0:
                 if temp_process == process["op"]:
-                    sub_graph.append(process["all_op"])
+                    duplicates = True
+                    sub_graph.append(process["all_op"].copy())
                     continue
                 else:
+                    # if temp_process == None:
+                    #    first_time = False
                     temp_process = process["op"]
                     # create a simplify output
                     sub_graph.append(process["all_op"].copy())
                     refine_output.append(process["all_op"].copy())
 
+            # if not first_time:
             process_node = "{}-p{}".format(col_key, i + 1)
             p_graph.add_node(process_node, attr=process, op=process["op"])
             p_graph.add_edge(source_node, process_node)
@@ -287,17 +295,22 @@ def translate_operator_json_to_yes_workflow(json_data):
                 # print(t_input)
                 temp_output_edges.append((t_input, process_node))
             source_node = process_node
-        if len(sub_graph) > 1:
-            # print("sub_graph_{}".format(len(refine_subs)))
-            # print(refine_output[len(refine_output)-1]["op"])
-            refine_output[len(refine_output) - 1][
-                "description"] = "group of {} with {} operations, details in sub_ops_{}.json".format(
-                refine_output[len(refine_output) - 1]["op"], len(sub_graph), len(refine_subs) + 1)
-            refine_output[len(refine_output) - 1]["op"] = "group_{1}_{0}".format(
-                refine_output[len(refine_output) - 1]["op"], len(refine_subs) + 1)
-            refine_output[len(refine_output) - 1]["expression"] = "sub_ops_{}".format(len(refine_subs) + 1)
-            # print(refine_output[len(refine_output)-1]["all_op"]["op"])
-            refine_subs.append(sub_graph)
+
+            # if len(sub_graph)>1:
+            if duplicates:
+                # print("sub_graph_{}".format(len(refine_subs)))
+                # print(refine_output[len(refine_output)-1]["op"])
+                refine_output[len(refine_output) - 1][
+                    "description"] = "group of {} with {} operations, details in sub_ops_{}.json".format(
+                    refine_output[len(refine_output) - 1]["op"], len(sub_graph), len(refine_subs) + 1)
+                refine_output[len(refine_output) - 1]["op"] = "group_{1}_{0}".format(
+                    refine_output[len(refine_output) - 1]["op"], len(refine_subs) + 1)
+                refine_output[len(refine_output) - 1]["expression"] = "sub_ops_{}".format(len(refine_subs) + 1)
+                # print(refine_output[len(refine_output)-1]["all_op"]["op"])
+                refine_subs.append(sub_graph)
+
+                sub_graph = []
+                duplicates = False
 
     # recreate output connection
     for output_edge in temp_output_edges:
