@@ -110,7 +110,11 @@ def translate_operator_json_to_yes_workflow(json_data):
                 return create_new_node_of_column(column_name)
         else:
             node_id = nodes_num_about_column[column_name]
-            return column_name + '_' + str(node_id)
+            if node_id-1 == 0:
+                # this is for every first node
+                return column_name
+            else:
+                return column_name + '_' + str(node_id-1)
 
     def create_new_node_of_column(column_name):
         column_name = column_name.replace(" ", "_")
@@ -133,6 +137,9 @@ def translate_operator_json_to_yes_workflow(json_data):
         process_name = ""
         input_columns = []
         output_columns = []
+
+        # nikolaus: parameter input column_name is not really useful in the workflow and can make confusion,
+        # I remark any in_node_names that have input column name parameter
 
         if operator['op'] == 'core/column-addition':  # merge operation
             #     basecol=(self.params['baseColumnName']).replace(" ", "_")
@@ -168,12 +175,15 @@ def translate_operator_json_to_yes_workflow(json_data):
             output_columns.append(operator["newColumnName"])
         elif operator['op'] == 'core/column-split':  # split operation
             node.params += [
-                "columnName:{}".format(operator['columnName'].replace(" ", "_")),
+                #"columnName:{}".format(operator['columnName'].replace(" ", "_")),
                 "removeOriginalColumn:{}".format(operator['removeOriginalColumn']),
                 "separator:{}".format(operator['separator']),
             ]
             node.in_node_names += [
                 get_column_current_node(operator['columnName']),
+            ]
+            node.out_node_names += [
+                create_new_node_of_column(operator['columnName']),
             ]
             # assign column_name
             column_name = operator['columnName']
@@ -198,7 +208,7 @@ def translate_operator_json_to_yes_workflow(json_data):
             # if operator["op"].startswith("group"):
             #    print(operator["op"])
             node.params += [
-                "columnName:{}".format(operator['columnName']),
+                #"columnName:{}".format(operator['columnName']),
                 "expression:{}".format(operator['expression']),
             ]
             node.in_node_names += [
@@ -213,6 +223,7 @@ def translate_operator_json_to_yes_workflow(json_data):
         # rewrite the params, replace space with _ to avoid unexpected cut values
         for i, x in enumerate(node.params):
             node.params[i] = x.replace(" ", "_")
+
         # check column_name and retrace the graph
         if column_name != "":
             # check if it's already recorded previouly
@@ -254,7 +265,7 @@ def translate_operator_json_to_yes_workflow(json_data):
 
         yes_workflow_data.append(node)
 
-        # recreate graph
+    # recreate graph
     p_graph = nx.DiGraph()
     temp_output_edges = []
 
@@ -328,7 +339,7 @@ def translate_operator_json_to_yes_workflow(json_data):
     # merge repetitive operations
     # for col_key
 
-    return yes_workflow_data, p_graph, refine_output, refine_subs
+    return yes_workflow_data, p_graph, refine_output, refine_subs, nodes_num_about_column
 
 
 def getparams_from_ywdata(yes_workflow_data):
@@ -349,15 +360,17 @@ def getinput_from_ywdata(yes_workflow_data):
 
 def getouput_from_ywdata(yes_workflow_data):
     outputlist = []
-    for node in yes_workflow_data:
-        for out_node_name in node.out_node_names:
-            outputlist.append(out_node_name)
+    #for node in yes_workflow_data:
+    #    for out_node_name in node.out_node_names:
+    #        outputlist.append(out_node_name)
+
     return list(set(outputlist))
 
 
 def write_yes_workflow_data_to_file(yes_workflow_data, file):
     counter = 0
     for node in yes_workflow_data:
+        #print(node.in_node_names,node.out_node_names,node.name)
         print('#@begin {}{}'.format(node.name, counter), '#@desc', node.desc, file=file)
         for param in node.params:
             print('#@param', param, file=file)
@@ -551,10 +564,12 @@ class OR2YW:
         if description == None:
             description = "Parallel OpenRefine Workflow"
         #yes_workflow_data = translate_operator_json_to_yes_workflow(operations)
-        yes_workflow_data, p_graph, refine_output, refine_subs = translate_operator_json_to_yes_workflow(operations)
+        yes_workflow_data, p_graph, refine_output, refine_subs, nodes_num = translate_operator_json_to_yes_workflow(operations)
+
+        #print(yes_workflow_data)
 
         if merge:
-            yes_workflow_data, _, _, _ = translate_operator_json_to_yes_workflow(refine_output)
+            yes_workflow_data, _, _, _, nodes_num = translate_operator_json_to_yes_workflow(refine_output)
             for i, sub in enumerate(refine_subs):
                 with open("sub_ops_{}.json".format(i + 1), "w") as file:
                     json.dump(sub, file)
@@ -575,9 +590,19 @@ class OR2YW:
 
         # merge??
         print('#@begin CombineDataCleaningChanges', file=f)
-        outputlist = getouput_from_ywdata(yes_workflow_data)
-        for output in outputlist:
-            print('#@in {}'.format(output.replace(" ","_")), file=f)
+        # change the output list to make no confusion
+        #outputlist = getouput_from_ywdata(yes_workflow_data)
+        #for output in outputlist:
+        #    print('#@in {}'.format(output.replace(" ","_")), file=f)
+
+        for key in nodes_num:
+            if nodes_num[key]-1 == 0:
+                text = "{}".format(key)
+            else:
+                text = str(key)+"_"+str(nodes_num[key]-1)
+            #print(text)
+            print('#@in {}'.format(text), file=f)
+
         print('#@out {}'.format('CleanData'), file=f)
         print('#@end {}'.format('CombineDataCleaningChanges'), file=f)
         print('#@end {}'.format(title), file=f)
