@@ -261,6 +261,8 @@ def translate_operator_json_to_yes_workflow(json_data):
     # create a subgraph to store repetitive process
     sub_graph = []
 
+    # print(process_graph)
+
     for col_key, col_item in process_graph.items():
         p_graph.add_node(col_key, attr={"op": "input_column", "index": 0})
         source_node = col_key
@@ -269,32 +271,24 @@ def translate_operator_json_to_yes_workflow(json_data):
         sub_graph = []
         duplicates = False
         for i, process in enumerate(col_item):
+            # print(i)
             # merge repetitive operations
+            # print(process["op"])
             if len(process["output"]) == 0 and len(process["input"]) == 0:
-                if temp_process == process["op"]:
-                    duplicates = True
-                    sub_graph.append(process["all_op"].copy())
-                    continue
-                else:
-                    # if temp_process == None:
-                    #    first_time = False
-                    temp_process = process["op"]
-                    # create a simplify output
-                    sub_graph.append(process["all_op"].copy())
-                    refine_output.append(process["all_op"].copy())
-
-            # if not first_time:
-            process_node = "{}-p{}".format(col_key, i + 1)
-            p_graph.add_node(process_node, attr=process, op=process["op"])
-            p_graph.add_edge(source_node, process_node)
-
-            for output in process["output"]:
-                temp_output_edges.append((process_node, output))
-            for t_input in process["input"]:
-                # temp_input_edges.append(t_input,process_node)
-                # print(t_input)
-                temp_output_edges.append((t_input, process_node))
-            source_node = process_node
+                if i < len(col_item) - 1:
+                    if process["op"] == col_item[i + 1]["op"]:
+                        # print("dupl")
+                        duplicates = True
+                        sub_graph.append(process["all_op"].copy())
+                        continue
+                # else:
+                # if temp_process == None:
+                #    first_time = False
+                temp_process = process["op"]
+                # create a simplify output
+                sub_graph.append(process["all_op"].copy())
+                refine_output.append(process["all_op"].copy())
+            # print("len sub",len(sub_graph))
 
             # if len(sub_graph)>1:
             if duplicates:
@@ -311,6 +305,20 @@ def translate_operator_json_to_yes_workflow(json_data):
 
                 sub_graph = []
                 duplicates = False
+            else:
+                # if not duplicates
+                process_node = "{}-p{}".format(col_key, i + 1)
+                p_graph.add_node(process_node, attr=process, op=process["op"])
+                p_graph.add_edge(source_node, process_node)
+                # print(source_node,process_node)
+
+                for output in process["output"]:
+                    temp_output_edges.append((process_node, output))
+                for t_input in process["input"]:
+                    # temp_input_edges.append(t_input,process_node)
+                    # print(t_input)
+                    temp_output_edges.append((t_input, process_node))
+                source_node = process_node
 
     # recreate output connection
     for output_edge in temp_output_edges:
