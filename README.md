@@ -54,7 +54,7 @@ This tool is aimed to connect OpenRefine Recipe which is written in JSON format 
   
   Install the or2yw package from pip install: 
      
-       $ pip  install upgrade --index-url https://test.pypi.org/simple/ or2ywtool
+       $ pip  install upgrade or2ywtool
 
 (Note: double check the pip version, if pip is for version 2, then use pip3 install...)
 
