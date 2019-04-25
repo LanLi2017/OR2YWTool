@@ -202,23 +202,98 @@ def translate_operator_json_to_yes_workflow(json_data):
             column_name = operator['oldColumnName']
             output_columns.append(operator["newColumnName"])
         elif operator['op'] == 'core/column-removal':
-            continue
+            node.in_node_names+=[
+                get_column_current_node(operator['columnName']),
+            ]
+            node.out_node_names+=[
+                create_new_node_of_column('remove-{}'.format(operator['columnName']))
+            ]
+            column_name=operator['columnName']
+        elif operator['op']=='core/column-addition-by-fetching-urls':
+            node.params+=[
+                "newColumnName:{}".format(operator['newColumnName']),
+                "columnInsertIndex:{}".format(operator['columnInsertIndex']),
+                "baseColumnName:{}".format(operator['baseColumnName']),
+                "urlExpression:{}".format(operator['urlExpression']),
+            ]
+            node.in_node_names+=[
+                get_column_current_node(operator['baseColumnName'])
+            ]
+            node.out_node_names+=[
+                create_new_node_of_column(operator['newColumnName'])
+            ]
+            column_name=operator['baseColumnName']
+            output_columns.append(operator['newColumnName'])
+        elif operator['op']=='core/multivalued-cell-join':
+            node.params+=[
+                "keyColumnName:{}".format(operator['keyColumnName']),
+                "separator:{}".format(operator['separator']),
+            ]
+            node.in_node_names+=[
+                get_column_current_node(operator['columnName'])
+            ]
+            node.out_node_names+=[
+                create_new_node_of_column(operator['columnName'])
+            ]
+            column_name=operator['columnName']
+        elif operator['op']=='core/transpose-columns-into-rows':
+            node.params+=[
+                "startColumnName:{}".format(operator['startColumnName']),
+                "columnCount:{}".format(operator['columnCount']),
+                "ignoreBlankCells:{}".format(operator['ignoreBlankCells']),
+                "combinedColumnName:{}".format(operator['combinedColumnName']),
+                "separator:{}".format(operator['separator']),
+            ]
+            node.in_node_names+=[
+                get_column_current_node(operator['startColumnName'])
+            ]
+            node.out_node_names+=[
+                create_new_node_of_column(operator['combinedColumnName'])
+            ]
+            column_name=operator['startColumnName']
+            output_columns.append(operator['combinedColumnName'])
+        elif operator['op']=='core/row-removal':
+            node.params+=[
+                "mode:{}".format(operator['engineConfig']['mode'])
+            ]
+            node.in_node_names+=[
+                get_column_current_node(operator['engineConfig']['facets'][0]['name'])
+            ]
+            node.out_node_names+=[
+                create_new_node_of_column(operator['engineConfig']['facets'][0]['name'])
+            ]
+            column_name=operator['engineConfig']['facets'][0]['name']
+        elif operator['op']=='core/column-move':
+            node.params+=[
+                "index:{}".format(operator['index'])
+            ]
+            node.in_node_names+=[
+                get_column_current_node(operator['columnName'])
+            ]
+            node.out_node_names+=[
+                create_new_node_of_column(operator['columnName'])
+            ]
+            column_name=operator['columnName']
+
         else:  # normal unary operation
             # print("op: ",operator.items())
             # if operator["op"].startswith("group"):
             #    print(operator["op"])
-            node.params += [
-                #"columnName:{}".format(operator['columnName']),
-                "expression:{}".format(operator['expression']),
-            ]
-            node.in_node_names += [
-                get_column_current_node(operator['columnName']),
-            ]
-            node.out_node_names += [
-                create_new_node_of_column(operator['columnName']),
-            ]
-            # assign column_name
-            column_name = operator['columnName']
+            try:
+                node.params += [
+                    #"columnName:{}".format(operator['columnName']),
+                    "expression:{}".format(operator['expression']),
+                ]
+                node.in_node_names += [
+                    get_column_current_node(operator['columnName']),
+                ]
+                node.out_node_names += [
+                    create_new_node_of_column(operator['columnName']),
+                ]
+                # assign column_name
+                column_name = operator['columnName']
+            except KeyError:
+                continue
 
         # rewrite the params, replace space with _ to avoid unexpected cut values
         for i, x in enumerate(node.params):
@@ -430,6 +505,10 @@ class OR2YW:
                 inputdatalist.append(colname)
                 inputdatalist.append(newColumnName)
 
+            elif dicts['op']=='core/column-removal':
+                colname='col-name:{}'.format(dicts['columnName'])
+                inputdatalist.append(colname)
+
             elif dicts['op']=='core/row-removal':
                 colname='col-name:'+dicts['engineConfig']['facets'][0]['columnName']
                 expression='expression:"%s"'%(dicts['engineConfig']['facets'][0]['expression'])
@@ -440,6 +519,39 @@ class OR2YW:
             elif dicts['op']=='core/row-flag':
                 flagged='flagged:"%s"'%dicts['flagged']
                 inputdatalist.append(flagged)
+
+            elif dicts['op']=='core/column-addition-by-fetching-urls':
+                colname='col-name:'+dicts['baseColumnName']
+                newColumnName='newColumnName:{}'.format(dicts['newColumnName'])
+                urlExpression='urlExpression:{}'.format(dicts['urlExpression'])
+                inputdatalist.append(colname)
+                inputdatalist.append(newColumnName)
+                inputdatalist.append(urlExpression)
+
+            elif dicts['op']=='core/column-move':
+                colname='col-name:{}'.format(dicts['columnName'])
+                index='index:{}'.format(dicts['index'])
+                inputdatalist.append(colname)
+                inputdatalist.append(index)
+            elif dicts['op']=='core/multivalued-cell-join':
+                colname='col-name:{}'.format(dicts['columnName'])
+                keyColumnName='keyColumnName:{}'.format(dicts['keyColumnName'])
+                separator='separator:{}'.format(dicts['separator'])
+                inputdatalist.append(colname)
+                inputdatalist.append(keyColumnName)
+                inputdatalist.append(separator)
+            elif dicts['op']=='core/transpose-columns-into-rows':
+                colname='col-name:{}'.format(dicts['startColumnName'])
+                columnCount='columnCount:{}'.format(dicts['columnCount'])
+                combinedColumnName='combinedColumnName:{}'.format(dicts['combinedColumnName'])
+                separator='separator:{}'.format(dicts['separator'])
+                inputdatalist.append(colname)
+                inputdatalist.append(columnCount)
+                inputdatalist.append(combinedColumnName)
+                inputdatalist.append(separator)
+
+
+
 
         deinputdatalist = set(inputdatalist)
 
@@ -461,9 +573,14 @@ class OR2YW:
         texttrans_c = 0
         colsplit_c = 0
         coladdit_c = 0
+        coladd_url_c=0
+        colremov_c=0
+        colmove_c=0
         rowremov_c=0
         table_c = 0
         flag_c=0
+        multi_value_join_c=0
+        trans_col2rows_c=0
         for dicts in data:
             dicts['description'] = dicts['description'].replace('"', '\\"')
             if dicts['op'] == 'core/column-rename':
@@ -513,6 +630,15 @@ class OR2YW:
                 f.write('#@out table%d\n' % table_c)
                 f.write('#@end core/column-addition%d\n' % coladdit_c)
                 coladdit_c += 1
+            elif dicts['op']=='core/column-removal':
+                f.write('#@begin core/column-removal%d' % colremov_c + '#@desc ' + dicts['description'] + '\n')
+                f.write('#@param col-name:' + dicts['columnName'] + '\n')
+                f.write('#@in table%d\n' % table_c)
+                table_c += 1
+                f.write('#@out table%d\n' % table_c)
+                f.write('#@end core/column-removal%d\n' % colremov_c)
+                colremov_c += 1
+
             elif dicts['op']=='core/row-removal':
                 f.write('#@begin core/row-removal%d' % rowremov_c + '#@desc ' + dicts['description'] + '\n')
                 f.write('#@param col-name:' + dicts['engineConfig']['facets'][0]['columnName'] + '\n')
@@ -530,6 +656,52 @@ class OR2YW:
                 f.write('#@out table%d\n' % table_c)
                 f.write('#@end core/row-flag%d\n' % flag_c)
                 flag_c += 1
+
+            elif dicts['op']=='core/column-addition-by-fetching-urls':
+                f.write('#@begin core/column-addition-by-fetching-urls%d' % coladd_url_c + '#@desc ' + dicts['description'] + '\n')
+                f.write('#@param col-name:{}'.format(dicts['baseColumnName'])+ '\n')
+                f.write('#@param newColumnName:{}'.format(dicts['newColumnName'])+ '\n')
+                f.write('#@param urlExpression:{}'.format(dicts['urlExpression'])+'\n')
+                f.write('#@in table%d\n' % table_c)
+                table_c += 1
+                f.write('#@out table%d\n' % table_c)
+                f.write('#@end core/column-addition-by-fetching-urls%d\n' % coladd_url_c)
+                coladd_url_c += 1
+
+            elif dicts['op']=='core/column-move':
+                f.write('#@begin core/column-move%d' %colmove_c + '#@desc '+ dicts['description']+'\n')
+                f.write('#@param col-name:{}'.format(dicts['columnName'])+ '\n')
+                f.write('#@param index:{}'.format(dicts['index'])+ '\n')
+                f.write('#@in table%d\n' % table_c)
+                table_c += 1
+                f.write('#@out table%d\n' % table_c)
+                f.write('#@end core/column-move%d\n' %colmove_c)
+                colmove_c+=1
+
+            elif dicts['op']=='core/multivalued-cell-join':
+                f.write('#@begin core/multivalued-cell-join%d' % multi_value_join_c + '#@desc ' + dicts['description'] + '\n')
+                f.write('#@param col-name:' + dicts['columnName'] + '\n')
+                f.write('#@param keyColumnName:' + dicts['keyColumnName'] + '\n')
+                f.write('#@param separator:'+dicts['separator']+'\n')
+                f.write('#@in table%d\n' % table_c)
+                table_c += 1
+                f.write('#@out table%d\n' % table_c)
+                f.write('#@end core/multivalued-cell-join%d\n' % multi_value_join_c)
+                multi_value_join_c += 1
+
+            elif dicts['op']=='core/transpose-columns-into-rows':
+                f.write('#@begin core/transpose-columns-into-rows%d' % trans_col2rows_c + '#@desc ' + dicts['description'] + '\n')
+                f.write('#@param col-name:' + dicts['startColumnName'] + '\n')
+                f.write('#@param columnCount:%d'%dicts['columnCount'] + '\n')
+                f.write('#@param combinedColumnName:'+dicts['combinedColumnName']+'\n')
+                f.write('#@param separator:'+dicts['separator']+'\n')
+                f.write('#@in table%d\n' % table_c)
+                table_c += 1
+                f.write('#@out table%d\n' % table_c)
+                f.write('#@end core/transpose-columns-into-rows%d\n' % trans_col2rows_c)
+                trans_col2rows_c += 1
+
+
 
         f.write('#@end {}\n'.format(title))
         output_string = f.getvalue()
@@ -719,6 +891,6 @@ if __name__ == '__main__':
     """
     test vg
     """
-    or2ywfile=OR2YWFileProcessor().generate_yw_file('menu_operations_history.JSON','test4.yw')
+    or2ywfile=OR2YWFileProcessor().generate_yw_file('../graph_analysis/test.json','test.yw')
     # or2ywf = OR2YWFileProcessor()
     # or2ywf.generate_vg(input_file="test.json", output_file="test.vg")
