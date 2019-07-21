@@ -12,6 +12,8 @@ import uuid
 import subprocess
 import networkx as nx
 
+# import to check operating system used
+# import platform
 
 class FileHelper:
     def __init__(self):
@@ -811,8 +813,8 @@ class OR2YW:
         # copy yw.properties to run directory
         shutil.copyfile(path + "/yw.properties", "./yw.properties")
 
-        cmd = "cat {} | {} -jar {} graph -c extract.comment='#' > {}".format(temp_folder + text_name, java_path,
-                                                                             path + "/yesworkflow-0.2.2.0-SNAPSHOT-jar-with-dependencies.jar",
+        cmd = "{} -jar {} graph {} -c extract.comment='#' > {}".format(java_path,
+                                                                             path + "/yesworkflow-0.2.2.0-SNAPSHOT-jar-with-dependencies.jar",temp_folder + text_name,
                                                                              gv_file)
         ps = subprocess.Popen(cmd, shell=True, stderr=subprocess.STDOUT)
         output, error_output = ps.communicate()

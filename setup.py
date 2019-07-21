@@ -9,7 +9,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 setup(
   name = 'or2ywtool',
   packages = ['or2ywtool'],
-  version = '0.0.4',
+  version = '0.0.14',
   description = 'OR2YW Tool',
   long_description=long_description,
   long_description_content_type='text/markdown',
@@ -17,6 +17,9 @@ setup(
   author = "Lan,Li; Parulian, Nikolaus; Ludaescher Bertram",
   package_data={'or2ywtool': ['yesworkflow-0.2.2.0-SNAPSHOT-jar-with-dependencies.jar','yw.properties']},
   include_package_data=True,
+  install_requires=[
+	'networkx',
+  ],
   classifiers=[  # Optional
     # How mature is this project? Common values are
     #   3 - Alpha
