@@ -47,7 +47,7 @@ def merge_basename(operator):
         #      missing information here: if no merge other columns, we still do not know if the new column is set
         # --------dependency as basecolumnName
         result = res
-        print('value: {}'.format(result))
+        #print('value: {}'.format(result))
         return result
     result = re.findall('\.\w+\.', exp)
     if result:
@@ -73,7 +73,7 @@ def may_be_split_by(new_column_name, base_column_name):
 
     base_part = new_column_name[:len(base_column_name)]
     addition_part = new_column_name[len(base_column_name):]
-    print(addition_part)
+    #print(addition_part)
     if base_part != base_column_name:
         return False
     if not re.fullmatch(r'_\d+', addition_part):
@@ -713,7 +713,7 @@ class OR2YW:
         output_list = output_string.split("\n")
         for i,x in enumerate(output_list):
             if x.startswith("#@param"):
-                print(x)
+                #print(x)
                 output_list[i] = "#@param " + x[8:].replace(" ","_")
             elif x.startswith("#@in"):
                 output_list[i] = "#@in " + x[5:].replace(" ", "_")
