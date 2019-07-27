@@ -813,7 +813,7 @@ class OR2YW:
         # copy yw.properties to run directory
         shutil.copyfile(path + "/yw.properties", "./yw.properties")
 
-        cmd = "{} -jar {} graph {} -c extract.comment='#' > {}".format(java_path,
+        cmd = "{} -jar {} graph {} -c extract.comment=\"#\" > {}".format(java_path,
                                                                              path + "/yesworkflow-0.2.2.0-SNAPSHOT-jar-with-dependencies.jar",temp_folder + text_name,
                                                                              gv_file)
         ps = subprocess.Popen(cmd, shell=True, stderr=subprocess.STDOUT)

@@ -6,7 +6,7 @@ def run():
     argv = sys.argv
     # required argument
     reqs = ["input","output"]
-    parser = argparse.ArgumentParser(description='OR2YW v0.0.14')
+    parser = argparse.ArgumentParser(description='OR2YW v0.0.15')
     parser.add_argument('-i','--input',
             help='openrefine json file')
     parser.add_argument('-o', '--output',
