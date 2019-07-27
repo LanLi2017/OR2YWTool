@@ -130,7 +130,7 @@ def translate_operator_json_to_yes_workflow(json_data):
         node = YesWorkflowNode(
             name=operator['op'],
             # if no description, 'no description'
-            desc=operator.get('description', 'no description').replace('"', '\\"'),
+            desc=operator.get('description', 'no description').replace('\\','\\\\').replace('"', '\\"'),
         )
         node.raw_operator = operator
 
@@ -299,7 +299,8 @@ def translate_operator_json_to_yes_workflow(json_data):
 
         # rewrite the params, replace space with _ to avoid unexpected cut values
         for i, x in enumerate(node.params):
-            node.params[i] = x.replace(" ", "_")
+            # add one backspace handler for "backspace" \
+            node.params[i] = x.replace("\\","\\\\").replace(" ", "_")
 
         # check column_name and retrace the graph
         if column_name != "":
@@ -584,7 +585,7 @@ class OR2YW:
         multi_value_join_c=0
         trans_col2rows_c=0
         for dicts in data:
-            dicts['description'] = dicts['description'].replace('"', '\\"')
+            dicts['description'] = dicts['description'].replace("\\","\\\\").replace('"', '\\"')
             if dicts['op'] == 'core/column-rename':
                 f.write('#@begin core/column-rename%d' % rename_c + '#@desc ' + dicts['description'] + '\n')
                 f.write('#@param oldColumnName:' + dicts['oldColumnName'] + '\n')
@@ -714,7 +715,7 @@ class OR2YW:
         for i,x in enumerate(output_list):
             if x.startswith("#@param"):
                 #print(x)
-                output_list[i] = "#@param " + x[8:].replace(" ","_")
+                output_list[i] = "#@param " + x[8:].replace("\\","\\\\").replace(" ","_")
             elif x.startswith("#@in"):
                 output_list[i] = "#@in " + x[5:].replace(" ", "_")
             elif x.startswith("#@out"):
