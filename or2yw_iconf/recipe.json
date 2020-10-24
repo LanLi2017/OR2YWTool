@@ -1,0 +1,284 @@
+[
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "id",
+    "expression": "value.toNumber()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column id using expression value.toNumber()"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "sponsor",
+    "expression": "value.trim()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column sponsor using expression value.trim()"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "sponsor",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "RED STAR LINE - ANTWERPEN - NY",
+          "RED STAR LINE - ANTWERPEN -NY",
+          "RED STAR LINE - ANTWERPEN NY",
+          "RED STAR LINE -ANTWERPEN NY",
+          "RED STAR LINE - ANTWERPEN  - NY",
+          "RED STAR LINE - ANTWERPEN  NY",
+          "RED STAR LINE -ANTWERPEN - NY",
+          "RED STAR LINE -ANTWERPEN -NY",
+          "RED STAR LINE- ANTWERPEN  NY",
+          "RED STAR LINE- ANTWERPEN -NY"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "RED STAR LINE - ANTWERPEN - NY"
+      },
+      {
+        "from": [
+          "NORDDEUTSCHER LLOYD BREMEN",
+          "Norddeutscher Lloyd Bremen",
+          "NORDDEUTSCHER LLOYD - BREMEN",
+          "NORDDEUTSCHER LLOYD  BREMEN",
+          "NORDDEUTSCHER LLOYD BREMEN;",
+          "NORDDEUTSCHER LLOYD, BREMEN",
+          "BREMEN NORDDEUTSCHER LLOYD",
+          "NORDDEUTSCHER LLOYD -  BREMEN",
+          "NORDDEUTSCHER LLOYD -BREMEN"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "NORDDEUTSCHER LLOYD BREMEN"
+      },
+      {
+        "from": [
+          "FIFTH AVENUE HOTEL",
+          "(FIFTH AVENUE HOTEL)",
+          "(FIFTH AVENUE HOTEL?)",
+          "FIFTH AVENUE HOTEL (?)",
+          "(FIFTH AVENUE HOTEL?}",
+          "FIFTH AVENUE HOTEL;"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "FIFTH AVENUE HOTEL"
+      }
+    ],
+    "description": "Mass edit cells in column sponsor"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "event",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "DINNER",
+          "dinner",
+          "[DINNER]",
+          "Dinner",
+          "(DINNER)",
+          "DINNER;",
+          "DINNER (?)",
+          "DINNER(?)",
+          "dinner ",
+          "[DINNER?]",
+          "(?DINNER?)",
+          "DINNER,",
+          "DINNER?",
+          "[?DINNER?]",
+          "[DINNER ?]"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "DINNER"
+      },
+      {
+        "from": [
+          "LUNCH",
+          "lunch",
+          "Lunch",
+          "[LUNCH]",
+          "(?LUNCH?)",
+          "LUNCH;",
+          "[LUNCH?]",
+          "(LUNCH)",
+          "LUNCH (?)",
+          "LUNCH."
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "LUNCH"
+      },
+      {
+        "from": [
+          "BREAKFAST",
+          "Breakfast",
+          "breakfast",
+          "[BREAKFAST]",
+          "BREAKFAST;",
+          "BREAKFAST (?)",
+          "BREAKFAST(?)",
+          "[BREAKFAST ?]"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "BREAKFAST"
+      },
+      {
+        "from": [
+          "DAILY MENU",
+          "daily menu",
+          "Daily menu",
+          "(DAILY MENU)",
+          "DAILY MENU;",
+          "[DAILY MENU?]",
+          "[DAILY] MENU"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "DAILY MENU"
+      },
+      {
+        "from": [
+          "SUPPER",
+          "supper",
+          "SUPPER (?)",
+          "SUPPER(?)",
+          "Supper",
+          "SUPPER;"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "SUPPER"
+      },
+      {
+        "from": [
+          "LUNCHEON",
+          "[LUNCHEON]",
+          "LUNCHEON;",
+          "Luncheon",
+          "luncheon"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "LUNCHEON"
+      },
+      {
+        "from": [
+          "Afternoon tea",
+          "AFTERNOON TEA",
+          "afternoon tea",
+          "afternoon tea ["
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "Afternoon tea"
+      },
+      {
+        "from": [
+          "WINE LIST",
+          "wine list",
+          "WINE LIST;",
+          "Wine list"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "WINE LIST"
+      }
+    ],
+    "description": "Mass edit cells in column event"
+  },
+  {
+    "op": "core/mass-edit",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "occasion",
+    "expression": "value",
+    "edits": [
+      {
+        "from": [
+          "ANNIVERSARY;",
+          "ANNIVERSARY (?);",
+          "ANNIVERSARY(?);",
+          "ANNIVERSARY",
+          "ANNIVERSARY.",
+          "ANNIVERSARY?"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "ANNIVERSARY;"
+      },
+      {
+        "from": [
+          "SOC;",
+          "[SOC?]",
+          "(SOC?)",
+          "[SOC]",
+          "(SOC);"
+        ],
+        "fromBlank": false,
+        "fromError": false,
+        "to": "SOC;"
+      }
+    ],
+    "description": "Mass edit cells in column occasion"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "date",
+    "expression": "grel:value.toDate('yyyy-mm-dd').toString('yyyy mm-dd')",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column date using expression grel:value.toDate('yyyy-mm-dd').toString('yyyy mm-dd')"
+  },
+  {
+    "op": "core/column-split",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "date",
+    "guessCellType": true,
+    "removeOriginalColumn": false,
+    "mode": "separator",
+    "separator": " ",
+    "regex": false,
+    "maxColumns": 0,
+    "description": "Split column date by separator"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "date 1",
+    "newColumnName": "Year",
+    "description": "Rename column date 1 to Year"
+  }
+]
