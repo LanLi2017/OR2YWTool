@@ -154,16 +154,24 @@ def translate_operator_json_to_yes_workflow(json_data):
                 "GRELexpression:{}".format(operator['expression'])
             ]
             basename = merge_basename(operator)
+            print(f'basename is : {basename}')
+            print(type(basename) is list)
             # trap for basename
-            if len(basename) != 2:
-                continue
-            if type(basename) is list:
-                baseColumnName0 = basename[0]
-                baseColumnName1 = basename[1]
-                node.in_node_names += [
-                    get_column_current_node(baseColumnName0.replace(" ", "_")),
-                    get_column_current_node(baseColumnName1.replace(" ", "_")),
-                ]
+            # if len(basename) != 2:
+            #     continue
+            if isinstance(basename, list):
+                print('hi')
+                column_list_len = len(basename)
+                for i in range(column_list_len):
+                    node.in_node_names += [
+                        get_column_current_node(basename[i].replace(" ", "_"))
+                    ]
+                # baseColumnName0 = basename[0]
+                # baseColumnName1 = basename[1]
+                # node.in_node_names += [
+                #     get_column_current_node(baseColumnName0.replace(" ", "_")),
+                #     get_column_current_node(baseColumnName1.replace(" ", "_")),
+                # ]
             else:
                 node.in_node_names += [
                     get_column_current_node(basename.replace(" ", "_")),
@@ -894,6 +902,6 @@ if __name__ == '__main__':
     """
     test vg
     """
-    or2ywfile=OR2YWFileProcessor().generate_yw_file('../graph_analysis/test.json','test.yw')
+    or2ywfile=OR2YWFileProcessor().generate_yw_file('../graph_analysis/menu_repair.json','repair_err.yw', type='parallel')
     # or2ywf = OR2YWFileProcessor()
     # or2ywf.generate_vg(input_file="test.json", output_file="test.vg")
