@@ -12,7 +12,6 @@ import uuid
 import subprocess
 import networkx as nx
 
-
 # import to check operating system used
 # import platform
 
@@ -48,7 +47,7 @@ def merge_basename(operator):
         #      missing information here: if no merge other columns, we still do not know if the new column is set
         # --------dependency as basecolumnName
         result = res
-        # print('value: {}'.format(result))
+        #print('value: {}'.format(result))
         return result
     result = re.findall('\.\w+\.', exp)
     if result:
@@ -74,7 +73,7 @@ def may_be_split_by(new_column_name, base_column_name):
 
     base_part = new_column_name[:len(base_column_name)]
     addition_part = new_column_name[len(base_column_name):]
-    # print(addition_part)
+    #print(addition_part)
     if base_part != base_column_name:
         return False
     if not re.fullmatch(r'_\d+', addition_part):
@@ -113,11 +112,11 @@ def translate_operator_json_to_yes_workflow(json_data):
                 return create_new_node_of_column(column_name)
         else:
             node_id = nodes_num_about_column[column_name]
-            if node_id - 1 == 0:
+            if node_id-1 == 0:
                 # this is for every first node
                 return column_name
             else:
-                return column_name + '_' + str(node_id - 1)
+                return column_name + '_' + str(node_id-1)
 
     def create_new_node_of_column(column_name):
         column_name = column_name.replace(" ", "_")
@@ -131,7 +130,7 @@ def translate_operator_json_to_yes_workflow(json_data):
         node = YesWorkflowNode(
             name=operator['op'],
             # if no description, 'no description'
-            desc=operator.get('description', 'no description').replace('\\', '\\\\').replace('"', '\\"'),
+            desc=operator.get('description', 'no description').replace('\\','\\\\').replace('"', '\\"'),
         )
         node.raw_operator = operator
 
@@ -183,7 +182,7 @@ def translate_operator_json_to_yes_workflow(json_data):
             output_columns.append(operator["newColumnName"])
         elif operator['op'] == 'core/column-split':  # split operation
             node.params += [
-                # "columnName:{}".format(operator['columnName'].replace(" ", "_")),
+                #"columnName:{}".format(operator['columnName'].replace(" ", "_")),
                 "removeOriginalColumn:{}".format(operator['removeOriginalColumn']),
                 "separator:{}".format(operator['separator']),
             ]
@@ -210,78 +209,78 @@ def translate_operator_json_to_yes_workflow(json_data):
             column_name = operator['oldColumnName']
             output_columns.append(operator["newColumnName"])
         elif operator['op'] == 'core/column-removal':
-            node.in_node_names += [
+            node.in_node_names+=[
                 get_column_current_node(operator['columnName']),
             ]
-            node.out_node_names += [
+            node.out_node_names+=[
                 create_new_node_of_column('remove-{}'.format(operator['columnName']))
             ]
-            column_name = operator['columnName']
-        elif operator['op'] == 'core/column-addition-by-fetching-urls':
-            node.params += [
+            column_name=operator['columnName']
+        elif operator['op']=='core/column-addition-by-fetching-urls':
+            node.params+=[
                 "newColumnName:{}".format(operator['newColumnName']),
                 "columnInsertIndex:{}".format(operator['columnInsertIndex']),
                 "baseColumnName:{}".format(operator['baseColumnName']),
                 "urlExpression:{}".format(operator['urlExpression']),
             ]
-            node.in_node_names += [
+            node.in_node_names+=[
                 get_column_current_node(operator['baseColumnName'])
             ]
-            node.out_node_names += [
+            node.out_node_names+=[
                 create_new_node_of_column(operator['newColumnName'])
             ]
-            column_name = operator['baseColumnName']
+            column_name=operator['baseColumnName']
             output_columns.append(operator['newColumnName'])
-        elif operator['op'] == 'core/multivalued-cell-join':
-            node.params += [
+        elif operator['op']=='core/multivalued-cell-join':
+            node.params+=[
                 "keyColumnName:{}".format(operator['keyColumnName']),
                 "separator:{}".format(operator['separator']),
             ]
-            node.in_node_names += [
+            node.in_node_names+=[
                 get_column_current_node(operator['columnName'])
             ]
-            node.out_node_names += [
+            node.out_node_names+=[
                 create_new_node_of_column(operator['columnName'])
             ]
-            column_name = operator['columnName']
-        elif operator['op'] == 'core/transpose-columns-into-rows':
-            node.params += [
+            column_name=operator['columnName']
+        elif operator['op']=='core/transpose-columns-into-rows':
+            node.params+=[
                 "startColumnName:{}".format(operator['startColumnName']),
                 "columnCount:{}".format(operator['columnCount']),
                 "ignoreBlankCells:{}".format(operator['ignoreBlankCells']),
                 "combinedColumnName:{}".format(operator['combinedColumnName']),
                 "separator:{}".format(operator['separator']),
             ]
-            node.in_node_names += [
+            node.in_node_names+=[
                 get_column_current_node(operator['startColumnName'])
             ]
-            node.out_node_names += [
+            node.out_node_names+=[
                 create_new_node_of_column(operator['combinedColumnName'])
             ]
-            column_name = operator['startColumnName']
+            column_name=operator['startColumnName']
             output_columns.append(operator['combinedColumnName'])
-        elif operator['op'] == 'core/row-removal':
-            node.params += [
+        elif operator['op']=='core/row-removal':
+            node.params+=[
                 "mode:{}".format(operator['engineConfig']['mode'])
             ]
-            node.in_node_names += [
+            node.in_node_names+=[
                 get_column_current_node(operator['engineConfig']['facets'][0]['name'])
             ]
-            node.out_node_names += [
+            node.out_node_names+=[
                 create_new_node_of_column(operator['engineConfig']['facets'][0]['name'])
             ]
-            column_name = operator['engineConfig']['facets'][0]['name']
-        elif operator['op'] == 'core/column-move':
-            node.params += [
+            column_name=operator['engineConfig']['facets'][0]['name']
+        elif operator['op']=='core/column-move':
+            node.params+=[
                 "index:{}".format(operator['index'])
             ]
-            node.in_node_names += [
+            node.in_node_names+=[
                 get_column_current_node(operator['columnName'])
             ]
-            node.out_node_names += [
+            node.out_node_names+=[
                 create_new_node_of_column(operator['columnName'])
             ]
-            column_name = operator['columnName']
+            column_name=operator['columnName']
 
         else:  # normal unary operation
             # print("op: ",operator.items())
@@ -289,7 +288,7 @@ def translate_operator_json_to_yes_workflow(json_data):
             #    print(operator["op"])
             try:
                 node.params += [
-                    # "columnName:{}".format(operator['columnName']),
+                    #"columnName:{}".format(operator['columnName']),
                     "expression:{}".format(operator['expression']),
                 ]
                 node.in_node_names += [
@@ -306,11 +305,11 @@ def translate_operator_json_to_yes_workflow(json_data):
         # rewrite the params, replace space with _ to avoid unexpected cut values
         for i, x in enumerate(node.params):
             # add one backspace handler for "backspace" \
-            node.params[i] = x.replace("\\", "\\\\").replace(" ", "_")
+            node.params[i] = x.replace("\\","\\\\").replace(" ", "_")
 
         # check column_name and retrace the graph
         if column_name != "":
-            # check if it's already recorded previously
+            # check if it's already recorded previouly
             if column_name not in column_all:
                 column_all.append(column_name)
                 # check if it's result from the split column operation
@@ -434,27 +433,19 @@ def getparams_from_ywdata(yes_workflow_data):
     return list(set(paramsinputlist))
 
 
-def getinput_from_ywdata(yes_workflow_data, nodes_num):
+def getinput_from_ywdata(yes_workflow_data):
     inputlist = []
-    outputlist = []
-    for node in yes_workflow_data:
-        out_node = node.out_node_names
-        outputlist += out_node
-
     for node in yes_workflow_data:
         for in_node_name in node.in_node_names:
-            if in_node_name in outputlist:
-                continue
-            else:
-                inputlist.append(in_node_name)
+            inputlist.append(in_node_name)
     return list(set(inputlist))
 
 
 def getouput_from_ywdata(yes_workflow_data):
     outputlist = []
-    for node in yes_workflow_data:
-       for out_node_name in node.out_node_names:
-           outputlist.append(out_node_name)
+    #for node in yes_workflow_data:
+    #    for out_node_name in node.out_node_names:
+    #        outputlist.append(out_node_name)
 
     return list(set(outputlist))
 
@@ -462,7 +453,7 @@ def getouput_from_ywdata(yes_workflow_data):
 def write_yes_workflow_data_to_file(yes_workflow_data, file):
     counter = 0
     for node in yes_workflow_data:
-        # print(node.in_node_names,node.out_node_names,node.name)
+        #print(node.in_node_names,node.out_node_names,node.name)
         print('#@begin {}{}'.format(node.name, counter), '#@desc', node.desc, file=file)
         for param in node.params:
             print('#@param', param, file=file)
@@ -522,50 +513,53 @@ class OR2YW:
                 inputdatalist.append(colname)
                 inputdatalist.append(newColumnName)
 
-            elif dicts['op'] == 'core/column-removal':
-                colname = 'col-name:{}'.format(dicts['columnName'])
+            elif dicts['op']=='core/column-removal':
+                colname='col-name:{}'.format(dicts['columnName'])
                 inputdatalist.append(colname)
 
-            elif dicts['op'] == 'core/row-removal':
-                colname = 'col-name:' + dicts['engineConfig']['facets'][0]['columnName']
-                expression = 'expression:"%s"' % (dicts['engineConfig']['facets'][0]['expression'])
+            elif dicts['op']=='core/row-removal':
+                colname='col-name:'+dicts['engineConfig']['facets'][0]['columnName']
+                expression='expression:"%s"'%(dicts['engineConfig']['facets'][0]['expression'])
                 inputdatalist.append(colname)
                 inputdatalist.append(expression)
 
 
-            elif dicts['op'] == 'core/row-flag':
-                flagged = 'flagged:"%s"' % dicts['flagged']
+            elif dicts['op']=='core/row-flag':
+                flagged='flagged:"%s"'%dicts['flagged']
                 inputdatalist.append(flagged)
 
-            elif dicts['op'] == 'core/column-addition-by-fetching-urls':
-                colname = 'col-name:' + dicts['baseColumnName']
-                newColumnName = 'newColumnName:{}'.format(dicts['newColumnName'])
-                urlExpression = 'urlExpression:{}'.format(dicts['urlExpression'])
+            elif dicts['op']=='core/column-addition-by-fetching-urls':
+                colname='col-name:'+dicts['baseColumnName']
+                newColumnName='newColumnName:{}'.format(dicts['newColumnName'])
+                urlExpression='urlExpression:{}'.format(dicts['urlExpression'])
                 inputdatalist.append(colname)
                 inputdatalist.append(newColumnName)
                 inputdatalist.append(urlExpression)
 
-            elif dicts['op'] == 'core/column-move':
-                colname = 'col-name:{}'.format(dicts['columnName'])
-                index = 'index:{}'.format(dicts['index'])
+            elif dicts['op']=='core/column-move':
+                colname='col-name:{}'.format(dicts['columnName'])
+                index='index:{}'.format(dicts['index'])
                 inputdatalist.append(colname)
                 inputdatalist.append(index)
-            elif dicts['op'] == 'core/multivalued-cell-join':
-                colname = 'col-name:{}'.format(dicts['columnName'])
-                keyColumnName = 'keyColumnName:{}'.format(dicts['keyColumnName'])
-                separator = 'separator:{}'.format(dicts['separator'])
+            elif dicts['op']=='core/multivalued-cell-join':
+                colname='col-name:{}'.format(dicts['columnName'])
+                keyColumnName='keyColumnName:{}'.format(dicts['keyColumnName'])
+                separator='separator:{}'.format(dicts['separator'])
                 inputdatalist.append(colname)
                 inputdatalist.append(keyColumnName)
                 inputdatalist.append(separator)
-            elif dicts['op'] == 'core/transpose-columns-into-rows':
-                colname = 'col-name:{}'.format(dicts['startColumnName'])
-                columnCount = 'columnCount:{}'.format(dicts['columnCount'])
-                combinedColumnName = 'combinedColumnName:{}'.format(dicts['combinedColumnName'])
-                separator = 'separator:{}'.format(dicts['separator'])
+            elif dicts['op']=='core/transpose-columns-into-rows':
+                colname='col-name:{}'.format(dicts['startColumnName'])
+                columnCount='columnCount:{}'.format(dicts['columnCount'])
+                combinedColumnName='combinedColumnName:{}'.format(dicts['combinedColumnName'])
+                separator='separator:{}'.format(dicts['separator'])
                 inputdatalist.append(colname)
                 inputdatalist.append(columnCount)
                 inputdatalist.append(combinedColumnName)
                 inputdatalist.append(separator)
+
+
+
 
         deinputdatalist = set(inputdatalist)
 
@@ -587,16 +581,16 @@ class OR2YW:
         texttrans_c = 0
         colsplit_c = 0
         coladdit_c = 0
-        coladd_url_c = 0
-        colremov_c = 0
-        colmove_c = 0
-        rowremov_c = 0
+        coladd_url_c=0
+        colremov_c=0
+        colmove_c=0
+        rowremov_c=0
         table_c = 0
-        flag_c = 0
-        multi_value_join_c = 0
-        trans_col2rows_c = 0
+        flag_c=0
+        multi_value_join_c=0
+        trans_col2rows_c=0
         for dicts in data:
-            dicts['description'] = dicts['description'].replace("\\", "\\\\").replace('"', '\\"')
+            dicts['description'] = dicts['description'].replace("\\","\\\\").replace('"', '\\"')
             if dicts['op'] == 'core/column-rename':
                 f.write('#@begin core/column-rename%d' % rename_c + '#@desc ' + dicts['description'] + '\n')
                 f.write('#@param oldColumnName:' + dicts['oldColumnName'] + '\n')
@@ -644,7 +638,7 @@ class OR2YW:
                 f.write('#@out table%d\n' % table_c)
                 f.write('#@end core/column-addition%d\n' % coladdit_c)
                 coladdit_c += 1
-            elif dicts['op'] == 'core/column-removal':
+            elif dicts['op']=='core/column-removal':
                 f.write('#@begin core/column-removal%d' % colremov_c + '#@desc ' + dicts['description'] + '\n')
                 f.write('#@param col-name:' + dicts['columnName'] + '\n')
                 f.write('#@in table%d\n' % table_c)
@@ -653,7 +647,7 @@ class OR2YW:
                 f.write('#@end core/column-removal%d\n' % colremov_c)
                 colremov_c += 1
 
-            elif dicts['op'] == 'core/row-removal':
+            elif dicts['op']=='core/row-removal':
                 f.write('#@begin core/row-removal%d' % rowremov_c + '#@desc ' + dicts['description'] + '\n')
                 f.write('#@param col-name:' + dicts['engineConfig']['facets'][0]['columnName'] + '\n')
                 f.write('#@param expression:' + '"%s"' % (dicts['engineConfig']['facets'][0]['expression']) + '\n')
@@ -662,7 +656,7 @@ class OR2YW:
                 f.write('#@out table%d\n' % table_c)
                 f.write('#@end core/row-removal%d\n' % rowremov_c)
                 rowremov_c += 1
-            elif dicts['op'] == 'core/row-flag':
+            elif dicts['op']=='core/row-flag':
                 f.write('#@begin core/row-flag%d' % flag_c + '#@desc ' + dicts['description'] + '\n')
                 f.write('#@param flagged:' + '"%s"' % dicts['flagged'] + '\n')
                 f.write('#@in table%d\n' % table_c)
@@ -671,52 +665,51 @@ class OR2YW:
                 f.write('#@end core/row-flag%d\n' % flag_c)
                 flag_c += 1
 
-            elif dicts['op'] == 'core/column-addition-by-fetching-urls':
-                f.write('#@begin core/column-addition-by-fetching-urls%d' % coladd_url_c + '#@desc ' + dicts[
-                    'description'] + '\n')
-                f.write('#@param col-name:{}'.format(dicts['baseColumnName']) + '\n')
-                f.write('#@param newColumnName:{}'.format(dicts['newColumnName']) + '\n')
-                f.write('#@param urlExpression:{}'.format(dicts['urlExpression']) + '\n')
+            elif dicts['op']=='core/column-addition-by-fetching-urls':
+                f.write('#@begin core/column-addition-by-fetching-urls%d' % coladd_url_c + '#@desc ' + dicts['description'] + '\n')
+                f.write('#@param col-name:{}'.format(dicts['baseColumnName'])+ '\n')
+                f.write('#@param newColumnName:{}'.format(dicts['newColumnName'])+ '\n')
+                f.write('#@param urlExpression:{}'.format(dicts['urlExpression'])+'\n')
                 f.write('#@in table%d\n' % table_c)
                 table_c += 1
                 f.write('#@out table%d\n' % table_c)
                 f.write('#@end core/column-addition-by-fetching-urls%d\n' % coladd_url_c)
                 coladd_url_c += 1
 
-            elif dicts['op'] == 'core/column-move':
-                f.write('#@begin core/column-move%d' % colmove_c + '#@desc ' + dicts['description'] + '\n')
-                f.write('#@param col-name:{}'.format(dicts['columnName']) + '\n')
-                f.write('#@param index:{}'.format(dicts['index']) + '\n')
+            elif dicts['op']=='core/column-move':
+                f.write('#@begin core/column-move%d' %colmove_c + '#@desc '+ dicts['description']+'\n')
+                f.write('#@param col-name:{}'.format(dicts['columnName'])+ '\n')
+                f.write('#@param index:{}'.format(dicts['index'])+ '\n')
                 f.write('#@in table%d\n' % table_c)
                 table_c += 1
                 f.write('#@out table%d\n' % table_c)
-                f.write('#@end core/column-move%d\n' % colmove_c)
-                colmove_c += 1
+                f.write('#@end core/column-move%d\n' %colmove_c)
+                colmove_c+=1
 
-            elif dicts['op'] == 'core/multivalued-cell-join':
-                f.write('#@begin core/multivalued-cell-join%d' % multi_value_join_c + '#@desc ' + dicts[
-                    'description'] + '\n')
+            elif dicts['op']=='core/multivalued-cell-join':
+                f.write('#@begin core/multivalued-cell-join%d' % multi_value_join_c + '#@desc ' + dicts['description'] + '\n')
                 f.write('#@param col-name:' + dicts['columnName'] + '\n')
                 f.write('#@param keyColumnName:' + dicts['keyColumnName'] + '\n')
-                f.write('#@param separator:' + dicts['separator'] + '\n')
+                f.write('#@param separator:'+dicts['separator']+'\n')
                 f.write('#@in table%d\n' % table_c)
                 table_c += 1
                 f.write('#@out table%d\n' % table_c)
                 f.write('#@end core/multivalued-cell-join%d\n' % multi_value_join_c)
                 multi_value_join_c += 1
 
-            elif dicts['op'] == 'core/transpose-columns-into-rows':
-                f.write('#@begin core/transpose-columns-into-rows%d' % trans_col2rows_c + '#@desc ' + dicts[
-                    'description'] + '\n')
+            elif dicts['op']=='core/transpose-columns-into-rows':
+                f.write('#@begin core/transpose-columns-into-rows%d' % trans_col2rows_c + '#@desc ' + dicts['description'] + '\n')
                 f.write('#@param col-name:' + dicts['startColumnName'] + '\n')
-                f.write('#@param columnCount:%d' % dicts['columnCount'] + '\n')
-                f.write('#@param combinedColumnName:' + dicts['combinedColumnName'] + '\n')
-                f.write('#@param separator:' + dicts['separator'] + '\n')
+                f.write('#@param columnCount:%d'%dicts['columnCount'] + '\n')
+                f.write('#@param combinedColumnName:'+dicts['combinedColumnName']+'\n')
+                f.write('#@param separator:'+dicts['separator']+'\n')
                 f.write('#@in table%d\n' % table_c)
                 table_c += 1
                 f.write('#@out table%d\n' % table_c)
                 f.write('#@end core/transpose-columns-into-rows%d\n' % trans_col2rows_c)
                 trans_col2rows_c += 1
+
+
 
         f.write('#@end {}\n'.format(title))
         output_string = f.getvalue()
@@ -724,10 +717,10 @@ class OR2YW:
 
         # clear space chars in param, in, and out notation
         output_list = output_string.split("\n")
-        for i, x in enumerate(output_list):
+        for i,x in enumerate(output_list):
             if x.startswith("#@param"):
-                # print(x)
-                output_list[i] = "#@param " + x[8:].replace("\\", "\\\\").replace(" ", "_")
+                #print(x)
+                output_list[i] = "#@param " + x[8:].replace("\\","\\\\").replace(" ","_")
             elif x.startswith("#@in"):
                 output_list[i] = "#@in " + x[5:].replace(" ", "_")
             elif x.startswith("#@out"):
@@ -750,11 +743,10 @@ class OR2YW:
             title = "Parallel_OR"
         if description == None:
             description = "Parallel OpenRefine Workflow"
-        # yes_workflow_data = translate_operator_json_to_yes_workflow(operations)
-        yes_workflow_data, p_graph, refine_output, refine_subs, nodes_num = translate_operator_json_to_yes_workflow(
-            operations)
+        #yes_workflow_data = translate_operator_json_to_yes_workflow(operations)
+        yes_workflow_data, p_graph, refine_output, refine_subs, nodes_num = translate_operator_json_to_yes_workflow(operations)
 
-        # print(yes_workflow_data)
+        #print(yes_workflow_data)
 
         if merge:
             yes_workflow_data, _, _, _, nodes_num = translate_operator_json_to_yes_workflow(refine_output)
@@ -765,39 +757,34 @@ class OR2YW:
         f = StringIO()
         # with open('yes_workflow_script.txt', 'wt', encoding='utf-8') as f:
         print('#@begin {}'.format(title), '#@desc {}'.format(description), file=f)
-        inputlist = getinput_from_ywdata(yes_workflow_data, nodes_num)
+        inputlist = getinput_from_ywdata(yes_workflow_data)
         paramslist = getparams_from_ywdata(yes_workflow_data)
-        # add output list
-        outputlist = getouput_from_ywdata(yes_workflow_data)
         for params in paramslist:
-            print('#@param {}'.format(params.replace(" ", "_")), file=f)
+            print('#@param {}'.format(params.replace(" ","_")), file=f)
         for input in inputlist:
-            print('#@in {}'.format(input.replace(" ", "_")), file=f)
-
-        for output in outputlist:
-            print(f'#@out {output.replace(" ", "_")}', file=f)
-        # print('#@out {}'.format('CleanData'), file=f)
+            print('#@in {}'.format(input.replace(" ","_")), file=f)
+        print('#@out {}'.format('CleanData'), file=f)
 
         # Data Cleaning steps
         write_yes_workflow_data_to_file(yes_workflow_data, f)
 
         # merge??
-        # print('#@begin CombineDataCleaningChanges', file=f)
-        # # change the output list to make no confusion
-        # # outputlist = getouput_from_ywdata(yes_workflow_data)
-        # # for output in outputlist:
-        # #    print('#@in {}'.format(output.replace(" ","_")), file=f)
-        #
-        # for key in nodes_num:
-        #     if nodes_num[key] - 1 == 0:
-        #         text = "{}".format(key)
-        #     else:
-        #         text = str(key) + "_" + str(nodes_num[key] - 1)
-        #     # print(text)
-        #     print('#@in {}'.format(text), file=f)
-        #
-        # print('#@out {}'.format('CleanData'), file=f)
-        # print('#@end {}'.format('CombineDataCleaningChanges'), file=f)
+        print('#@begin CombineDataCleaningChanges', file=f)
+        # change the output list to make no confusion
+        #outputlist = getouput_from_ywdata(yes_workflow_data)
+        #for output in outputlist:
+        #    print('#@in {}'.format(output.replace(" ","_")), file=f)
+
+        for key in nodes_num:
+            if nodes_num[key]-1 == 0:
+                text = "{}".format(key)
+            else:
+                text = str(key)+"_"+str(nodes_num[key]-1)
+            #print(text)
+            print('#@in {}'.format(text), file=f)
+
+        print('#@out {}'.format('CleanData'), file=f)
+        print('#@end {}'.format('CombineDataCleaningChanges'), file=f)
         print('#@end {}'.format(title), file=f)
         output_string = f.getvalue()
         f.close()
@@ -833,9 +820,8 @@ class OR2YW:
         shutil.copyfile(path + "/yw.properties", "./yw.properties")
 
         cmd = "{} -jar {} graph {} -c extract.comment=\"#\" > {}".format(java_path,
-                                                                         path + "/yesworkflow-0.2.2.0-SNAPSHOT-jar-with-dependencies.jar",
-                                                                         temp_folder + text_name,
-                                                                         gv_file)
+                                                                             path + "/yesworkflow-0.2.2.0-SNAPSHOT-jar-with-dependencies.jar",temp_folder + text_name,
+                                                                             gv_file)
         ps = subprocess.Popen(cmd, shell=True, stderr=subprocess.STDOUT)
         output, error_output = ps.communicate()
         ps.wait()
@@ -913,7 +899,6 @@ if __name__ == '__main__':
     """
     test vg
     """
-    or2ywfile = OR2YWFileProcessor().generate_yw_file('../graph_analysis/menu_repair.json', 'repair_err.yw',
-                                                      type='parallel')
+    or2ywfile=OR2YWFileProcessor().generate_yw_file('../graph_analysis/menu_repair.json','repair_err.yw', type='parallel')
     # or2ywf = OR2YWFileProcessor()
     # or2ywf.generate_vg(input_file="test.json", output_file="test.vg")
