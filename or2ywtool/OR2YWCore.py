@@ -254,7 +254,7 @@ def translate_operator_json_to_yes_workflow(json_data):
                 create_new_node_of_column(operator['columnName']),
             ]
             if operator['removeOriginalColumn'] is True:
-                continue
+                pass
             else:
                 node.out_node_names += [operator['columnName']]
             # assign column_name
