@@ -76,55 +76,22 @@
           "OTHER (ANNIVERSARY)",
           "OTHER (ANNIVERSARY?)",
           "OTHER - ANNIVERSARY",
-          "OTHER
-          {
-            ANNIVERSARY
-          }
-          ;
-          "], "
-          to
-          ": "
-          ANNIVERSARY
-          ", "
-          fromError
-          ": false}, {"
-          fromBlank
-          ": false, "
-          from
-          ": ["
-          [
-            ANNIV
-            ?
-          ]
-          ;
-          ", "
-          (ANNIV)
-          ;
-          ", "
-          (ANNIV
-          ?
-          )
-          ;
-          ", "
-          [
-            ?
-          ANNIV
-          ?
-        ]
-        ;
-        ", "
-      [
-        ANNIV
-        ?
-      ]
-      "], "
-      to
-      ": "
-      ANNIVERSARY
-      ",
-      "fromError"
-      :
-      false
+          "OTHER {ANNIVERSARY};"
+        ],
+        "to": " ANNIVERSARY ",
+        " fromError ": false
+      },
+      {
+        " fromBlank ": false,
+        " from ": [
+          " [ ANNIV ? ] ; ",
+          " (ANNIV) ; ",
+          " (ANNIV ? ) ; ",
+          " [ ? ANNIV ? ] ; ",
+          " [ ANNIV ? ] "
+        ],
+        " to ": " ANNIVERSARY ",
+        "fromError": false
       },
       {
         "fromBlank": false,
@@ -200,38 +167,24 @@
         "fromBlank": false,
         "from": [
           "OTHER (DAILY MENU);",
-          "OTHER (DAILY
-          MENU)
-          "], "
-          to
-          ": "
-          DAILY
-          ", "
-          fromError
-          ": false}, {"
-          fromBlank
-          ": false, "
-          from
-          ": ["
-          DAILY
-          MEAL
-          ", "
-          DAILY
-          MEAL
-          ;
-          "], "
-          to
-          ": "
-          DAILY
-          ", "
-          fromError
-          ": false}, {"
-          fromBlank
-          ": false, "
-          from
-          ": ["
-          DINNER
-          ",
+          "OTHER (DAILY MENU) "
+        ],
+        " to ": " DAILY ",
+        " fromError ": false
+      },
+      {
+        " fromBlank ": false,
+        " from ": [
+          " DAILY MEAL ",
+          " DAILY MEAL ; "
+        ],
+        " to ": " DAILY ",
+        " fromError ": false
+      },
+      {
+        " fromBlank ": false,
+        " from ": [
+          " DINNER ",
           "DINNER;"
         ],
         "to": "DINNER",
@@ -307,602 +260,4139 @@
     }
   },
   {
-    "description": "Mass edit cells
-    in
-    column
-    occasion
-    ", "
-    columnName
-    ": "
-    occasion
-    ", "
-    expression
-    ": "
-    value
-    ", "
-    op
-    ": "
-    core/mass-edit
-    ", "
-    edits
-    ": [{"
-    fromBlank
-    ": false, "
-    from
-    ": ["
-    OTHER
-    (SOC)
-    ;
-    ", "
-    OTHER
-    (SOC
-    ?
-    )
-    ;
-    ", "
-    OTHER
-    (SOC
-    ?
-    )
-    ", "
-    OTHER
-    (SOC)
-    ", "
-    OTHER
-  [
-    SOC
-    ?
-  ]
-  ;
-  ", "
-  OTHER
-  (SOC)
-  ;
-  ", "
-  OTHER
-  (SOC.)
-  ", "
-  OTHER
-  )SOC)
-  ;
-  ", "
-  OTHER
-  [
-    SOC
-  ]
-  ", "
-  OTHER,
-  [
-    SOC
-    ?
-  ]
-  ;
-  "], "
-  to
-  ": "
-  SOC
-  ", "
-  fromError
-  ": false}, {"
-  fromBlank
-  ": false,
-  "from"
-  :
-  ["SOC;", "[SOC?]", "(SOC?)", "[SOC]", "(SOC);"],
-  "to"
-  :
-  "SOC",
-  "fromError"
-  :
-  false
+    "description": "Mass edit cells in column occasion ",
+    "columnName": " occasion ",
+    "expression": " value ",
+    "op": " core/mass-edit ",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          " OTHER (SOC) ; ",
+          " OTHER (SOC ? ) ; ",
+          " OTHER (SOC ? ) ",
+          " OTHER (SOC) ",
+          " OTHER [ SOC ? ] ; ",
+          " OTHER (SOC) ; ",
+          " OTHER (SOC.) ",
+          " OTHER )SOC) ; ",
+          " OTHER [ SOC ] ",
+          " OTHER, [ SOC ? ] ; "
+        ],
+        "to": " SOC ",
+        "fromError": false
+      },
+      {
+        "fromBlank": false,
+        "from": [
+          "SOC;",
+          "[SOC?]",
+          "(SOC?)",
+          "[SOC]",
+          "(SOC);"
+        ],
+        "to": "SOC",
+        "fromError": false
+      },
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (SOCIAL?)",
+          "OTHER (SOCIAL);",
+          "OTHER (SOCIAL?);",
+          "OTHER [SOCIAL];"
+        ],
+        "to": "SOCIAL",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
   },
   {
-    "fromBlank": false,
-    "from": [
-      "OTHER (SOCIAL?)",
-      "OTHER (SOCIAL);",
-      "OTHER (SOCIAL?);",
-      "OTHER [SOCIAL];"
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "ANNUAL DINNER",
+          "ANNUAL DINNER;",
+          "ANNUAl DINNER"
+        ],
+        "to": "ANNUAL DINNER",
+        "fromError": false
+      }
     ],
-    "to": "SOCIAL",
-    "fromError": false
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "SOCIAL",
+          "(SOCIAL)",
+          "(SOCIAL?)"
+        ],
+        "to": "SOCIAL",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "SATURDAY DINNER",
+          "SATURDAY DINNER;"
+        ],
+        "to": "SATURDAY DINNER",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells incolumn occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "SECULAR HOLIDAY;",
+          "SECULAR HOLIDAY",
+          "SECULARHOLIDAY. HOLIDAY",
+          "SECULAR HOLIDAY. HOLIDAY;",
+          "SECULAR HOLIDAY HOLIDAY;",
+          "SECULAR HOLIDAY HOLIDAY"
+        ],
+        "to": "SECULAR HOLIDAY",
+        "fromError": false
+      },
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (MEETING);",
+          "OTHER (MEETING)",
+          "OTHER (MEETING?);",
+          "OTHER (MEETING?)"
+        ],
+        "to": "MEETING",
+        "fromError": false
+      },
+      {
+        "fromBlank": false,
+        "from": [
+          "PATRIOTIC HOLIDAY;",
+          "PATRIOTIC HOLIDAY",
+          "PATRIOTIC HOLIDAY.",
+          "PATRIOTIC HOLIDAY. HOLIDAY"
+        ],
+        "to": "PATRIOTIC HOLIDAY",
+        "fromError": false
+      },
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (COMMEMORATIVE);",
+          "OTHER (COMMEMORATIVE)",
+          "OTHER (COMMEMORATIVE?)",
+          "OTHER [COMMEMORATIVE]"
+        ],
+        "to": "COMMEMORATIVE",
+        "fromError": false
+      },
+      {
+        "fromBlank": false,
+        "from": [
+          "SECULAR HOLIDAY.HOLIDAY",
+          "SECULAR HOLIDAY.HOLIDAY;",
+          "SECULAR HOLIDAY;HOLIDAY"
+        ],
+        "to": "SECULAR HOLIDAY",
+        "fromError": false
+      },
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (REUNION);",
+          "(OTHER - REUNION?);",
+          "OTHER(REUNION);"
+        ],
+        "to": "REUNION",
+        "fromError": false
+      },
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER",
+          "OTHER;",
+          "OTHER, "
+        ],
+        "to": "OTHER",
+        "fromError": false
+      },
+      {
+        "fromBlank": false,
+        "from": [
+          "RELIG. HOLIDAY",
+          "RELIG. HOLIDAY;",
+          "RELIG HOLIDAY;"
+        ],
+        "to": "RELIGIOUS HOLIDAY",
+        "fromError": false
+      },
+      {
+        "fromBlank": false,
+        "from": [
+          "[?REUNION?];",
+          "[RE-UNION]",
+          "[REUNION]"
+        ],
+        "to": "REUNION",
+        "fromError": false
+      },
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (DAILY DATED MENU);",
+          "OTHER (DATED DAILY MENU);"
+        ],
+        "to": "DAILY",
+        "fromError": false
+      },
+      {
+        "fromBlank": false,
+        "from": [
+          "ETHNIC HOLIDAY",
+          "[ETHNIC HOLIDAY]"
+        ],
+        "to": "ETHNIC HOLIDAY",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass editcells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "MEETING",
+          "(MEETING)"
+        ],
+        "to": "MEETING",
+        "fromError": false
+      },
+      {
+        "fromBlank": false,
+        "from": [
+          "NATIONAL EVENT",
+          "NATIONAL EVENT;"
+        ],
+        "to": "NATIONAL EVENT",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (COMMEMOATIVE)",
+          "OTHER (COMMEMOATIVE);"
+        ],
+        "to": "COMMEMORATIVE",
+        "fromError": false
+      },
+      {
+        "fromBlank": false,
+        "from": [
+          "COMMEMORATIVE",
+          "(COMMEMORATIVE);"
+        ],
+        "to": "COMMEMORATIVE",
+        "fromError": false
+      },
+      {
+        "fromBlank": false,
+        "from": [
+          "SEMI-ANNUAL",
+          "SEMI-ANNUAL;"
+        ],
+        "to": "SEMI-ANNUAL",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "COMPL.",
+          "[COMPL?];",
+          "COMPL?;",
+          "[COMPL];",
+          "COMPL (?);",
+          "COMPL(?);",
+          "COMPL;(?)",
+          "[COMPL.]",
+          "[COMPL]"
+        ],
+        "to": "COMPL",
+        "fromError": false
+      },
+      {
+        "fromBlank": false,
+        "from": [
+          "RITE;",
+          "RITE",
+          "(RITE)",
+          "(RITE);"
+        ],
+        "to": "RITE",
+        "fromError": false
+      },
+      {
+        "fromBlank": false,
+        "from": [
+          "POL;",
+          "[POL?]"
+        ],
+        "to": "POL",
+        "fromError": false
+      },
+      {
+        "fromBlank": false,
+        "from": [
+          "PAT;",
+          "PAT"
+        ],
+        "to": "PAT",
+        "fromError": false
+      },
+      {
+        "fromBlank": false,
+        "from": [
+          "BANQUET;",
+          "BANQUET"
+        ],
+        "to": "BANQUET",
+        "fromError": false
+      },
+      {
+        "fromBlank": false,
+        "from": [
+          "ETH;",
+          "ETH"
+        ],
+        "to": "ETH",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "(ANNIV CELEBRATION)"
+        ],
+        "to": "ANNIVERSARY",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "0THER (ANNIV)"
+        ],
+        "to": "ANNIVERSARY",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells incolumn occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "ANIVERSARY"
+        ],
+        "to": "ANNIVERSARY",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "ANNIVERSARY"
+        ],
+        "to": "ANNIVERSARY",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "AVVIV;"
+        ],
+        "to": "ANNIVERSARY",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "C0MPL;"
+        ],
+        "to": "COMPL",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "DINNER MENU"
+        ],
+        "to": "DINNER",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "(COMMEMOATIVE?)"
+        ],
+        "to": "COMMEMORATIVE",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "[HISTORICAL]"
+        ],
+        "to": "HISTORICAL",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells incolumn occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "0THER (COMMERCIAL?);"
+        ],
+        "to": "COMMERCIAL",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "0THER (SOC?)"
+        ],
+        "to": "SOC",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "0THER[COMMEMORATIVE]"
+        ],
+        "to": "COMMEMORATIVE",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "113 ANNIVERSARY"
+        ],
+        "to": "ANNIVERSARY",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "13TH ANNIVERSARY"
+        ],
+        "to": "ANNIVERSARY",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Massedit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "10NTH REUNION"
+        ],
+        "to": "REUNION",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "[SIXTH REUNION ?]"
+        ],
+        "to": "REUNION",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "AMNNUAL;"
+        ],
+        "to": "ANNUAL",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "TRIP OF PRES. McKINLEY,HIS CABINET & GUESTS"
+        ],
+        "to": "TRIP OF PRES. McKINLEY, HIS CABINET &GUESTS;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "SUPPER"
+        ],
+        "to": "DINNER",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "SOC"
+        ],
+        "to": "SOCIAL",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "SOCIAL GATHERING"
+        ],
+        "to": "SOCIAL",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "SECULAR HOLIDAYL"
+        ],
+        "to": "SECULAR HOLIDAY",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "PAT"
+        ],
+        "to": "PATRIOTIC HOLIDAY",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "PATRIOTIC HOLIDAY,NATIONAL EVENT"
+        ],
+        "to": "PATRIOTIC HOLIDAY;NATIONAL;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHR (SOC);"
+        ],
+        "to": "SOCIAL",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER,Travel"
+        ],
+        "to": "TRAVEL",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER,SUNDAY"
+        ],
+        "to": "SUNDAY",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER,PERSONAL"
+        ],
+        "to": "PERSONAL",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "PATRIOTIC HOLIDAY.HOLIDAY"
+        ],
+        "to": "PATRIOTIC HOLIDAY",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER,COMMERCIAL ANNIVERSARY"
+        ],
+        "to": "COMMERCIAL;ANNIVERSARY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells incolumn occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER,, wedding"
+        ],
+        "to": "WEDDING",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER, CLUB ANNIVERSARY"
+        ],
+        "to": "ANNIVERSARY",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER [TWENTIETH ANNIVERSARY OF CLUB];"
+        ],
+        "to": "ANNIVERSARY",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells incolumn occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (S0C?)"
+        ],
+        "to": "SOCIAL",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (PRIVATE PARTY)"
+        ],
+        "to": "PRIVATE",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER(PRIVATE)"
+        ],
+        "to": "PRIVATE",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "ANNIVERSARYERSARY DINNER"
+        ],
+        "to": "ANNIVERSARY;DINNER;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "ANNUAL BREAKFAST"
+        ],
+        "to": "ANNUAL;BREAKFAST;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "ANNUAL DINNER"
+        ],
+        "to": "ANNUAL;DINNER;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "ANNUAL MEETING"
+        ],
+        "to": "ANNUAL;MEETING;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "ANNUAL;BREAKFAST;"
+        ],
+        "to": "ANNUAL;BREAKFAST;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells incolumn occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "BUFFET SERVICE"
+        ],
+        "to": "BUFFET",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "CAFE MENU"
+        ],
+        "to": "CAFE",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "COMMEMORATIVE"
+        ],
+        "to": "COMMEMORATIVE",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "ANNIVERSARY;141ST;"
+        ],
+        "to": "ANNIVERSARY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "ANNIVERSARY;13TH ANNUAL;"
+        ],
+        "to": "ANNIVERSARY;ANNUAL;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass editcells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "ANNIVERSARY;(FIFTH OF FOUNDING);"
+        ],
+        "to": "ANNIVERSARY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "[TRIP]"
+        ],
+        "to": "TRIP",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "[SUNDAY BREAKFAST]"
+        ],
+        "to": "SUNDAY;BREAKFAST;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "WEDDING BANQUET"
+        ],
+        "to": "WEDDING;BANQUET;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "WEDDING DINNER"
+        ],
+        "to": "WEDDING;DINNER;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Massedit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "TRIP OF PRES. McKINLEY, HIS CABINET& GUESTS;"
+        ],
+        "to": "TRIP",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "SUNDAY LUNCH;"
+        ],
+        "to": "SUNDAY;LUNCH;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "SUNDAY DINNER"
+        ],
+        "to": "SUNDAY;DINNER;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cellsin column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "SCHOOL REUNION;"
+        ],
+        "to": "REUNION;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "SATURDAY DINNER"
+        ],
+        "to": "SATURDAY;DINNER",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "SATURDAY LUNCH"
+        ],
+        "to": "SATURDAY;LUNCH;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "SATURDAY;DINNER"
+        ],
+        "to": "SATURDAY;DINNER;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "REUNION"
+        ],
+        "to": "REUNION;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells incolumn occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "RELIG.HOLIDAY"
+        ],
+        "to": "RELIGIOUS HOLIDAY",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "RELIG & ANNIV;"
+        ],
+        "to": "RELIGIOUS HOLIDAY;ANNIVERSARY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "REL;"
+        ],
+        "to": "RELIGIOUS HOLIDAY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "RELIGIOUS HOLIDAY"
+        ],
+        "to": "RELIGIOUS HOLIDAY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "PATRIOTIC HOLIDAYIOTIC HOLIDAY"
+        ],
+        "to": "PATRIOTIC HOLIDAY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "PATRIOTIC HOLIDAY. [LOCAL]"
+        ],
+        "to": "PATRIOTIC HOLIDAY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in columnoccasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "PATRIOTIC HOLIDAY"
+        ],
+        "to": "PATRIOTIC HOLIDAY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER,UNIVERSITY ANNIVERSARY"
+        ],
+        "to": "ANNIVERSARY",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER,Conference"
+        ],
+        "to": "CONFERENCE",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER,Banquet"
+        ],
+        "to": "BANQUET",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER,ANNIVERSARY REUNION"
+        ],
+        "to": "ANNIVERSARYL;REUNION;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER,ORGANIZATION ANNIVERSARY"
+        ],
+        "to": "ANNIVERSARY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in columnoccasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "DAILYMENU"
+        ],
+        "to": "DAILY；",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "DAILY"
+        ],
+        "to": "DAILY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells incolumn occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "DAILY；"
+        ],
+        "to": "DAILY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "COMP (?)"
+        ],
+        "to": "COMPL",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "COMPL; ANNIV;"
+        ],
+        "to": "COMPL;ANNIVERSARY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "ANNIVERSARYESARY"
+        ],
+        "to": "ANNIVERSARY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "ANNIVERSARY/COMPL;"
+        ],
+        "to": "ANNIVERSARY;COMPL;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells incolumn occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "ANNIVERSARY, FIRST ANNUAL;"
+        ],
+        "to": "ANNIVERSARY;ANNUAL;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "27NTH ANNIVERSARY"
+        ],
+        "to": "ANNIVERSARY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "ANNIVERSARY"
+        ],
+        "to": "ANNIVERSARY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in columnoccasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "ANNIVERSARY; 13TH BURNS ANNIVERSARY;"
+        ],
+        "to": "ANNIVERSARY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "ANNIVERSARY;OTHER(RELIEF OF EMIGRANTS FROM IRELAND);"
+        ],
+        "to": "ANNIVERSARY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "ANNUAL LADIES NIGHT;"
+        ],
+        "to": "ANNUAL;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "ANNUAL"
+        ],
+        "to": "ANNUAL;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "COMPL DINNER"
+        ],
+        "to": "COMPL",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER,SOCIAL CLUB ANNIVERSARY"
+        ],
+        "to": "ANNIVERSARY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in columnoccasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER, Commemoration"
+        ],
+        "to": "COMMEMORATION;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER,,annual dinner"
+        ],
+        "to": "ANNUAL;DINNER;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (RECEPTION);"
+        ],
+        "to": "RECEPTION;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (FESTIVAL);"
+        ],
+        "to": "FESTIVAL;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (DAILY PRICED MENU);"
+        ],
+        "to": "DAILY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (DAILY MENU FORHOTEL);"
+        ],
+        "to": "DAILY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (CONVENTION);"
+        ],
+        "to": "CONVENTION;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (COMMEMORATION);"
+        ],
+        "to": "COMMEMORATION;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Massedit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (COMPLIMENTARY);"
+        ],
+        "to": "COMPLIMENTARY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (ANNIVERARY);"
+        ],
+        "to": "ANNIVERARY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (ALUMNI REUNION);"
+        ],
+        "to": "REUNION;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in columnoccasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OHER (SOC);"
+        ],
+        "to": "SOCIAL;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHE (SOC?);"
+        ],
+        "to": "SOCIAL;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass editcells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHEER (DAILY HOTEL MENU);"
+        ],
+        "to": "DAILY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER [COMMEMORTIVE?]"
+        ],
+        "to": "COMMEMORTIVE;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (BATTLE ANNIVERSARY);"
+        ],
+        "to": "ANNIVERSARY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in columnoccasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (COMMEMOATION);"
+        ],
+        "to": "COMMEMORATIVE;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (COMMEMORATIE);"
+        ],
+        "to": "COMMEMORATIVE;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (CELEBRATION OF EVENT);"
+        ],
+        "to": "EVENT;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (COMMEMORATION OF A BULL FIGHT BY FAMOUS TORREODOR);"
+        ],
+        "to": "COMMEMORATIVE;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (COMMEMORATING RESUMPTION OF BUSINESS AFTER EARTHQUAKE AND FIRE);"
+        ],
+        "to": "COMMEMORATIVE;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (OPENING EVENT);"
+        ],
+        "to": "OPENING EVENT;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (OPENING OF HOTEL);"
+        ],
+        "to": "OPENING OF HOTEL;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (POLITICAL);"
+        ],
+        "to": "POLITICAL;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "FESTIVAL"
+        ],
+        "to": "FESTIVAL;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "ETHNIC HOLIDAY,SAINT NICHOLAS DAY"
+        ],
+        "to": "ETHNIC HOLIDAY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells incolumn occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "ETHNIC HOLIDAY"
+        ],
+        "to": "ETHNIC HOLIDAY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "2ND ANNUAL GAME DINNER"
+        ],
+        "to": "ANNUAL;DINNER;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "SOCIAL"
+        ],
+        "to": "SOCIAL;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "RECEPTION"
+        ],
+        "to": "RECEPTION;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "POL"
+        ],
+        "to": "POLITICAL;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "PATRIOTIC HOLIDAY; LINCOLN'S BIRTHDAY;"
+        ],
+        "to": "PATRIOTICHOLIDAY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER,UNIVERSITY PAPER ANNUAL DINNER"
+        ],
+        "to": "ANNUAL;DINNER;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER,Annual Meeting"
+        ],
+        "to": "ANNUAL;MEETING;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Massedit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "COMPLIMENTARY"
+        ],
+        "to": "COMPLIMENTARY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "COMPL;ANNIVERSARY;"
+        ],
+        "to": "COMPLIMENTARY;ANNIVERSARY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "COMPL;LUNCHEON"
+        ],
+        "to": "COMPLIMENTARY;LUNCH;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "COMPL. TO STAFF"
+        ],
+        "to": "COMPLIMENTARY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "COMPLIMENTARY/TESTIMONIAL"
+        ],
+        "to": "COMPLIMENTARY;TESTIMONIAL;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "COMPLIMENTARY/TESTIMONIAL,ANNIVERSARY"
+        ],
+        "to": "COMPLIMENTARY;TESTIMONIAL;ANNIVERSARY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "COMPL; TO THE BANKERS'ASSOCIATION OF THE FIFTH DISTRICT OF TEXAS;"
+        ],
+        "to": "COMPLIMENTARY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "COMMEMORATIVE"
+        ],
+        "to": "COMMEMORATIVE;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "COMMEMORATION;"
+        ],
+        "to": "COMMEMORATIVE;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "COMMEMORTIVE;"
+        ],
+        "to": "COMMEMORATIVE;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Massedit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "LUNCHEON"
+        ],
+        "to": "LUNCH;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "LUNCH"
+        ],
+        "to": "LUNCH;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "MONDAY DINNER;"
+        ],
+        "to": "MONDAY;DINNER;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "MONDAY MENU;"
+        ],
+        "to": "MONDAY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "NATIONAL EVENT"
+        ],
+        "to": "NATIONAL;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "NATIONAL EVENT;DIAMOND JUBILEE OF QUEEN VICTORIA;"
+        ],
+        "to": "NATIONAL;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "NAT'L;"
+        ],
+        "to": "NATIONAL;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER,COMMERCIAL OPENING"
+        ],
+        "to": "COMMERCIAL",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "COMPL"
+        ],
+        "to": "COMPLIMENTARY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "CIMPL;"
+        ],
+        "to": "COMPLIMENTARY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass editcells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "TRAVELING FOR THE CORONATION OF KINGHAAKON & QUEEN MAUD;"
+        ],
+        "to": "TRAVEL;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "TRAVEL"
+        ],
+        "to": "TRAVEL;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "TRIP"
+        ],
+        "to": "TRAVEL;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in columnoccasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "SECULAR HOLIDAY'Y OF WAR ELIHU ROOT ATTENDS FOOTBALLGAME - U.OF PENN.VS WEST POINT;"
+        ],
+        "to": "SECULAR HOLIDAY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in columnoccasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER, SPORT EVENT"
+        ],
+        "to": "EVENT;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "ETH"
+        ],
+        "to": "ETHNIC HOLIDAY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (DINNERMEETING);"
+        ],
+        "to": "DINNER;MEETING;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (HUNT);"
+        ],
+        "to": "HUNT;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "CONVENTION;",
+          "[CONVENTION]"
+        ],
+        "to": "CONVENTION;",
+        "fromError": false
+      },
+      {
+        "fromBlank": false,
+        "from": [
+          "SECULAR HOLIDAY",
+          "SECULAR HOLIDAY;"
+        ],
+        "to": "SECULARHOLIDAY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (DAILY HOTEL MENU);"
+        ],
+        "to": "DAILY;HOTEL;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (BALL);"
+        ],
+        "to": "BALL;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (BANQUET & BALL);"
+        ],
+        "to": "BANQUET;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (ANNUAL BANQUET);"
+        ],
+        "to": "ANNUAL;BANQUET;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (ANNUALDINNER);"
+        ],
+        "to": "ANNUAL;DINNER;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (DAILY MENU AT SEA);"
+        ],
+        "to": "DAILY;AT SEA;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "EVENING DINNER"
+        ],
+        "to": "DINNER;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass editcells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "DINNER",
+          "DINNER;"
+        ],
+        "to": "DINNER;",
+        "fromError": false
+      },
+      {
+        "fromBlank": false,
+        "from": [
+          "BANQUET",
+          "BANQUET;"
+        ],
+        "to": "BANQUET;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "DAILYDINNER"
+        ],
+        "to": "DINNER;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "DAILY DINNER MENU;"
+        ],
+        "to": "DINNER;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "DAILY LUNCH"
+        ],
+        "to": "LUNCH;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in columnoccasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "DAILY MENU AT SEA"
+        ],
+        "to": "DAILY;AT SEA;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "ANNIVERSARY, COMP"
+        ],
+        "to": "ANNIVERSARY;COMPLIMENTARY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "ANNIVERSARY;COMPL;"
+        ],
+        "to": "ANNIVERSARY;COMPLIMENTARY",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in columnoccasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "ANNIVERSARY;COMPLIMENTARY",
+          "ANNIVERSARY;COMPLIMENTARY;"
+        ],
+        "to": "ANNIVERSARY;COMPLIMENTARY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells incolumn occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "BALL;"
+        ],
+        "to": "BANQUET;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "RECEPTION;"
+        ],
+        "to": "BANQUET;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cellsin column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER, Annual Banquet"
+        ],
+        "to": "ANNUAL;BANQUET;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (SPECIALIZED CLUB EVENT);"
+        ],
+        "to": "SPECIALIZED CLUB EVENT;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "OTHER (SPECIAL INTERNATIONAL EVENT);"
+        ],
+        "to": "SPECIAL INTERNATIONAL EVENT;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "BUFFET"
+        ],
+        "to": "BANQUET;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "ANNUAL BANQUET"
+        ],
+        "to": "ANNUAL;BANQUET;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "[DEDICATION]"
+        ],
+        "to": "DEDICATION",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells incolumn occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "RITE (FUNERAL);"
+        ],
+        "to": "RITE;FUNERAL;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "WEDDING;DINNER;"
+        ],
+        "to": "RITE;WEDDING;DINNER;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "WEDDING"
+        ],
+        "to": "RITE;WEDDING;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "WEDDING;BANQUET;"
+        ],
+        "to": "RITE;WEDDING;BANQUET;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "RITE (BYRON A. BROOKS BIRTHDAY)"
+        ],
+        "to": "RITE; (BYRON A. BROOKS BIRTHDAY)",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "RELIGIOUS HOLIDAY;ANNIVERSARY;"
+        ],
+        "to": "RELIGIOUS HOLIDAY;ANNIVERSARY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass editcells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "RELIG (EASTER SUNDAY DINNER);"
+        ],
+        "to": "RELIGIOUS HOLIDAY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "ANNIVERSARY;"
+        ],
+        "to": "RITE;ANNIVERSARY;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "REUNION;"
+        ],
+        "to": "RITE;REUNION;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "RITE;REUNION;"
+        ],
+        "to": "REUNION;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Mass edit cells in column occasion",
+    "columnName": "occasion",
+    "expression": "value",
+    "op": "core/mass-edit",
+    "edits": [
+      {
+        "fromBlank": false,
+        "from": [
+          "EASTER;"
+        ],
+        "to": "RELIGIOUS HOLIDAY;EASTER;",
+        "fromError": false
+      }
+    ],
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    }
+  },
+  {
+    "description": "Text transform on cells in column occasion using expression grel:\"RITE;ANNIVERSARY;\"",
+    "expression": "grel:\"RITE;ANNIVERSARY;\"",
+    "op": "core/text-transform",
+    "columnName": "occasion",
+    "repeat": false,
+    "engineConfig": {
+      "facets": [
+        {
+          "name": "occasion",
+          "mode": "text",
+          "columnName": "occasion",
+          "invert": false,
+          "query": "ANN;",
+          "type": "text",
+          "caseSensitive": false
+        },
+        {
+          "type": "list",
+          "selectError": false,
+          "name": "event",
+          "selectBlank": false,
+          "omitBlank": false,
+          "expression": "value",
+          "invert": false,
+          "omitError": false,
+          "columnName": "event",
+          "selection": [
+            {
+              "v": {
+                "l": "ANNIVERARY DINNER",
+                "v": "ANNIVERARY DINNER"
+              }
+            },
+            {
+              "v": {
+                "l": "TWELFTH BURNS ANNIVERSARY",
+                "v": "TWELFTH BURNSANNIVERSARY"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "row-based"
+    },
+    "repeatCount": 10,
+    "onError": "keep-original"
   }
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["ANNUAL DINNER", "ANNUAL DINNER;", "ANNUAl DINNER"], "to": "ANNUAL DINNER",
-"fromError": false
-}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value",
-"op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["SOCIAL", "(SOCIAL)", "(SOCIAL?)"], "to": "SOCIAL", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from":
-["SATURDAY DINNER", "SATURDAY DINNER;"], "to": "SATURDAY DINNER", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in
-column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["SECULAR HOLIDAY;", "SECULAR HOLIDAY", "SECULAR
-HOLIDAY. HOLIDAY", "SECULAR HOLIDAY. HOLIDAY;", "SECULAR HOLIDAY HOLIDAY;", "SECULAR HOLIDAY HOLIDAY"], "to": "SECULAR HOLIDAY", "fromError": false}, {"fromBlank": false, "from":
-["OTHER (MEETING);", "OTHER (MEETING)", "OTHER (MEETING?);", "OTHER (MEETING?)"], "to": "MEETING", "fromError": false}, {"fromBlank": false, "from": [
-"PATRIOTIC HOLIDAY;",
-"PATRIOTIC HOLIDAY", "PATRIOTIC HOLIDAY.", "PATRIOTIC HOLIDAY. HOLIDAY"
-], "to": "PATRIOTIC HOLIDAY", "fromError": false}, {"fromBlank": false, "from": [
-"OTHER (COMMEMORATIVE);",
-"OTHER (COMMEMORATIVE)", "OTHER (COMMEMORATIVE?)", "OTHER [COMMEMORATIVE]"
-], "to": "COMMEMORATIVE", "fromError": false}, {"fromBlank": false, "from": [
-"SECULAR HOLIDAY.HOLIDAY",
-"SECULAR HOLIDAY.HOLIDAY;", "SECULAR HOLIDAY;HOLIDAY"
-], "to": "SECULAR HOLIDAY", "fromError": false}, {"fromBlank": false, "from": [
-"OTHER (REUNION);", "(OTHER - REUNION?);", "OTHER
-(REUNION);"], "to": "REUNION", "fromError": false}, {"fromBlank": false, "from": ["OTHER", "OTHER;", "OTHER, "], "to": "OTHER", "fromError": false}, {"fromBlank": false, "from":
-["RELIG. HOLIDAY", "RELIG. HOLIDAY;", "RELIG HOLIDAY;"], "to": "RELIGIOUS HOLIDAY", "fromError": false}, {"fromBlank": false, "from": ["[?REUNION?];", "[RE-UNION]", "[REUNION]"],
-"to": "REUNION", "fromError": false
-}, {"fromBlank": false, "from": ["OTHER (DAILY DATED MENU);", "OTHER (DATED DAILY MENU);"], "to": "DAILY", "fromError": false}, {"fromBlank": false, "from": ["ETHNIC HOLIDAY", "[ETHNIC HOLIDAY]"], "to": "ETHNIC HOLIDAY", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit
-cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["MEETING", "(MEETING)"], "to": "MEETING",
-"fromError": false
-}, {
-"fromBlank": false, "from": ["NATIONAL EVENT", "NATIONAL EVENT;"], "to": "NATIONAL EVENT", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from":
-["OTHER (COMMEMOATIVE)", "OTHER (COMMEMOATIVE);"], "to": "COMMEMORATIVE", "fromError": false}, {"fromBlank": false, "from": ["COMMEMORATIVE", "(COMMEMORATIVE);"], "to": "COMMEMORATIVE", "fromError": false}, {"fromBlank": false, "from": ["SEMI-ANNUAL", "SEMI-ANNUAL;"], "to": "SEMI-ANNUAL", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from":
-["COMPL.", "[COMPL?];", "COMPL?;", "[COMPL];", "COMPL (?);", "COMPL(?);", "COMPL;(?)", "[COMPL.]", "[COMPL]"], "to": "COMPL", "fromError": false}, {"fromBlank": false, "from":
-["RITE;", "RITE", "(RITE)", "(RITE);"], "to": "RITE", "fromError": false}, {"fromBlank": false, "from": ["POL;", "[POL?]"], "to": "POL", "fromError": false}, {"fromBlank": false,
-"from": ["PAT;", "PAT"], "to": "PAT", "fromError": false}, {"fromBlank": false, "from": ["BANQUET;", "BANQUET"], "to": "BANQUET", "fromError": false}, {"fromBlank": false, "from":
-["ETH;", "ETH"], "to": "ETH", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["(ANNIV CELEBRATION)"], "to": "ANNIVERSARY", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits":
-[{"fromBlank": false, "from": ["0THER (ANNIV)"], "to": "ANNIVERSARY", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in
-column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["ANIVERSARY"], "to": "ANNIVERSARY", "fromError":
-false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["ANNIVERSARY"], "to": "ANNIVERSARY", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"
-}
-},
-{
-"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["AVVIV;"],
-"to": "ANNIVERSARY", "fromError": false
-}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion",
-"expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["C0MPL;"], "to": "COMPL", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from":
-["DINNER MENU"], "to": "DINNER", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["(COMMEMOATIVE?)"], "to": "COMMEMORATIVE", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits":
-[{"fromBlank": false, "from": ["[HISTORICAL]"], "to": "HISTORICAL", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in
-column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["0THER (COMMERCIAL?);"], "to": "COMMERCIAL",
-"fromError": false
-}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value",
-"op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["0THER (SOC?)"], "to": "SOC", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"
-}
-},
-{
-"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": [
-"0THER
-[COMMEMORATIVE]"], "to": "COMMEMORATIVE", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion",
-"columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["113 ANNIVERSARY"], "to": "ANNIVERSARY", "fromError": false}],
-"engineConfig": {
-"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit",
-"edits": [{"fromBlank": false, "from": ["13TH ANNIVERSARY"], "to": "ANNIVERSARY", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass
-edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["10NTH REUNION"], "to": "REUNION",
-"fromError": false
-}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value",
-"op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["[SIXTH REUNION ?]"], "to": "REUNION", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"
-}
-},
-{
-"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["AMNNUAL;"],
-"to": "ANNUAL", "fromError": false
-}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion",
-"expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["TRIP OF PRES. McKINLEY,HIS CABINET & GUESTS"], "to": "TRIP OF PRES. McKINLEY, HIS CABINET &
-GUESTS;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression":
-"value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["SUPPER"], "to": "DINNER", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"
-}
-},
-{
-"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["SOC"], "to": "SOCIAL", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["SOCIAL GATHERING"], "to": "SOCIAL", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from":
-["SECULAR HOLIDAYL"], "to": "SECULAR HOLIDAY", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion",
-"columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["PAT"], "to": "PATRIOTIC HOLIDAY", "fromError": false}],
-"engineConfig": {
-"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit",
-"edits": [{"fromBlank": false, "from": ["PATRIOTIC HOLIDAY,NATIONAL EVENT"], "to": "PATRIOTIC HOLIDAY;NATIONAL;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from":
-["OTHR (SOC);"], "to": "SOCIAL", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OTHER,Travel"], "to": "TRAVEL", "fromError": false}], "engineConfig": {"facets":
-[], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["OTHER,SUNDAY"], "to": "SUNDAY", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion",
-"columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OTHER,PERSONAL"], "to": "PERSONAL", "fromError": false}],
-"engineConfig": {
-"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit",
-"edits": [{"fromBlank": false, "from": ["PATRIOTIC HOLIDAY.HOLIDAY"], "to": "PATRIOTIC HOLIDAY", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"
-}
-},
-{
-"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from":
-["OTHER,COMMERCIAL ANNIVERSARY"], "to": "COMMERCIAL;ANNIVERSARY;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in
-column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OTHER,, wedding"], "to": "WEDDING", "fromError":
-false
-}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OTHER, CLUB ANNIVERSARY"], "to": "ANNIVERSARY", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from":
-["OTHER [TWENTIETH ANNIVERSARY OF CLUB];"], "to": "ANNIVERSARY", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in
-column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OTHER (S0C?)"], "to": "SOCIAL", "fromError":
-false
-}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OTHER (PRIVATE PARTY)"], "to": "PRIVATE", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"
-}
-},
-{
-"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": [
-"OTHER
-(PRIVATE)"], "to": "PRIVATE", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName":
-"occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["ANNIVERSARYERSARY DINNER"], "to": "ANNIVERSARY;DINNER;", "fromError": false}],
-"engineConfig": {
-"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit",
-"edits": [{"fromBlank": false, "from": ["ANNUAL BREAKFAST"], "to": "ANNUAL;BREAKFAST;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description":
-"Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["ANNUAL DINNER"], "to": "ANNUAL;DINNER;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion",
-"expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["ANNUAL MEETING"], "to": "ANNUAL;MEETING;", "fromError": false}], "engineConfig": {"facets":
-[], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["ANNUAL;BREAKFAST;"], "to": "ANNUAL;BREAKFAST;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in
-column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["BUFFET SERVICE"], "to": "BUFFET", "fromError":
-false
-}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["CAFE MENU"], "to": "CAFE", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description":
-"Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["COMMEMORATIVE"], "to": "COMMEMORATIVE", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion",
-"expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["ANNIVERSARY;141ST;"], "to": "ANNIVERSARY;", "fromError": false}], "engineConfig": {"facets":
-[], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["ANNIVERSARY;13TH ANNUAL;"], "to": "ANNIVERSARY;ANNUAL;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit
-cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["ANNIVERSARY;(FIFTH OF FOUNDING);"],
-"to": "ANNIVERSARY;", "fromError": false
-}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion",
-"expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["[TRIP]"], "to": "TRIP", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from":
-["[SUNDAY BREAKFAST]"], "to": "SUNDAY;BREAKFAST;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion",
-"columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["WEDDING BANQUET"], "to": "WEDDING;BANQUET;", "fromError": false}],
-"engineConfig": {
-"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit",
-"edits": [{"fromBlank": false, "from": ["WEDDING DINNER"], "to": "WEDDING;DINNER;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass
-edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["TRIP OF PRES. McKINLEY, HIS CABINET
-& GUESTS;"], "to": "TRIP", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName":
-"occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["SUNDAY LUNCH;"], "to": "SUNDAY;LUNCH;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits":
-[{"fromBlank": false, "from": ["SUNDAY DINNER"], "to": "SUNDAY;DINNER;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells
-in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["SCHOOL REUNION;"], "to": "REUNION;",
-"fromError": false
-}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value",
-"op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["SATURDAY DINNER"], "to": "SATURDAY;DINNER", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from":
-["SATURDAY LUNCH"], "to": "SATURDAY;LUNCH;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion",
-"columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["SATURDAY;DINNER"], "to": "SATURDAY;DINNER;", "fromError": false}],
-"engineConfig": {
-"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit",
-"edits": [{"fromBlank": false, "from": ["REUNION"], "to": "REUNION;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in
-column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["RELIG.HOLIDAY"], "to": "RELIGIOUS HOLIDAY",
-"fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value",
-"op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["RELIG & ANNIV;"], "to": "RELIGIOUS HOLIDAY;ANNIVERSARY;", "fromError": false}], "engineConfig": {"facets": [],
-"mode": "row-based"
-}
-}, {
-"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{
-"fromBlank": false,
-"from": ["REL;"], "to": "RELIGIOUS HOLIDAY;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion",
-"columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["RELIGIOUS HOLIDAY"], "to": "RELIGIOUS HOLIDAY;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["PATRIOTIC HOLIDAYIOTIC HOLIDAY"], "to": "PATRIOTIC HOLIDAY;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from":
-["PATRIOTIC HOLIDAY. [LOCAL]"], "to": "PATRIOTIC HOLIDAY;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column
-occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["PATRIOTIC HOLIDAY"], "to": "PATRIOTIC HOLIDAY;",
-"fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value",
-"op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OTHER,UNIVERSITY ANNIVERSARY"], "to": "ANNIVERSARY", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from":
-["OTHER,Conference"], "to": "CONFERENCE", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion",
-"columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OTHER,Banquet"], "to": "BANQUET", "fromError": false}],
-"engineConfig": {
-"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit",
-"edits": [{"fromBlank": false, "from": ["OTHER,ANNIVERSARY REUNION"], "to": "ANNIVERSARYL;REUNION;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"
-}
-},
-{
-"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from":
-["OTHER,ORGANIZATION ANNIVERSARY"], "to": "ANNIVERSARY;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column
-occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["DAILYMENU"], "to": "DAILY\uff1b", "fromError": false}],
-"engineConfig": {
-"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit",
-"edits": [{"fromBlank": false, "from": ["DAILY"], "to": "DAILY;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in
-column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["DAILY\uff1b"], "to": "DAILY;", "fromError":
-false
-}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["COMP (?)"], "to": "COMPL", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description":
-"Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["COMPL; ANNIV;"], "to": "COMPL;ANNIVERSARY;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion",
-"expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["ANNIVERSARYESARY"], "to": "ANNIVERSARY;", "fromError": false}], "engineConfig": {"facets":
-[], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["ANNIVERSARY/COMPL;"], "to": "ANNIVERSARY;COMPL;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in
-column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["ANNIVERSARY, FIRST ANNUAL;"], "to":
-"ANNIVERSARY;ANNUAL;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion",
-"expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["27NTH ANNIVERSARY"], "to": "ANNIVERSARY;", "fromError": false}], "engineConfig": {"facets":
-[], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["ANNIVERSARY"], "to": "ANNIVERSARY;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column
-occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["ANNIVERSARY; 13TH BURNS ANNIVERSARY;"], "to":
-"ANNIVERSARY;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion",
-"expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["ANNIVERSARY;OTHER(RELIEF OF EMIGRANTS FROM IRELAND);"], "to": "ANNIVERSARY;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["ANNUAL LADIES NIGHT;"], "to": "ANNUAL;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"
-}
-},
-{
-"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["ANNUAL"],
-"to": "ANNUAL;", "fromError": false
-}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion",
-"expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["COMPL DINNER"], "to": "COMPL", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from":
-["OTHER,SOCIAL CLUB ANNIVERSARY"], "to": "ANNIVERSARY;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column
-occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OTHER, Commemoration"], "to": "COMMEMORATION;",
-"fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value",
-"op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OTHER,,annual dinner"], "to": "ANNUAL;DINNER;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from":
-["OTHER (RECEPTION);"], "to": "RECEPTION;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion",
-"columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OTHER (FESTIVAL);"], "to": "FESTIVAL;", "fromError": false}],
-"engineConfig": {
-"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit",
-"edits": [{"fromBlank": false, "from": ["OTHER (DAILY PRICED MENU);"], "to": "DAILY;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description":
-"Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": [
-"OTHER (DAILY MENU FOR
-HOTEL);"], "to": "DAILY;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName":
-"occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OTHER (CONVENTION);"], "to": "CONVENTION;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits":
-[{"fromBlank": false, "from": ["OTHER (COMMEMORATION);"], "to": "COMMEMORATION;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass
-edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OTHER (COMPLIMENTARY);"], "to":
-"COMPLIMENTARY;", "fromError": false
-}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion",
-"expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OTHER (ANNIVERARY);"], "to": "ANNIVERARY;", "fromError": false}], "engineConfig": {"facets":
-[], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["OTHER (ALUMNI REUNION);"], "to": "REUNION;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column
-occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OHER (SOC);"], "to": "SOCIAL;", "fromError": false}],
-"engineConfig": {
-"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit",
-"edits": [{"fromBlank": false, "from": ["OTHE (SOC?);"], "to": "SOCIAL;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit
-cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OTHEER (DAILY HOTEL MENU);"], "to":
-"DAILY;", "fromError": false
-}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OTHER [COMMEMORTIVE?]"], "to": "COMMEMORTIVE;", "fromError": false}], "engineConfig": {"facets": [],
-"mode": "row-based"
-}
-}, {
-"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{
-"fromBlank": false,
-"from": ["OTHER (BATTLE ANNIVERSARY);"], "to": "ANNIVERSARY;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column
-occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OTHER (COMMEMOATION);"], "to": "COMMEMORATIVE;",
-"fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value",
-"op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OTHER (COMMEMORATIE);"], "to": "COMMEMORATIVE;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from":
-["OTHER (CELEBRATION OF EVENT);"], "to": "EVENT;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion",
-"columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["OTHER (COMMEMORATION OF A BULL FIGHT BY FAMOUS TORREODOR);"], "to": "COMMEMORATIVE;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion",
-"expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["OTHER (COMMEMORATING RESUMPTION OF BUSINESS AFTER EARTHQUAKE AND FIRE);"], "to": "COMMEMORATIVE;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion",
-"expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OTHER (OPENING EVENT);"], "to": "OPENING EVENT;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits":
-[{"fromBlank": false, "from": ["OTHER (OPENING OF HOTEL);"], "to": "OPENING OF HOTEL;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description":
-"Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["OTHER (POLITICAL);"], "to": "POLITICAL;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion",
-"expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["FESTIVAL"], "to": "FESTIVAL;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from":
-["ETHNIC HOLIDAY,SAINT NICHOLAS DAY"], "to": "ETHNIC HOLIDAY;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in
-column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["ETHNIC HOLIDAY"], "to": "ETHNIC HOLIDAY;",
-"fromError": false
-}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value",
-"op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["2ND ANNUAL GAME DINNER"], "to": "ANNUAL;DINNER;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from":
-["SOCIAL"], "to": "SOCIAL;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["RECEPTION"], "to": "RECEPTION;", "fromError": false}], "engineConfig": {"facets":
-[], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["POL"], "to": "POLITICAL;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion",
-"columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["PATRIOTIC HOLIDAY; LINCOLN'S BIRTHDAY;"], "to": "PATRIOTIC
-HOLIDAY;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression":
-"value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OTHER,UNIVERSITY PAPER ANNUAL DINNER"], "to": "ANNUAL;DINNER;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits":
-[{"fromBlank": false, "from": ["OTHER,Annual Meeting"], "to": "ANNUAL;MEETING;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass
-edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["COMPLIMENTARY"], "to":
-"COMPLIMENTARY;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion",
-"expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["COMPL;ANNIVERSARY;"], "to": "COMPLIMENTARY;ANNIVERSARY;", "fromError": false}],
-"engineConfig": {
-"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit",
-"edits": [{"fromBlank": false, "from": ["COMPL;LUNCHEON"], "to": "COMPLIMENTARY;LUNCH;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description":
-"Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["COMPL. TO STAFF"], "to": "COMPLIMENTARY;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion",
-"expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["COMPLIMENTARY/TESTIMONIAL"], "to": "COMPLIMENTARY;TESTIMONIAL;", "fromError": false}],
-"engineConfig": {
-"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit",
-"edits": [{"fromBlank": false, "from": ["COMPLIMENTARY/TESTIMONIAL,ANNIVERSARY"], "to": "COMPLIMENTARY;TESTIMONIAL;ANNIVERSARY;", "fromError": false}], "engineConfig": {"facets":
-[], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["COMPL; TO THE BANKERS'ASSOCIATION OF THE FIFTH DISTRICT OF TEXAS;"], "to": "COMPLIMENTARY;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from":
-["COMMEMORATIVE"], "to": "COMMEMORATIVE;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion",
-"columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["COMMEMORATION;"], "to": "COMMEMORATIVE;", "fromError": false}],
-"engineConfig": {
-"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit",
-"edits": [{"fromBlank": false, "from": ["COMMEMORTIVE;"], "to": "COMMEMORATIVE;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass
-edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["LUNCHEON"], "to": "LUNCH;",
-"fromError": false
-}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value",
-"op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["LUNCH"], "to": "LUNCH;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description":
-"Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["MONDAY DINNER;"], "to": "MONDAY;DINNER;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion",
-"expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["MONDAY MENU;"], "to": "MONDAY;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from":
-["NATIONAL EVENT"], "to": "NATIONAL;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion",
-"columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["NATIONAL EVENT;DIAMOND JUBILEE OF QUEEN VICTORIA;"], "to": "NATIONAL;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion",
-"expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["NAT'L;"], "to": "NATIONAL;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from":
-["OTHER,COMMERCIAL OPENING"], "to": "COMMERCIAL", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion",
-"columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["COMPL"], "to": "COMPLIMENTARY;", "fromError": false}],
-"engineConfig": {
-"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit",
-"edits": [{"fromBlank": false, "from": ["CIMPL;"], "to": "COMPLIMENTARY;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit
-cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["TRAVELING FOR THE CORONATION OF KING
-HAAKON & QUEEN MAUD;"], "to": "TRAVEL;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion",
-"columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["TRAVEL"], "to": "TRAVEL;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits":
-[{"fromBlank": false, "from": ["TRIP"], "to": "TRAVEL;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column
-occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["SECULAR HOLIDAY'Y OF WAR ELIHU ROOT ATTENDS FOOTBALL
-GAME - U.OF PENN.VS WEST POINT;"], "to": "SECULAR HOLIDAY;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column
-occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OTHER, SPORT EVENT"], "to": "EVENT;", "fromError":
-false
-}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["ETH"], "to": "ETHNIC HOLIDAY;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"
-}
-},
-{
-"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": [
-"OTHER (DINNER
-MEETING);"], "to": "DINNER;MEETING;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName":
-"occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OTHER (HUNT);"], "to": "HUNT;", "fromError": false}], "engineConfig": {"facets":
-[], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["CONVENTION;", "[CONVENTION]"], "to": "CONVENTION;", "fromError": false}, {"fromBlank": false, "from": ["SECULAR HOLIDAY", "SECULAR HOLIDAY;"], "to": "SECULAR
-HOLIDAY;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression":
-"value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OTHER (DAILY HOTEL MENU);"], "to": "DAILY;HOTEL;", "fromError": false}], "engineConfig": {"facets": [],
-"mode": "row-based"
-}
-}, {
-"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{
-"fromBlank": false,
-"from": ["OTHER (BALL);"], "to": "BALL;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion",
-"columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OTHER (BANQUET & BALL);"], "to": "BANQUET;", "fromError": false}],
-"engineConfig": {
-"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit",
-"edits": [{"fromBlank": false, "from": ["OTHER (ANNUAL BANQUET);"], "to": "ANNUAL;BANQUET;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"
-}
-},
-{
-"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": [
-"OTHER (ANNUAL
-DINNER);"], "to": "ANNUAL;DINNER;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName":
-"occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OTHER (DAILY MENU AT SEA);"], "to": "DAILY;AT SEA;", "fromError": false}],
-"engineConfig": {
-"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit",
-"edits": [{"fromBlank": false, "from": ["EVENING DINNER"], "to": "DINNER;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit
-cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["DINNER", "DINNER;"], "to": "DINNER;",
-"fromError": false
-}, {"fromBlank": false, "from": ["BANQUET", "BANQUET;"], "to": "BANQUET;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"
-}
-},
-{
-"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": [
-"DAILY
-DINNER"], "to": "DINNER;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName":
-"occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["DAILY DINNER MENU;"], "to": "DINNER;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits":
-[{"fromBlank": false, "from": ["DAILY LUNCH"], "to": "LUNCH;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column
-occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["DAILY MENU AT SEA"], "to": "DAILY;AT SEA;", "fromError":
-false
-}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["ANNIVERSARY, COMP"], "to": "ANNIVERSARY;COMPLIMENTARY;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from":
-["ANNIVERSARY;COMPL;"], "to": "ANNIVERSARY;COMPLIMENTARY", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column
-occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["ANNIVERSARY;COMPLIMENTARY",
-"ANNIVERSARY;COMPLIMENTARY;"
-], "to": "ANNIVERSARY;COMPLIMENTARY;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in
-column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["BALL;"], "to": "BANQUET;", "fromError": false}],
-"engineConfig": {
-"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit",
-"edits": [{"fromBlank": false, "from": ["RECEPTION;"], "to": "BANQUET;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells
-in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OTHER, Annual Banquet"], "to":
-"ANNUAL;BANQUET;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion",
-"expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["OTHER (SPECIALIZED CLUB EVENT);"], "to": "SPECIALIZED CLUB EVENT;", "fromError": false}],
-"engineConfig": {
-"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit",
-"edits": [{"fromBlank": false, "from": ["OTHER (SPECIAL INTERNATIONAL EVENT);"], "to": "SPECIAL INTERNATIONAL EVENT;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from":
-["BUFFET"], "to": "BANQUET;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["ANNUAL BANQUET"], "to": "ANNUAL;BANQUET;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits":
-[{"fromBlank": false, "from": ["[DEDICATION]"], "to": "DEDICATION", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in
-column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["RITE (FUNERAL);"], "to": "RITE;FUNERAL;",
-"fromError": false
-}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value",
-"op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["WEDDING;DINNER;"], "to": "RITE;WEDDING;DINNER;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from":
-["WEDDING"], "to": "RITE;WEDDING;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["WEDDING;BANQUET;"], "to": "RITE;WEDDING;BANQUET;", "fromError": false}],
-"engineConfig": {
-"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit",
-"edits": [{"fromBlank": false, "from": ["RITE (BYRON A. BROOKS BIRTHDAY)"], "to": "RITE; (BYRON A. BROOKS BIRTHDAY)", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from":
-["RELIGIOUS HOLIDAY;ANNIVERSARY;"], "to": "RELIGIOUS HOLIDAY;ANNIVERSARY;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit
-cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["RELIG (EASTER SUNDAY DINNER);"], "to":
-"RELIGIOUS HOLIDAY;", "fromError": false
-}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion",
-"expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["ANNIVERSARY;"], "to": "RITE;ANNIVERSARY;", "fromError": false}], "engineConfig": {"facets":
-[], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [
-{"fromBlank": false, "from": ["REUNION;"], "to": "RITE;REUNION;", "fromError": false}
-], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion",
-"columnName": "occasion", "expression": "value", "op": "core/mass-edit", "edits": [{"fromBlank": false, "from": ["RITE;REUNION;"], "to": "REUNION;", "fromError": false}],
-"engineConfig": {
-"facets": [], "mode": "row-based"}}, {"description": "Mass edit cells in column occasion", "columnName": "occasion", "expression": "value", "op": "core/mass-edit",
-"edits": [{"fromBlank": false, "from": ["EASTER;"], "to": "RELIGIOUS HOLIDAY;EASTER;", "fromError": false}], "engineConfig": {"facets": [], "mode": "row-based"}}, {"description":
-"Text transform on cells in column occasion using expression grel:\"RITE;ANNIVERSARY;\"", "expression": "grel:\"RITE;ANNIVERSARY;\"", "op": "core/text-transform", "columnName": "occasion", "repeat": false, "engineConfig": {"facets": [
-{"name": "occasion", "mode": "text", "columnName": "occasion", "invert": false, "query": "ANN;", "type": "text",
-"caseSensitive": false
-}, {"type": "list", "selectError": false, "name": "event", "selectBlank": false, "omitBlank": false, "expression": "value", "invert": false, "omitError": false, "columnName": "event", "selection": [
-{"v": {"l": "ANNIVERARY DINNER", "v": "ANNIVERARY DINNER"}}, {"v": {"l": "TWELFTH BURNS ANNIVERSARY", "v": "TWELFTH BURNS
-ANNIVERSARY"}}]}], "mode": "row-based"}, "repeatCount": 10, "onError": "keep-original"}]
+]
