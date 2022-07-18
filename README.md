@@ -159,9 +159,5 @@ if you want to upgrade the version for or2ywtool
    ex4. Generate **Linear Yesworkflow model PNG file:
     
     $ or2yw -i or2ywtool/test.json -o testa.png -ot png
-   
-    
 
-  
-
-
+   If processing `or2ywtool/test.json` with 200 operations takes a long time, you may try `or2ywtool/test_small.json` with 100 opearations.
